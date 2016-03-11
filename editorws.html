@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+	<title>Marvin JS</title>
+	<script src="js/promise-0.1.1.min.js"></script>
+	<script src="gui/gui.nocache.js"></script>
+	<script>
+		function getDefaultServicesPrefix() {
+			var servername = "";
+			var webapp = "/webservices2";
+			return servername + webapp;
+		}
+
+		function getDefaultServices() {
+			var base = getDefaultServicesPrefix();
+			var services = {
+					"clean2dws" : base + "/rest-v0/util/convert/clean",
+					"molconvertws" : base + "/rest-v0/util/calculate/molExport",
+					"stereoinfows" : base + "/rest-v0/util/calculate/cipStereoInfo",
+					"reactionconvertws" : base + "/rest-v0/util/calculate/reactionExport"
+			};
+			return services;
+		}
+	</script>
+	<script>
+
+		// called when marvin4js loaded
+		function sketchOnLoad() {
+			marvin.Sketch.license("./license/jj_marvin4js-license.cxl");
+			if(marvin.Sketch.isSupported()) {
+				marvin.sketcherInstance = new marvin.Sketch("sketch");
+				//marvin.sketcherInstance.setServices(getDefaultServices());
+			} else {
+				alert("Cannot initiate sketcher. Current browser may not support HTML canvas or may run in Compatibility Mode.");
+			}
+		}
+
+	</script>
+</head>
+<body>
+	<noscript>
+		<div>
+			<p>Your web browser must have JavaScript enabled in order for this
+			application to display correctly.</p>
+		</div>
+	</noscript>
+	<div id="sketch"></div>
+</body>
+</html>

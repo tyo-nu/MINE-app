@@ -1,0 +1,26 @@
+<h3>Operator {{operatorName}}</h3>
+<table class="table table-striped table-hover">
+	<tbody>
+		<tr>
+			<div style="display: inline-flex;align-items: center">
+            	<img id="operator-image" ng-src="{{img_src}}op_images/{{operatorName}}.svg" height="400">
+			</div>
+		</tr>
+		<tr>
+			<td>Reactions Predicted</td>
+			<td>{{data.Reactions_predicted}}</td>
+		</tr>
+		<tr>
+			<td>Reactants</td>
+			<td ng-repeat="r in data.Reactants">{{r}}</td>
+		</tr>
+		<tr>
+			<td>Products</td>
+			<td ng-repeat="p in data.Products">{{p}}</td>
+		</tr>
+		<tr>
+			<td>Comments</td>
+			<td>{{data.Comments}}</td>
+		</tr>
+    </tbody>
+</table>

@@ -1,0 +1,35 @@
+{
+  "name": "angular-masspec-plotter",
+  "version": "0.1.4",
+  "authors": [
+    "Sajjan Singh Mehta <sajjan.s.mehta@gmail.com>",
+    "Gert Wohlgemuth <berlinguy@gmail.com>"
+  ],
+  "description": "This is a mass spectrum plotter for AngularJS using Flot",
+  "main": "angular-masspec-plotter.js",
+  "keywords": [
+    "angular"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components"
+  ],
+  "dependencies": {
+    "angular": "^1.4.8",
+    "angular-sanitize": "^1.4.8",
+    "jquery": "^1.2.6",
+    "flot": "~0.8.3"
+  },
+  "_release": "0.1.4",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.1.4",
+    "commit": "6b50afc7d03b291ea81ef488a3ce3fddb77b6645"
+  },
+  "_source": "https://wohlgemuth@bitbucket.org/fiehnlab/angular-masspec-plotter.git",
+  "_target": "~0.1.4",
+  "_originalSource": "https://wohlgemuth@bitbucket.org/fiehnlab/angular-masspec-plotter.git",
+  "_direct": true
+}

@@ -1,0 +1,20 @@
+<h3>Compound {{data.MINE_id}}</h3>
+<h4>{{data.Names[0]}}</h4>
+<tabset>
+	<tab ui-sref="acompound.overview">
+	  <tab-heading >
+	    Overview
+	  </tab-heading>
+	</tab>
+	<tab ui-sref="acompound.products">
+	  <tab-heading >
+	    Product of ({{data.Product_of.length+0}})
+	  </tab-heading>
+	</tab>
+	<tab id="reactions" ui-sref="acompound.reactants">
+	  <tab-heading >
+	    Reactant in ({{data.Reactant_in.length+0}})
+	  </tab-heading>
+	</tab>
+</tabset>
+<div ui-view></div>

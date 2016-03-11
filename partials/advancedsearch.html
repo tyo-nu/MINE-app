@@ -1,0 +1,60 @@
+<div>
+    <div class="panel panel-default">
+        <div class="panel-heading"><h2>Advanced Search</h2></div>
+        <div class="panel-body">
+            <div id='help-text' ng-hide="and+or" class="well">
+                Use the advanced search to write complex database queries. Select a field, enter a value text, and press
+                the "And" or "Or" indicate if matching the term is required or optional. Additionally, you may select
+                the "Use RegEx" to evaluate the value text as a Regular Expression or "is NOT" to invert your search but
+                negating regular expressions is not permitted.
+            </div>
+            <table class="table">
+                <tbody>
+                <tr ng-repeat="x in and track by $index">
+                    <td>AND <span ng-show="x[3]">NOT</span></td>
+                    <td>{{x[0]}} = {{x[1]}} <span style="color: #a9302a" ng-show="x[2]">RegEx</span></td>
+                    <td class="text-right"><button class="btn  btn-sm btn-danger" ng-click="removeRow(and, $index)">
+                        <span class="glyphicon glyphicon-trash"></span></button>
+                    </td>
+                </tr>
+                <tr ng-repeat="x in or track by $index">
+                    <td>OR <span ng-show="x[3]">NOT</span></td>
+                    <td>{{x[0]}} = {{x[1]}} <span style="color: #a9302a" ng-show="x[2]">RegEx</span></td>
+                    <td class="text-right"><button id='del' class="btn  btn-sm btn-danger" ng-click="removeRow(or, $index)">
+                        <span class="glyphicon glyphicon-trash"></span></button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <form class="form-inline" role="form">
+            <div class="btn-group">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-primary" ng-click="addItem(and, selected.name,value)">And</button>
+                </div>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-primary" ng-click="addItem(or, selected.name,value)">Or</button>
+                </div>
+            </div>
+            <select class="form-control" ng-model="selected" ng-options="f.name for f in fields"></select>
+            <div class="form-control">
+                <label class="radio-inline">
+                    <input type="radio"  ng-value="false" ng-model="not">
+                    is
+                </label>
+                <label class="radio-inline">
+                    <input id="not-radio" type="radio" ng-value="true" ng-model="not">
+                    is NOT
+                </label>
+            </div>
+            <input class="form-control" type='text' class="form col-sm-6" ng-model='value' placeholder="">
+            <div class="form-control">
+                <label>Use RegEx </label>
+                <input type="checkbox" ng-model="RegEx" ng-disabled='not'>
+            </div>
+            <a id="search-btn" class="btn btn-primary pull-right" style="margin: 0 auto;" ng-disabled='!(and+or)' ng-click="search(and,or,not)"
+                    analytics-on="click" analytics-category="Search" analytics-event="Advanced">
+            <span class="glyphicon glyphicon-search"></span> Search</a>
+        </form>
+    </div>
+</div>

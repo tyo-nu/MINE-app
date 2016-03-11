@@ -1,0 +1,14 @@
+{
+    "name": "angular-massbank-parser",
+    "version": "0.0.2",
+    "authors": [
+        "Sajjan Mehta <sajjan.s.mehta@gmail.com>",
+        "Gert Wohlgemuth <berlinguy@gmail.com>"
+    ],
+    "description": "This is a mass spectrum plotter for AngularJS using Flot",
+    "main": "angular-masspec-plotter.js",
+    "keywords": [
+        "angular"
+    ],
+    "license": "MIT"
+}

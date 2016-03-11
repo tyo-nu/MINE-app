@@ -1,0 +1,45 @@
+<pagination total-items="totalItems" page="currentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" num-pages="numPages"  style="cursor: pointer;"></pagination>
+
+
+      <accordion-group  ng-repeat="p in filteredData" is-open="false"> 
+        <accordion-heading >
+        <div style="color:{{colour(p.native_hit,p.min_steps)}}">
+        {{p.name}} ({{p.adducts.length}})
+        </div>
+        </accordion-heading>
+          <accordion-group  ng-repeat="a in p.adducts" is-open="false" >
+                       <accordion-heading >
+                       <div style="color:{{colour(p.native_hit,a.isomers)}}">
+                        {{a.adduct}}:{{a.formula}} Isomers:({{a.isomers.length}}) 
+                        </div>
+                      </accordion-heading>
+                      <table class="table table-striped table-hover">
+                      <tbody>
+                      <thead>  
+        <tr>  
+            <th></th> 
+            <th><h4>MINE ID</h4></th>
+            <th><h4>Formula</h4></th>  
+        </tr>  
+    </thead> 
+                  <tr ng-repeat="i in a.isomers" valign="middle" >
+
+                 
+                <td style="text-align: center"> 
+                <Ui style="list-style: none;">
+                  <li><a  ui-sref="acompound.overview({id:i._id})">
+                    <img class="logo" ng-src="http://lincolnpark.chem-eng.northwestern.edu/Smiles_dump/{{i._id}}.svg" width="70" >
+                  </a></li>
+                  <li  >{{i.Names[0]}}</li>
+              </Ui>
+                </td>
+                    <td  style="vertical-align:middle"><h4>{{i.MINE_id}}</h4></td>
+            
+            <td  style="vertical-align:middle"><h4>{{i.Formula}}</h4></td>  </tr>
+                  </tbody>
+                      </table>
+                       </accordion-group>
+        </div>
+      </accordion-group>
+
+    <pagination total-items="totalItems" page="currentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" num-pages="numPages"  style="cursor: pointer;"></pagination>

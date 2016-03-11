@@ -1,0 +1,62 @@
+<div ng-model="molstrng">
+    <div class="container">
+        <div class="col-sm-7 ">
+            <div id="canvas" class="well">.
+                <iframe src="editorws.html" frameborder="0" id="sketch" class="sketcher-frame" width = "600" height = "600"></iframe>
+            </div>
+        </div>
+        <div class="col-sm-3 ">
+
+
+            <fieldset>
+                <div id="search-options">
+                <legend>Search Type</legend>
+                <div class="radio">
+                    <label class="radio" for="type_exact">
+                        <input id="type_exact" name="search_type" type="radio" value="exact" ng-model="stype">
+                        Exact
+                    </label>
+                </div>
+                <div class="radio">
+                    <label class="radio" for="type_similarity">
+                        <input data-similarity="true" id="type_similarity" name="search_type" type="radio" value="similarity" ng-model="stype">
+                        Similarity
+                    </label>
+                </div>
+                <div class="radio">
+                    <label class="radio" for="type_substructure">
+                        <input id="type_substructure" name="search_type" type="radio" value="substructure"  ng-model="stype">
+                        Substructure
+                    </label>
+                </div>
+                    </div>
+                <div>
+                <legend>Options</legend>
+                <div id="sim-thresh" class="form-group"><label for="similarity">Similarity threshold
+                    <span tooltip="This is a minimum value for chemical similarity to the query structure. Ranges from 0
+                    to 1." class="glyphicon glyphicon-question-sign"></span></label>
+                    <input class="form-control input-sm" ng-model="sthresh" id="similarity" name="similarity" type="text" value="0.7" >
+
+                </div>
+
+                <div class="form-group"><label for="max_results">Maximum Results</label>
+                    <select class="input-sm form-control" id="max_results" name="max_results" ng-model="maxres">
+                        <option value="100">100</option>
+                        <option value="200">200</option>
+                        <option value="500">500</option>
+                        <option value="1000">1000</option>
+                    </select>
+                </div>
+                <button id = "btn-molExport" class="btn  btn-primary" ng-click="find()" analytics-on="click"
+                        analytics-category="Search" analytics-event="Structure"><span class="glyphicon glyphicon-search"></span> Search</button>
+                </div>
+            </fieldset>
+            <a class="pull-right" href="http://www.chemaxon.com"><img border="0" src="http://www.chemaxon.com/images/powered_100px.gif" alt="ChemAxon" ></a>
+        </div>
+    </div>
+</div>
+
+<script src="js/lib/rainbow/rainbow-custom.min.js"></script>
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<script src="js/promise-0.1.1.min.js"></script>
+<script src="js/marvinjslauncher.js"></script>

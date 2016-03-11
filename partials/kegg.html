@@ -1,0 +1,8 @@
+
+    <div ng-controller="keggCtl">
+      <h2>{{mapName}}</h2>
+      </br>
+      <input type="text" ng-model ="thisAtt"/>    
+      <a class="btn  btn-primary "  ui-sref="compounds({search:thisAtt})"><span class="glyphicon glyphicon-search">Search</a>
+      <kegg-card label ></kegg-card>
+    </div>

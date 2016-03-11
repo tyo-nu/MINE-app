@@ -1,0 +1,66 @@
+<h2>Table S2: Chemical Damage Reaction Rules</h2>
+<div class="alert alert-info alert-dismissible" role="alert">
+    <button type="button btn-lg" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <strong> Notes on the table: </strong>
+    <ol>
+        <li>Clicking on the button in the ‘Basis’ column links to the reaction in Table S1 on which the Reaction Rule is based.</li>
+        <li>The subscripts near atoms describe the context of the atom. The letters indicate the following:
+            <ul>
+                <li>W = Wildcard (any context)</li>
+                <li>0 = No ring structure (default)</li>
+                <li>B = Benzene (six-member aromatic ring with any functional groups coming off)</li>
+                <li>N = Nonbenzene ring (any ring that is not a six-member aromatic ring)</li>
+                <li>6 = Any six-member ring</li>
+                <li>5 = Any five-member ring</li>
+                <li>4 = Any four-member ring</li>
+                <li>L = Large ring (any ring larger than 6 atoms)</li>
+                <li>H = Any heteroaromatic ring</li>
+                <li>F = Any fused ring</li>
+            </ul>
+            The numbers indicate the number of that type of ring in which the atom participates, with 9 being any number including 0.</li>
+    </ol>
+</div>
+<div class="col-lg-3">
+    <br><input class=form-control type="text" ng-model="searchName" placeholder="Filter by Name">
+</div>
+<pagination class="pull-right" total-items="items" page="currentPage" max-size="maxSize" class="pagination-sm"
+            items-per-page="numPerPage"  style="{cursor: pointer; vertical-align: top}"></pagination>
+<br><br><br>
+<div id=rxn-tbl>
+<table class="table table-striped table-hover">
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Schematic</th>
+			<th>Reactions Predicted</th>
+			<th>Basis</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="op in paginated track by op._id">
+			<!-- Name -->
+			<td style="vertical-align:middle">
+				<a id="{{op._id}}" ui-sref="operator({id:op._id})">{{op._id}}</a>
+            </td>
+			<!-- Schematic -->
+			<td style="width: 60%">
+				<img ng-src="{{img_src}}op_images/{{op._id}}.png" width="500">
+			</td>
+			<!-- # of reactions -->
+			<td style="vertical-align:middle">
+				{{op.Reactions_predicted}}
+            </td>
+			<!-- Basis -->
+			<td style="vertical-align:middle">
+				<a ui-sref="top30.s1({id:op.Basis})">
+						<button type="button" class="btn btn-default btn-lg">
+							<span class="glyphicon glyphicon-new-window"></span>
+						</button>
+				</a>
+            </td>
+		</tr>
+	</tbody>
+</table>
+</div>
+<pagination class="pull-right" total-items="items" page="currentPage" max-size="maxSize" class="pagination-sm"
+			items-per-page="numPerPage"  style="cursor: pointer;"></pagination>

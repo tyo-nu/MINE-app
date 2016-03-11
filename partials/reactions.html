@@ -1,0 +1,25 @@
+<div class="col-md-4">
+    <br><input id="rxn-filter" class=form-control type="text" ng-model="searchOn" placeholder="Filter by EC class">
+</div>
+<pagination class="pull-right" total-items="items" page="currentPage" max-size="maxSize" class="pagination-sm"
+            items-per-page="numPerPage"  style="{cursor: pointer; vertical-align: top}"></pagination>
+<br>
+<table class="table table-striped table-hover">
+	<tbody>
+		<tr ng-repeat="reaction in filteredData">
+			<td style="vertical-align:middle">
+                <div ng-repeat="op in reaction.Operators" style="font-size: 16px">
+					<a  ui-sref="operator({id:op})">
+                    	{{op}}
+					</a>
+                </div>
+            </td>
+			<td>
+				<reaction-diagram>
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+<pagination class="pull-right" total-items="items" page="currentPage" max-size="maxSize" class="pagination-sm"
+			items-per-page="numPerPage"  style="cursor: pointer;"></pagination>

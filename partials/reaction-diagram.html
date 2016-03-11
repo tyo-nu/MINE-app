@@ -1,0 +1,19 @@
+<div>
+    <div class ="reactant" id="rxn-img" ng-repeat="comp in reaction.Reactants">
+        <div style="font-size:16px" ng-if="comp[0]-1">
+            {{comp[0]}}
+        </div>
+         <a  ui-sref="acompound.overview({id:comp[1]})">
+            <img ng-mouseover="getCompoundName($event, comp[1])" ng-src="{{img_src+comp[1]}}.svg" width="80">
+        </a>
+    </div>
+    <span style="font-size:40px"> &#8594</span>
+    <div class ="reactant" ng-repeat="comp in reaction.Products">
+        <div style="font-size:16px" ng-if= "comp[0]-1">
+            {{comp[0]}}
+        </div>
+        <a  ui-sref="acompound.overview({id:comp[1]})">
+            <img ng-mouseover="getCompoundName($event, comp[1])" ng-src="{{img_src+comp[1]}}.svg" width="80">
+        </a>
+    </div>
+</div>

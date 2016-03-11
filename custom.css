@@ -1,0 +1,25 @@
+body .modal-xl {
+    /* new custom width */
+    width: 1050px;
+    /* must be half of the width, minus scrollbar on the left (30px) */
+    /*margin-left: -470px;*/
+}
+
+body .reactant {
+    display: -webkit-inline-flex;
+    display: inline-flex;
+    align-items: center;
+    padding: 0 5px
+}
+
+body .popover{
+    max-width: 100%; /* Max Width of the popover (depending on the container!) */
+}
+
+@media (min-width:1280px){.container{width:1280px}}
+
+@media (min-width: 979px) {
+  ul.nav li.dropdown:hover > ul.dropdown-menu {
+    display: block;
+  }
+}

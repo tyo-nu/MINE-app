@@ -1,0 +1,59 @@
+<table class="table table-striped table-hover">  
+	<tbody>
+		<tr>
+			<td></td>
+            <td>
+            	<img id="compound-image" ng-src="{{img_src+data._id}}.svg" height="325" data-toggle="modal" data-target="#modal">
+            </td>
+		</tr>
+		<tr>
+			<td>Formula</td>
+			<td>{{data.Formula}}</td>
+		</tr>
+		<tr>
+			<td>Exact Mass</td>
+			<td>{{data.Mass}}</td>
+		</tr>
+		<tr>
+			<td>Charge</td>
+			<td>{{data.Charge}}</td>
+		</tr>
+		<tr>
+			<td>InChIKey</td>
+			<td>{{data.Inchikey}}</td>
+		</tr>
+		<tr>
+			<td>SMILES</td>
+			<td>{{data.SMILES}}</td>
+		</tr>
+		<tr>
+			<td>NP likeness <span tooltip="NP Likeness is a quantitative measure of how similar a given compound is to
+			known natural products. The values range from -3 (very synthetic) to 3 (very natural)."
+                                  class="glyphicon glyphicon-question-sign"></span></td>
+			<td>{{data.NP_likeness}}</td>
+		</tr>
+        <tr>
+			<td>logP</td>
+			<td>{{data.logP}}</td>
+		</tr>
+        <tr>
+			<td>Kovats RI</td>
+			<td>{{data.minKovatsRI}}-{{data.maxKovatsRI}}</td>
+		</tr>
+	</tbody>  
+</table>
+<div id='modal' class="modal fade">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">
+			<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+		</button>
+        <h4 class="modal-title">Compound {{data.MINE_id}}</h4>
+      </div>
+      <div class="modal-body">
+		  <img ng-src="{{img_src+data._id}}.svg" width="100%">
+	  </div>
+    </div>
+  </div>
+</div>
