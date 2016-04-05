@@ -117,7 +117,8 @@ angular.module('app').controller('databaseCtl',  function ($scope,$state,sharedF
         {id:0, name:'KEGG',  db :'KEGGexp2'},
         {id:1, name:'EcoCyc', db : 'EcoCycexp2'},
         {id:2, name:'YMDB', db : 'YMDBexp2'},
-        {id:3, name:'Chemical Damage SEED', db : 'CDMINE'}
+        {id:3, name:'Chemical Damage SEED', db : 'CDMINE'},
+        {id:4, name:'CD-MINE 2.0', db : '3dCDMINE'}
     ];
 
     var updateSelection = function() {console.log("ping"); $scope.databases.forEach(
@@ -131,15 +132,6 @@ angular.module('app').controller('databaseCtl',  function ($scope,$state,sharedF
     $scope.$watch('database', function() {
         sharedFactory.setDB($scope.database.db)
     });
-});
-
-angular.module('app').directive('reactionDiagram', function(){
-    return {
-        restrict: 'E',
-        scope: true,
-        replace: true,
-        templateUrl: 'partials/reaction-diagram.html'
-    }
 });
 
 angular.module('app').config(function($stateProvider, $urlRouterProvider) {
