@@ -60,7 +60,7 @@
                     <label>Halogenated compounds <input type="checkbox" ng-model="halogens" ng-checked="0">
                     </label>
                 </div>
-                <button class="btn btn-block btn-default" style="margin: 0 auto;" ng-disabled='!adducts.length' ng-click="metSearch()"
+                <button id="ms-search-button" class="btn btn-block btn-default" style="margin: 0 auto;" ng-disabled='!adducts.length' ng-click="metSearch()"
                         analytics-on="click" analytics-category="Search" analytics-event="Metabolomics">
                 <span class="glyphicon glyphicon-search"></span> Search</button>
             </div>

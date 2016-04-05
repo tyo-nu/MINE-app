@@ -5,6 +5,7 @@ var generalTour = function(){
         storage:false,
         steps: [
             {
+
                 orphan: true,
                 title: "Exploring the MINE Databases",
                 content: "Welcome the home of the MINE databases. This tour will give you an overview of the features of this " +
@@ -123,10 +124,9 @@ var metabolomicsTour = function(){
                 element: "#met-tab",
                 placement: "bottom",
                 title: "The Metabolomics tab",
-                content: "This link will take you to the metabolomics annotation form.",
-                reflex: true,
+                content: "The metabolomics annotation tools are available here.",
                 onNext: function(){
-                    window.location.assign(host+ '#/metabolomics')
+                    window.location.assign(host+ '#/msAdductSearch')
                 }
             },
             {
@@ -172,10 +172,14 @@ var metabolomicsTour = function(){
                 title: "Select adducts to search on",
                 content: "You can select potential adduct types here. use CTRL+click to select individual adducts or " +
                     "SHIFT+click to select a range of compounds",
+                onShown:function(){
+                    $('#adducts option:eq(1)').prop('selected', true).trigger('change')
+                },
                 onNext: function(){
-                    window.location.assign(host+ '#/metabolomicsCompounds')
+                    $('#ms-search-button').trigger('click')
                 }
             },
+
             {
                 orphan: true,
                 title: "Tabular Metabolomics Results",
@@ -184,6 +188,7 @@ var metabolomicsTour = function(){
             },
             {
                 element: "#filters",
+                placement: "bottom",
                 title: "Filtering results",
                 content: "You can enter text here to filter the results shown."
             },
@@ -194,16 +199,43 @@ var metabolomicsTour = function(){
             },
             {
                 element: "#met-download",
-                placement: "left",
+                placement: "bottom",
                 title: "Download your search results",
                 content: "Click here to download a CSV file with your search results. This file can be opened with " +
-                    "Microsoft Excel or parsed as a part of a annotation pipeline"
+                    "Microsoft Excel or parsed as a part of a annotation pipeline",
+                onNext: function(){
+                    window.location.assign(host+ '#/ms2search')
+                }
+            },
+            {
+                orphan: true,
+                title: "MS/MS searching",
+                content: "The MS/MS searching options are similar to the the those for a single mass but the form only " +
+                "supports one search at a time using these text boxes."
+            },
+            {
+                element: "#msmsIons",
+                title: "Product Ions",
+                content: "Enter each product ion on a new line as a pair of m/z and intensity separated by a single space."
+            },
+            {
+                element: "#upload-file",
+                title: "File upload",
+                content: "If you would like to search multiple features this is possible by uploading a file in MGF or " +
+                "MSP format. Be mindful that large files take a longer to search."
+            },
+            {
+                element: "#energy",
+                placement: "left",
+                title: "Scoring options",
+                content: "Product ions are simulated using the Competitive Fragmentation Modeling approach. you can " +
+                "adjust the scoring parameters here."
             },
             {
                 orphan: true,
                 title: "Learning more",
                 content: "If you have additional questions, please check out our Frequently Asked Questions. You might also be " +
-                    "interested in taking our Metabolomics tour. We hope you find this resource valuable!"
+                    "interested in taking our General tour. We hope you find this resource valuable!"
             }
         ]
     }
