@@ -6,7 +6,7 @@
 <br>
 <table class="table table-striped table-hover">
 	<tbody>
-		<tr ng-repeat="reaction in filteredData">
+		<tr ng-repeat="reaction in filteredData track by reaction._id">
 			<td style="vertical-align:middle">
                 <div ng-repeat="op in reaction.Operators" style="font-size: 16px">
 					<a  ui-sref="operator({id:op})">
@@ -15,7 +15,8 @@
                 </div>
             </td>
 			<td>
-				<reaction-diagram>
+				<div ng-include="'partials/old-reaction-diagram.html'" ng-if="reaction.Reactants[0].length > 1"></div>
+				<div ng-include="'partials/reaction-diagram.html'" ng-if="reaction.Reactants[0].stoich"></div>
 			</td>
 		</tr>
 	</tbody>
