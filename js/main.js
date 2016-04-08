@@ -203,8 +203,16 @@ angular.module('app').config(function($stateProvider, $urlRouterProvider) {
 
     $stateProvider.state('operator', {
         url: '/operator:id',
-        templateUrl: 'partials/operator.html',
-        controller: "operatorCtl"
+        views: {
+            '': {
+                templateUrl: 'partials/operator.html',
+                controller: "operatorCtl"
+            },
+            'rxns': {
+                templateUrl: 'partials/reactions.html',
+                controller: "rxnListCtl"
+            }
+        }
     });
 
 

@@ -118,11 +118,6 @@ angular.module('app').controller('acompoundCtl', function($scope,$stateParams,sh
 });
 
 angular.module('app').controller('productOfCtl', function($scope,$stateParams,sharedFactory,CompoundDataFactory){
-    $scope.currentPage = 1;
-    $scope.numPerPage = sharedFactory.numPerPage;
-    $scope.maxSize = 5;
-    $scope.img_src = sharedFactory.img_src;
-    var reactions;
     if (typeof($stateParams.db) != 'undefined') sharedFactory.setDB($stateParams.db);
     if (!CompoundDataFactory.compound) { // if we hit this page directly we need to get the compound data first
         CompoundDataFactory.getCompound(sharedFactory.dbId, $stateParams.id);
@@ -134,38 +129,10 @@ angular.module('app').controller('productOfCtl', function($scope,$stateParams,sh
     $scope.$on("compoundLoaded", function () {
         CompoundDataFactory.getReactions(sharedFactory.dbId, CompoundDataFactory.compound.Product_of);
     });
-
-    $scope.$on("rxnLoaded", function () {
-        reactions = CompoundDataFactory.reactions;
-        $scope.filteredData = sharedFactory.paginateList(reactions, $scope.currentPage, $scope.numPerPage);
-        $scope.items = reactions.length;
-        $scope.$apply();
-    });
-
-    $scope.getCompoundName = CompoundDataFactory.getCompoundName(sharedFactory.dbId);
-
-    $scope.staticPage = function(){
-        var rxnhtml = $('#rxn-tbl').html();
-        //console.log(rxnhtml);
-        sharedFactory.downloadFile(rxnhtml,'reactions.html')
-    };
-
-    $scope.$watch('currentPage +searchOn', function() {
-        if (reactions) {
-            var filteredRxns = CompoundDataFactory.filterList(reactions, $scope.searchOn);
-            $scope.filteredData = sharedFactory.paginateList(filteredRxns, $scope.currentPage, $scope.numPerPage);
-            $scope.items = filteredRxns.length;
-        }
-    });
 });
 
 
 angular.module('app').controller('reactantInCtl', function($scope,$stateParams,sharedFactory,CompoundDataFactory){
-    $scope.currentPage = 1;
-    $scope.numPerPage = sharedFactory.numPerPage;
-    $scope.maxSize = 5;
-    $scope.img_src = sharedFactory.img_src;
-    var reactions;
     if (typeof($stateParams.db) != 'undefined') sharedFactory.setDB($stateParams.db);
     if (!CompoundDataFactory.compound){ // if we hit this page directly we need to get the compound data first
         CompoundDataFactory.getCompound(sharedFactory.dbId, $stateParams.id);
@@ -177,14 +144,24 @@ angular.module('app').controller('reactantInCtl', function($scope,$stateParams,s
     $scope.$on("compoundLoaded", function () {
         CompoundDataFactory.getReactions(sharedFactory.dbId, CompoundDataFactory.compound.Reactant_in);
     });
+});
+
+angular.module('app').controller('rxnListCtl',  function($scope,$stateParams,CompoundDataFactory, sharedFactory) {
+    $scope.img_src = sharedFactory.img_src;
+    $scope.currentPage = 1;
+    $scope.numPerPage = sharedFactory.numPerPage;
+    $scope.maxSize = 5;
+    $scope.searchOn = '';
+    var reactions;
+
+    $scope.getCompoundName = CompoundDataFactory.getCompoundName(sharedFactory.dbId);
+
     $scope.$on("rxnLoaded", function () {
         reactions = CompoundDataFactory.reactions;
         $scope.filteredData = sharedFactory.paginateList(reactions, $scope.currentPage, $scope.numPerPage);
         $scope.items = reactions.length;
         $scope.$apply();
     });
-
-    $scope.getCompoundName = CompoundDataFactory.getCompoundName(sharedFactory.dbId);
 
     $scope.$watch('currentPage + searchOn', function() {
         if (reactions) {
