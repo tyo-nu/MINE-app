@@ -25,7 +25,7 @@
         <tbody>
             <tr id="comp-row" ng-repeat="compound in filteredData" ng-class="color(compound.native_hit,compound.Likelihood_score)" ui-sref="acompound.overview({id:compound.MINE_id})" style="cursor: pointer;">
                 <td>
-                    <img ng-src="http://lincolnpark.chem-eng.northwestern.edu/Smiles_dump/{{compound._id}}.svg" width="150" ></td>
+                    <img ng-src="http://lincolnpark.chem-eng.northwestern.edu/Smiles_dump/{{compound._id}}.png" width="150" ></td>
                 <td  style="vertical-align:middle">{{compound.MINE_id}}</td>
                 <td  style="vertical-align:middle"><div ng-repeat="name in compound.Names|limitTo:5">{{name}}<br></div></td>
                 <td  style="vertical-align:middle">{{compound.Formula}}</td>
