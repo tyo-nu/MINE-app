@@ -3,7 +3,7 @@
         <div style="font-size:16px" ng-if="comp.stoich-1">
             {{comp.stoich}}
         </div>
-         <a  ui-sref="acompound.overview({id:comp[1]})">
+         <a  ui-sref="acompound.overview({id:comp.c_id})">
             <img ng-mouseover="getCompoundName($event, comp.c_id)" ng-src="{{img_src+comp.c_id}}.png" width="80">
         </a>
     </div>
@@ -12,7 +12,7 @@
         <div style="font-size:16px" ng-if= "comp.stoich-1">
             {{comp.stoich}}
         </div>
-        <a  ui-sref="acompound.overview({id:comp[1]})">
+        <a  ui-sref="acompound.overview({id:comp.c_id})">
             <img ng-mouseover="getCompoundName($event, comp.c_id)" ng-src="{{img_src+comp.c_id}}.png" width="80">
         </a>
     </div>
