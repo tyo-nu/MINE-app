@@ -2,16 +2,16 @@
 angular.module('app').factory('structureSearchFactory', function(){
     return{
         mol:'',
-        stype:'',
+        stype:'exact',
         sthresh:0.7,
-        maxres:10
+        maxres:"100"
     };
 });
 
 angular.module('app').controller('structureCtl',  function($scope,$state,structureSearchFactory) {
-    $scope.stype="exact";
-    $scope.maxres=100;
-    $scope.sthresh=0.7;
+    $scope.stype=structureSearchFactory.stype;
+    $scope.maxres=structureSearchFactory.maxres;
+    $scope.sthresh=structureSearchFactory.sthresh;
     var marvinSketcherInstance;
     // connect to Marvin canvas and load the molfile in memory
     MarvinJSUtil.getEditor("#sketch").then(function(sketcherInstance) {
