@@ -49,20 +49,4 @@
 			</tbody>  
 		</table>
     </accordion-group>
-	<accordion-group heading="Simulated Spectra"  is-open="false">
-		<div ng-repeat="(key,val) in data.Pos_CFM_spectra">
-			<accordion-group heading="Positive Mode {{key}}"  is-open="false">
-				<div style="height: 500px">
-					<mass-spec ng-if="val.length" ng-model="val">
-				</div>
-			</accordion-group>
-		</div>
-		<div ng-repeat="(key,val) in data.Neg_CFM_spectra">
-			<accordion-group heading="Negative Mode {{key}}"  is-open="false">
-				<div style="height: 500px">
-					<mass-spec ng-if="val.length" ng-model="val">
-				</div>
-			</accordion-group>
-		</div>
-	</accordion-group>
 </accordion>

@@ -1,5 +1,5 @@
 angular.module('app',['ui.router','ui.bootstrap','ngCookies', 'ngJoyRide', 'ui-rangeSlider', 'angulartics',
-    'angulartics.google.analytics', 'ui.select', 'angularMasspecPlotter']);
+    'angulartics.google.analytics', 'ui.select']);
 angular.module('app').factory('sharedFactory', function($state, $cookieStore, $rootScope){
     var factory = {
         dbId: 'KEGGexp2',
@@ -131,7 +131,6 @@ angular.module('app').controller('databaseCtl',  function ($scope,$state,sharedF
         {id:1, name:'EcoCyc', db : 'EcoCycexp2'},
         {id:2, name:'YMDB', db : 'YMDBexp2'},
         {id:3, name:'Chemical Damage SEED', db : 'CDMINE'},
-        {id:4, name:'CD-MINE 2.0', db : '3dCDMINE'}
     ];
 
     var updateSelection = function() {console.log("ping"); $scope.databases.forEach(
@@ -238,20 +237,6 @@ angular.module('app').config(function($stateProvider, $urlRouterProvider) {
                 templateUrl: 'partials/ms-adduct.html',
                 controller: "metabolomicsCtl"
             },            
-            'sidebar':{
-                templateUrl: 'partials/models.html',
-                controller: "modelsCtl"
-            }
-        }
-    });
-    $stateProvider.state('ms2search', {
-
-        url: '/ms2search',
-        views: {
-            '':{
-                templateUrl: 'partials/ms2-search.html',
-                controller: "ms2searchCtl"
-            },
             'sidebar':{
                 templateUrl: 'partials/models.html',
                 controller: "modelsCtl"
