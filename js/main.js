@@ -92,6 +92,19 @@ if (navigator.userAgent.indexOf('MSIE') > 0 || navigator.appVersion.indexOf('Tri
    alert("This web application does not officially support Internet Explorer and some elements may not render or " +
        "function correctly in this environment. For best performance, utilize the Chrome browser.")
 }
+
+angular.module('app').directive('errSrc', function() {
+  return {
+    link: function(scope, element, attrs) {
+      element.bind('error', function() {
+        if (attrs.src != attrs.errSrc) {
+          attrs.$set('src', attrs.errSrc);
+        }
+      });
+    }
+  }
+});
+
 angular.module('app').controller('cookieCtl',function($scope,$cookieStore) {
     $scope.startGeneralTour = function () {
         var tour = new Tour(generalTour());

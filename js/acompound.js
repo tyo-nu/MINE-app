@@ -55,7 +55,7 @@ angular.module('app').factory('CompoundDataFactory', function($rootScope){
                                     title: cTitle,
                                     trigger: 'hover',
                                     html: true,
-                                    content: '<img id="img-popover" src="' + factory.img_src + id + '.png" width="250">'
+                                    content: '<img id="img-popover" src="' + factory.img_src + id +'.svg" width="250">'
                                 });
                             }
                         },
