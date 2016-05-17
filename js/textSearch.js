@@ -67,6 +67,7 @@ angular.module('app').controller('compoundsCtl', function($scope,$stateParams,sh
     $scope.maxSize = 5;
     $scope.items=-1;
     $scope.selected_model = sharedFactory.selected_model;
+    $scope.img_src = sharedFactory.img_src;
     var data=[];
     var promise;
     var services = sharedFactory.services;
