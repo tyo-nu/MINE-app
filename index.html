@@ -52,8 +52,11 @@
             <!-- left col -->
             <div class="col-md-2 col-md-pull-10">
                 <h2>Database</h2>
-                <div ng-controller="databaseCtl">
-                    <select id="db-select" class="form-control" ng-model="database" ng-options="d.name for d in databases"></select>
+                <div ng-controller="databaseCtl" class="input-group">
+                    <input type="text" id="db-select" class="form-control" ng-model="database" ng-keypress="subDB($event)">
+                    <div class="input-group-btn">
+                        <button class="btn btn-primary"  ng-click="subDB(false)">Set</button>
+                    </div>
                 </div>
                 <div ui-view = "sidebar"></div>
             </div>
