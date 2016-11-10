@@ -1,5 +1,5 @@
 
-angular.module('app').factory('top30Factory', function($rootScope){
+angular.module('app').factory('ChemicalDamageFactory', function($rootScope){
     var factory = {
         services: new mineDatabaseServices('http://bio-data-1.mcs.anl.gov/services/mine-database'),
         img_src: "http://lincolnpark.chem-eng.northwestern.edu/Smiles_dump/",
@@ -40,7 +40,7 @@ angular.module('app').factory('top30Factory', function($rootScope){
     return factory
 });
 
-angular.module('app').controller('s1Ctl', function($scope,$stateParams,$cookieStore,sharedFactory,top30Factory){
+angular.module('app').controller('s1Ctl', function($scope,$stateParams,$cookieStore,sharedFactory,ChemicalDamageFactory){
     $scope.currentPage = 1;
     $scope.numPerPage = 50;
     $scope.maxSize = 6;
@@ -53,11 +53,11 @@ angular.module('app').controller('s1Ctl', function($scope,$stateParams,$cookieSt
     console.log($stateParams.id);
 
     //if specific reactions specified, get only those
-    if ($stateParams.id) {top30Factory.getReactions(top30db, $stateParams.id.split(','))}
-    else {top30Factory.getReactions(top30db, damageReactionIDs)}
+    if ($stateParams.id) {ChemicalDamageFactory.getReactions(top30db, $stateParams.id.split(','))}
+    else {ChemicalDamageFactory.getReactions(top30db, damageReactionIDs)}
 
     $scope.$on("rxnLoaded", function () {
-        reactions = top30Factory.reactions;
+        reactions = ChemicalDamageFactory.reactions;
         $scope.items = reactions.length;
         //if there is a cookie for which page the user was last on, use it unless it's beyond the end of the list
         if($cookieStore.get("S1_Page")<($scope.items/$scope.numPerPage)) {$scope.currentPage = $cookieStore.get("S1_Page")}
@@ -65,7 +65,7 @@ angular.module('app').controller('s1Ctl', function($scope,$stateParams,$cookieSt
         $scope.$apply();
     });
 
-    $scope.getCompoundName = top30Factory.getCompoundName(top30db);
+    $scope.getCompoundName = ChemicalDamageFactory.getCompoundName(top30db);
     $scope.parseInt = parseInt;
 
     $scope.$watch('currentPage + searchType + searchComp', function() {
@@ -79,7 +79,7 @@ angular.module('app').controller('s1Ctl', function($scope,$stateParams,$cookieSt
     });
 });
 
-angular.module('app').controller('s2Ctl', function($rootScope,$scope,$stateParams,$cookieStore,sharedFactory,top30Factory){
+angular.module('app').controller('s2Ctl', function($rootScope,$scope,$stateParams,$cookieStore,sharedFactory,ChemicalDamageFactory){
 
     $scope.currentPage = 1;
     $scope.numPerPage = 20;
@@ -89,7 +89,7 @@ angular.module('app').controller('s2Ctl', function($rootScope,$scope,$stateParam
     var operators;
     $scope.searchName = "";
 
-    var promise = top30Factory.services.get_ops("CDMINE", operatorList);
+    var promise = ChemicalDamageFactory.services.get_ops("CDMINE", operatorList);
     promise.then(function (result) {
             operators = result;
             if($cookieStore.get("S2_Page")<($scope.items/$scope.numPerPage)) {$scope.currentPage = $cookieStore.get("S2_Page")}
