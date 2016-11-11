@@ -44,7 +44,7 @@
             </td>
 			<!-- Schematic -->
 			<td style="width: 60%">
-				<img ng-src="{{img_src}}op_images/{{op._id}}.png" width="500">
+				<img ng-src="{{img_src}}/{{op._id}}.png" width="500">
 			</td>
 			<!-- # of reactions -->
 			<td style="vertical-align:middle">
@@ -52,11 +52,13 @@
             </td>
 			<!-- Basis -->
 			<td style="vertical-align:middle">
+				{{op.Comments}}
+				<!-- Basis
 				<a ui-sref="top30.s1({id:op.Basis})">
 						<button type="button" class="btn btn-default btn-lg">
 							<span class="glyphicon glyphicon-new-window"></span>
 						</button>
-				</a>
+				</a>-->
             </td>
 		</tr>
 	</tbody>

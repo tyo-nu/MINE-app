@@ -31,8 +31,6 @@
 			<th>Compound</th>
 			<th>Reaction Type</th>
 			<th>Reaction Diagram</th>
-            <th></th>
-            <th></th>
 			<th>References</th>
 		</tr>
 	</thead>
@@ -40,35 +38,16 @@
 		<tr ng-repeat="reaction in paginatedData">
 			<!-- Compound -->
 			<td id="{{reaction._id}}" style="vertical-align:middle">
-				{{reaction.Compound}}
+				{{reaction.Metabolite}}
             </td>
 			<!-- Rxn Type -->
 			<td style="vertical-align:middle">
 				{{reaction.Type}}
             </td>
 			<!-- Rxn Schematic -->
-			<td style="width: 30%; vertical-align: middle; text-align: right">
-                <div class="reactant" id="rxn-img" ng-repeat="comp in reaction.Reactants">
-					<span style="font-size:16px" ng-if="comp[0]-1">
-						{{comp[0]}}
-					</span>
-					<a  ui-sref="acompound.overview({id:comp[1]})">
-					<img ng-mouseover="getCompoundName($event, comp[1])" ng-src="{{img_src+comp[1]}}.png" width="100">
-					</a>
-				</div>
-            </td>
-            <td style="vertical-align: middle;">
-				<span style="font-size:40px"> &#8594</span>
-            </td>
-            <td style="width: 30%; vertical-align: middle;">
-				<div class ="reactant" ng-repeat="comp in reaction.Products">
-					<div style="font-size:16px" ng-if= "comp[0]-1">
-						{{comp[0]}}
-					</div>
-					<a  ui-sref="acompound.overview({id:comp[1]})">
-					<img ng-mouseover="getCompoundName($event, comp[1])" ng-src="{{img_src+comp[1]}}.png" width="100">
-					</a>
-				</div>
+			<td style="width: 40%; vertical-align: middle; text-align: right">
+                <div ng-include="'partials/old-reaction-diagram.html'" ng-if="reaction.Reactants[0].length > 1"></div>
+				<div ng-include="'partials/reaction-diagram.html'" ng-if="reaction.Reactants[0].stoich"></div>
 			</td>
 			<!-- References -->
 			<td style="width: 20%;vertical-align:middle">
