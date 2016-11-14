@@ -5,7 +5,7 @@ angular.module('app').factory('ChemicalDamageFactory', function($rootScope){
         img_src: "http://lincolnpark.chem-eng.northwestern.edu/Smiles_dump/",
         db: "CDMINE-6-16-16",
         getIds: function(db, collections) {
-            var promise = factory.services.get_ids(db, collections);
+            var promise = factory.services.get_ids(db, collections, "");
             promise.then(function (result) {
                     factory.ids = result;
                     $rootScope.$broadcast("idsLoaded")
@@ -85,7 +85,7 @@ angular.module('app').controller('s1Ctl', function($scope,$stateParams,$cookieSt
     $scope.$watch('currentPage + searchType + searchComp', function() {
         if (reactions) {
             var filtered = sharedFactory.filterList(reactions, "Type", $scope.searchType);
-            filtered = sharedFactory.filterList(filtered, "Compound", $scope.searchComp);
+            filtered = sharedFactory.filterList(filtered, "Metabolite", $scope.searchComp);
             $scope.paginatedData = sharedFactory.paginateList(filtered, $scope.currentPage, $scope.numPerPage);
             $scope.items = filtered.length;
             $cookieStore.put("S1_Page", $scope.currentPage)

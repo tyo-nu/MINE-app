@@ -131,7 +131,7 @@ angular.module('app').controller('databaseCtl',  function ($scope,$state,sharedF
         {id:1, name:'EcoCyc', db : 'EcoCycexp2'},
         {id:2, name:'YMDB', db : 'YMDBexp2'},
         {id:3, name:'Chemical Damage SEED', db : 'CDMINE'},
-        {id:4, name:'CD-MINE 2.0', db : '3dCDMINE'}
+        {id:4, name:'CD-MINE 2.0', db : 'CDMINE-6-16-16'}
     ];
 
     var updateSelection = function() {console.log("ping"); $scope.databases.forEach(
