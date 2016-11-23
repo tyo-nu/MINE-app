@@ -61,7 +61,7 @@ angular.module('app').controller('structuresresCtl', function($scope,$state,shar
     }
     else if (structureSearchFactory.stype == "similarity"){
         promise = services.similarity_search(sharedFactory.dbId,structureSearchFactory.mol,
-            structureSearchFactory.sthresh,'FP4',structureSearchFactory.maxres, sharedFactory.selected_model.name, "");
+            structureSearchFactory.sthresh,'RDKit',structureSearchFactory.maxres, sharedFactory.selected_model.name, "");
     }
     promise.then(
         function(result){

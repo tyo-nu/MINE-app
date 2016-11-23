@@ -3,7 +3,7 @@ angular.module('app').factory('ChemicalDamageFactory', function($rootScope){
     var factory = {
         services: new mineDatabaseServices('http://bio-data-1.mcs.anl.gov/services/mine-database'),
         img_src: "http://lincolnpark.chem-eng.northwestern.edu/Smiles_dump/",
-        db: "CDMINE-6-16-16",
+        db: "CDMINE-16-11-08",
         getIds: function(db, collections) {
             var promise = factory.services.get_ids(db, collections, "");
             promise.then(function (result) {
