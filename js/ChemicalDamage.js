@@ -3,7 +3,7 @@ angular.module('app').factory('ChemicalDamageFactory', function($rootScope){
     var factory = {
         services: new mineDatabaseServices('http://bio-data-1.mcs.anl.gov/services/mine-database'),
         img_src: "http://lincolnpark.chem-eng.northwestern.edu/Smiles_dump/",
-        db: "CDMINE-16-11-08",
+        db: "CDMINE-16-11-30",
         getIds: function(db, collections) {
             var promise = factory.services.get_ids(db, collections, "");
             promise.then(function (result) {
@@ -71,7 +71,7 @@ angular.module('app').controller('s1Ctl', function($scope,$stateParams,$cookieSt
     });
 
     $scope.$on("rxnLoaded", function () {
-        reactions = ChemicalDamageFactory.reactions;
+        reactions = sharedFactory.sortList(ChemicalDamageFactory.reactions, "Metabolite", false);
         $scope.items = reactions.length;
         //if there is a cookie for which page the user was last on, use it unless it's beyond the end of the list
         if($cookieStore.get("S1_Page")<($scope.items/$scope.numPerPage)) {$scope.currentPage = $cookieStore.get("S1_Page")}

@@ -72,16 +72,14 @@ angular.module('app').factory('sharedFactory', function($state, $cookieStore, $r
         },
         sortList: function(list, attribute, ascending){
             list.sort(function(a,b){
-                if (ascending){
-                    if (a[attribute]==null) return 1;
-                    if (b[attribute]==null) return 0;
-                    return a[attribute]-b[attribute]
-                }
-                else{
-                    if (a[attribute]==null) return 1;
-                    if (b[attribute]==null) return 0;
-                    return b[attribute]-a[attribute]
-                }
+                if (a[attribute]==""||a[attribute]==null) return 1;
+                if (b[attribute]==""||a[attribute]==null) return -1;
+                var order;
+                if (typeof a[attribute] === 'string') {
+                        order = a[attribute].localeCompare(b[attribute])
+                    }
+                    else {order = a[attribute]-b[attribute]}
+                return (ascending ? -order : order)
             });
             return list
         }
@@ -131,7 +129,7 @@ angular.module('app').controller('databaseCtl',  function ($scope,$state,sharedF
         {id:1, name:'EcoCyc', db : 'EcoCycexp2'},
         {id:2, name:'YMDB', db : 'YMDBexp2'},
         {id:3, name:'Chemical Damage SEED', db : 'CDMINE'},
-        {id:4, name:'CD-MINE 2.0', db : 'CDMINE-6-16-16'}
+        {id:4, name:'CD-MINE', db : 'CDMINE-16-11-30'}
     ];
 
     var updateSelection = function() {console.log("ping"); $scope.databases.forEach(
