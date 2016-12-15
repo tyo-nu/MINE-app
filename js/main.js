@@ -72,8 +72,8 @@ angular.module('app').factory('sharedFactory', function($state, $cookieStore, $r
         },
         sortList: function(list, attribute, ascending){
             list.sort(function(a,b){
-                if (a[attribute]==""||a[attribute]==null) return 1;
-                if (b[attribute]==""||a[attribute]==null) return -1;
+                if (a[attribute]===""||a[attribute]===null) return 1;
+                if (b[attribute]===""||a[attribute]===null) return -1;
                 var order;
                 if (typeof a[attribute] === 'string') {
                         order = a[attribute].localeCompare(b[attribute])

@@ -4,12 +4,13 @@ angular.module('app').factory('structureSearchFactory', function(){
         mol:'',
         stype:'exact',
         sthresh:0.7,
-        maxres:"100"
+        maxres:100
     };
 });
 
 angular.module('app').controller('structureCtl',  function($scope,$state,structureSearchFactory) {
     $scope.stype=structureSearchFactory.stype;
+    $scope.maxres_options = [100, 200, 500, 1000];
     $scope.maxres=structureSearchFactory.maxres;
     $scope.sthresh=structureSearchFactory.sthresh;
     var marvinSketcherInstance;
