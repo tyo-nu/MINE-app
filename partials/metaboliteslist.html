@@ -24,6 +24,7 @@
             <th>Adduct</th>
             <th>Formula</th>
             <th>Compound</th>
+            <th>Putative Metabolite</th>
             <th ng-show="factory.filterLogP">logP</th>
             <th ng-show="factory.filterKovats">Kovats RI</th>
             <th>NP Likeness<span tooltip-trigger tooltip="NP Likeness is a quantitative measure of how similar a given
@@ -31,12 +32,13 @@
                                  class="glyphicon glyphicon-question-sign"></span></th>
         </tr>
         <tr id="filters">
-            <th><input type="text" class="form-control" style='width: 90px' placeholder="Search" ng-model="searchMINE" analytics-on></th>
+            <th><input type="text" class="form-control" placeholder="Search" ng-model="searchMINE" analytics-on></th>
             <th ng-show="factory.msmsIons"><button class="btn btn-block btn-primary" ng-click="sortColumn='Spectral_score'; sortInvert=!sortInvert" analytics-on>Sort by</button></th>
-            <th><input type="text" class="form-control" style='width: 100px' placeholder="Search" ng-model="searchMZ" analytics-on></th>
-            <th><input type="text" class="form-control" style='width: 90px' placeholder="Search" ng-model="searchAdduct" analytics-on></th>
-            <th><input type="text" class="form-control" style='width: 90px' placeholder="Search" ng-model="searchFormula" analytics-on></th>
+            <th><input type="text" class="form-control" placeholder="Search" ng-model="searchMZ" analytics-on></th>
+            <th><input type="text" class="form-control" placeholder="Search" ng-model="searchAdduct" analytics-on></th>
+            <th><input type="text" class="form-control" placeholder="Search" ng-model="searchFormula" analytics-on></th>
             <th><input type="text" class="form-control" placeholder="Search" ng-model="searchCompound" analytics-on></th>
+            <th><button id="sort-met" class="btn btn-block btn-primary" ng-click="sortColumn='Generation'; sortInvert=!sortInvert" analytics-on>Sort by</button></th>
             <th ng-show="factory.filterLogP"><button class="btn btn-block btn-primary" ng-click="sortColumn='logP'; sortInvert=!sortInvert" analytics-on>Sort by</button></th>
             <th ng-show="factory.filterKovats"><button class="btn btn-block btn-primary" ng-click="sortColumn='minKovatsRI'; sortInvert=!sortInvert" analytics-on>Sort by</button></th>
             <th><button id="sort-NP" class="btn btn-block btn-primary" ng-click="sortColumn='NP_likeness'; sortInvert=!sortInvert" analytics-on>Sort by</button></th>
@@ -57,11 +59,12 @@
                     <li>
                         <img id="met-img" class="logo"
                              ng-src="{{getImagePath(f._id)}}"
-                             width="100" alt="No image avalable">
+                             width="200" alt="No image avalable">
                     </li>
                     <li>{{f.Names[0]}}</li>
                 </ui>
             </td>
+            <td style="vertical-align: middle">{{f.Generation}}</td>
             <td ng-show="factory.filterLogP" style="vertical-align: middle">{{f.logP}}</td>
             <td ng-show="factory.filterKovats" style="vertical-align: middle">{{f.minKovatsRI}}-{{f.maxKovatsRI}}</td>
             <td style="vertical-align: middle">{{f.NP_likeness}}</td>
