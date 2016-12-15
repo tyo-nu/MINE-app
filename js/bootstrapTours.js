@@ -38,13 +38,12 @@ var generalTour = function(){
                     "exact matches to your compound"
             },
             {
-                onShown: function(){window.location.assign(host+ '#/structure');},
                 element: "#sim-thresh",
                 placement: "left",
                 title: "Similarity Threshold",
-                content: "This allows you to set a minimum Tanimoto similarity (using FP4 fingerprints)",
+                content: "This allows you to set a minimum Tanimoto similarity (using RDKit fingerprints)",
                 onNext: function(){
-                    window.location.assign(host+ '#/compoundsascorbate,undefined')
+                    window.location.assign(host+ '#/compoundsCysteine')
                 }
             },
             {
@@ -59,7 +58,7 @@ var generalTour = function(){
                 placement: "left",
                 reflex: true,
                 title: "Go to the compound page",
-                content: "Once you have found an interesting compound, click on the row to see more details"
+                content: "Once you have found an interesting compound, click on the compound ID to see more details"
             },
             {
                 onShow: function(){window.location.assign(host+ '#/acompound42050/overview');},
@@ -79,7 +78,8 @@ var generalTour = function(){
                 placement: "left",
                 title: "Find more information about a compound",
                 content: "Click the header of any of these sections to see their contents. You can find the compound in other " +
-                    "databases in various chiral and charged forms"
+                    "databases in various chiral and charged forms",
+                onNext: function(){window.location.assign(host+ '#/acompound20071/reactantIn')}
             },
             {
                 onShow: function(){window.location.assign(host+ '#/acompound42050/reactants')},
