@@ -1,7 +1,7 @@
 /* global angular */
 /* global mineDatabaseServices */
 
-angular.module('app').factory('ChemicalDamageFactory', function($rootScope){
+angular.module('app').factory('dataTableFactory', function($rootScope){
     var factory = {
         services: new mineDatabaseServices('http://bio-data-1.mcs.anl.gov/services/mine-database'),
         img_src: "http://lincolnpark.chem-eng.northwestern.edu/Smiles_dump/",
@@ -52,28 +52,28 @@ angular.module('app').factory('ChemicalDamageFactory', function($rootScope){
     return factory;
 });
 
-angular.module('app').controller('s1Ctl', function($scope,$stateParams,$cookieStore,sharedFactory,ChemicalDamageFactory){
+angular.module('app').controller('LitRxnsCtl', function($scope,$stateParams,$cookieStore,sharedFactory,dataTableFactory){
     $scope.currentPage = 1;
     $scope.numPerPage = 50;
     $scope.maxSize = 6;
     $scope.getImagePath = sharedFactory.getImagePath;
     var top30db = "ChemDamageLit";
-    sharedFactory.setDB(ChemicalDamageFactory.db); //Set to the Chemical Damage Database
+    sharedFactory.setDB(dataTableFactory.db); //Set to the Chemical Damage Database
     var reactions;
     $scope.searchType = "";
     $scope.searchComp = "";
     console.log($stateParams.id);
 
     //if specific reactions specified, get only those
-    if ($stateParams.id) {ChemicalDamageFactory.getReactions(top30db, $stateParams.id.split(','))}
-    else {ChemicalDamageFactory.getIds(top30db, 'reactions')}
+    if ($stateParams.id) {dataTableFactory.getReactions(top30db, $stateParams.id.split(','))}
+    else {dataTableFactory.getIds(top30db, 'reactions')}
 
     $scope.$on("idsLoaded", function () {
-        ChemicalDamageFactory.getReactions(top30db, ChemicalDamageFactory.ids);
+        dataTableFactory.getReactions(top30db, dataTableFactory.ids);
     });
 
     $scope.$on("rxnLoaded", function () {
-        reactions = sharedFactory.sortList(ChemicalDamageFactory.reactions, "Metabolite", false);
+        reactions = sharedFactory.sortList(dataTableFactory.reactions, "Metabolite", false);
         $scope.items = reactions.length;
         //if there is a cookie for which page the user was last on, use it unless it's beyond the end of the list
         if($cookieStore.get("S1_Page")<($scope.items/$scope.numPerPage)) {$scope.currentPage = $cookieStore.get("S1_Page")}
@@ -81,7 +81,7 @@ angular.module('app').controller('s1Ctl', function($scope,$stateParams,$cookieSt
         $scope.$apply();
     });
 
-    $scope.getCompoundName = ChemicalDamageFactory.getCompoundName(top30db);
+    $scope.getCompoundName = dataTableFactory.getCompoundName(top30db);
     $scope.parseInt = parseInt;
 
     $scope.$watch('currentPage + searchType + searchComp', function() {
@@ -95,20 +95,20 @@ angular.module('app').controller('s1Ctl', function($scope,$stateParams,$cookieSt
     });
 });
 
-angular.module('app').controller('s2Ctl', function($rootScope,$scope,$stateParams,$cookieStore,sharedFactory,ChemicalDamageFactory){
+angular.module('app').controller('RxnRulesCtl', function($rootScope,$scope,$stateParams,$cookieStore,sharedFactory,dataTableFactory){
 
     $scope.currentPage = 1;
     $scope.numPerPage = 20;
     $scope.maxSize = 5;
     $scope.img_src = sharedFactory.img_src+'op_images';
-    sharedFactory.setDB(ChemicalDamageFactory.db); //Set to the Chemical Damage Database
+    sharedFactory.setDB(dataTableFactory.db); //Set to the Chemical Damage Database
     var operators;
     $scope.searchName = "";
 
-    ChemicalDamageFactory.getIds(ChemicalDamageFactory.db, 'operators');
+    dataTableFactory.getIds(dataTableFactory.db, 'operators');
 
     $scope.$on("idsLoaded", function () {
-        var promise = ChemicalDamageFactory.services.get_ops(ChemicalDamageFactory.db, ChemicalDamageFactory.ids.sort());
+        var promise = dataTableFactory.services.get_ops(dataTableFactory.db, dataTableFactory.ids.sort());
         promise.then(function (result) {
                 operators = result;
                 if ($cookieStore.get("S2_Page") < ($scope.items / $scope.numPerPage)) {

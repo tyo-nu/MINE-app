@@ -284,19 +284,19 @@ angular.module('app').config(function($stateProvider, $urlRouterProvider) {
     });
 
     //Top 30 damage prone metabolites reaction list
-    $stateProvider.state('top30', {
+    $stateProvider.state('dataTables', {
         url: '/top30',
-        templateUrl: 'partials/top30.html',
+        templateUrl: 'partials/data-table-list.html',
         controller: "cookieCtl"
     });
-    $stateProvider.state('top30.s1', {
+    $stateProvider.state('dataTables.litRxns', {
         url: '/S1:id',
-        templateUrl: 'partials/S1.html',
-        controller: "s1Ctl"
+        templateUrl: 'partials/lit-rxns.html',
+        controller: "LitRxnsCtl"
     });
-    $stateProvider.state('top30.s2', {
+    $stateProvider.state('dataTables.rxnRules', {
         url: '/S2',
-        templateUrl: 'partials/S2.html',
-        controller: "s2Ctl"
+        templateUrl: 'partials/rxn-rules.html',
+        controller: "RxnRulesCtl"
     });
 });
