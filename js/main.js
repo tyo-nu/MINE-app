@@ -58,17 +58,18 @@ angular.module('app').factory('sharedFactory', function($state, $cookieStore, $r
             var end = begin + numPerPage;
             return list.slice(begin, end);
         },
-        filterList: function(reactions, field, searchOn) {
-            if (searchOn && (typeof(reactions) != 'undefined') && (reactions.length > 0)) {
-                var subList = [];
-                for (var i = reactions.length - 1; i >= 0; i--) {
-                    if ((reactions[i][field].toLowerCase().indexOf(searchOn.toLowerCase()) > -1)&&(subList[subList.length-1] != reactions[i])) {
-                        subList.push(reactions[i]);
-                    }
+        filterList: function(list, mine, compound, formula) {
+            // filtering but we have to handle names carefully (sometimes not present) and use RegEx with formula
+            var filteredList = [];
+            var f_patt = new RegExp(formula, 'i');
+            var c_patt = new RegExp(compound, 'i');
+            for (var i = 0; i < list.length; i++) {
+                if ((f_patt.test(list[i].Formula.toString())) && (list[i].MINE_id.toString().indexOf(mine) > -1) &&
+                    (!compound || (typeof(list[i].Names) != 'undefined') && (c_patt.test(list[i].Names.toString())))) {
+                    filteredList.push(list[i])
                 }
-                return subList
             }
-            else{return reactions}
+            return filteredList
         },
         sortList: function(list, attribute, ascending){
             list.sort(function(a,b){

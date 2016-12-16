@@ -65,10 +65,15 @@ angular.module('app').controller('compoundsCtl', function($scope,$stateParams,sh
     $scope.currentPage = 1;
     $scope.numPerPage = sharedFactory.numPerPage;
     $scope.maxSize = 5;
-    $scope.items=-1;
+    $scope.items=0;
+    $scope.totalItems=-1;
     $scope.selected_model = sharedFactory.selected_model;
     $scope.img_src = sharedFactory.img_src;
+    $scope.searchFormula = "";
+    $scope.searchCompound = "";
+    $scope.searchMINE = "";
     var data=[];
+    var filteredData=[];
     var promise;
     var services = sharedFactory.services;
     if (typeof($stateParams.db) != 'undefined') sharedFactory.setDB($stateParams.db);
@@ -77,12 +82,14 @@ angular.module('app').controller('compoundsCtl', function($scope,$stateParams,sh
     promise.then(
             function(result){
                 data = result;
-                $scope.items = data.length;
-                $scope.filteredData = sharedFactory.paginateList(data, $scope.currentPage, $scope.numPerPage);
+                filteredData = sharedFactory.filterList(data, $scope.searchMINE, $scope.searchCompound, $scope.searchFormula);
+                $scope.displayData = sharedFactory.paginateList(filteredData, $scope.currentPage, $scope.numPerPage);
+                $scope.items = filteredData.length;
+                $scope.totalItems = result.length;
                 $scope.$apply();
             },
             function(err){
-                $scope.items=0;
+                $scope.totalItems=0;
                 $scope.$apply();
                 console.log("quick_search or database_query Failure");
                 console.log(err)
@@ -96,15 +103,23 @@ angular.module('app').controller('compoundsCtl', function($scope,$stateParams,sh
     };
 
     $scope.downloadResults = function(){
-        var jsonObject = JSON.stringify(data);
+        var jsonObject = JSON.stringify(filteredData);
         var exclude = {"$$hashKey":"", 'id':"", 'Likelihood_score':"", 'Sources':"", 'Formula':"", 'Mass':"", '_id':""};
         var csv = sharedFactory.convertToCSV(jsonObject, exclude);
         var d = new Date();
         sharedFactory.downloadFile(csv, d.toISOString()+'.csv');
     };
 
+    $scope.$watch('searchMINE + searchFormula + searchCompound', function() {
+        if (data) {
+            filteredData = sharedFactory.filterList(data, $scope.searchMINE, $scope.searchCompound, $scope.searchFormula);
+            $scope.items = filteredData.length;
+            $scope.displayData = sharedFactory.paginateList(filteredData, $scope.currentPage, $scope.numPerPage)
+        }
+    });
+
     $scope.$watch('currentPage', function() {
-        if (data) $scope.filteredData = sharedFactory.paginateList(data, $scope.currentPage, $scope.numPerPage)
+        if (filteredData) $scope.displayData = sharedFactory.paginateList(filteredData, $scope.currentPage, $scope.numPerPage)
     });
 
 });

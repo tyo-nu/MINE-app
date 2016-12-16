@@ -44,10 +44,15 @@ angular.module('app').controller('structuresresCtl', function($scope,$state,shar
     $scope.currentPage = 1;
     $scope.numPerPage = sharedFactory.numPerPage;
     $scope.maxSize = 5;
-    $scope.items=-1;
+    $scope.items=0;
+    $scope.totalItems=-1;
     $scope.img_src = sharedFactory.img_src;
     $scope.selected_model = sharedFactory.selected_model;
+    $scope.searchFormula = "";
+    $scope.searchCompound = "";
+    $scope.searchMINE = "";
     var data = [];
+    var filteredData = [];
     // the following logic should be moved to factory in future
     var services = sharedFactory.services;
     var promise;
@@ -55,25 +60,28 @@ angular.module('app').controller('structuresresCtl', function($scope,$state,shar
         $state.go('structure')
     }
     else if (structureSearchFactory.stype == "exact"){
-        promise = services.structure_search(sharedFactory.dbId,"mol",structureSearchFactory.mol, sharedFactory.selected_model.name, "");
+        promise = services.structure_search(sharedFactory.dbId, "mol", structureSearchFactory.mol,
+            sharedFactory.selected_model.name, "");
     }
     else if (structureSearchFactory.stype == "substructure"){
-        promise = services.substructure_search(sharedFactory.dbId,structureSearchFactory.mol,structureSearchFactory.maxres, sharedFactory.selected_model.name, "");
+        promise = services.substructure_search(sharedFactory.dbId, structureSearchFactory.mol,
+            structureSearchFactory.maxres, sharedFactory.selected_model.name, "");
     }
     else if (structureSearchFactory.stype == "similarity"){
-        promise = services.similarity_search(sharedFactory.dbId,structureSearchFactory.mol,
-            structureSearchFactory.sthresh,'RDKit',structureSearchFactory.maxres, sharedFactory.selected_model.name, "");
+        promise = services.similarity_search(sharedFactory.dbId, structureSearchFactory.mol,
+            structureSearchFactory.sthresh, 'RDKit', structureSearchFactory.maxres, sharedFactory.selected_model.name, "");
     }
     promise.then(
         function(result){
             data = result;
-            $scope.items = data.length;
-            $scope.filteredData = sharedFactory.paginateList(data, $scope.currentPage, $scope.numPerPage);
+            filteredData = sharedFactory.filterList(data, $scope.searchMINE, $scope.searchCompound, $scope.searchFormula);
+            $scope.displayData = sharedFactory.paginateList(filteredData, $scope.currentPage, $scope.numPerPage);
+            $scope.items = filteredData.length;
+            $scope.totalItems = result.length;
             $scope.$apply();
         },
         function(err){
-            $scope.items = 0;
-            $scope.filteredData = [];
+            $scope.totalItems = 0;
             $scope.$apply();
             console.log("structure search failure");
             console.log(err)
@@ -87,14 +95,22 @@ angular.module('app').controller('structuresresCtl', function($scope,$state,shar
     };
 
     $scope.downloadResults = function(){
-        var jsonObject = JSON.stringify(data);
+        var jsonObject = JSON.stringify(filteredData);
         var exclude = {"$$hashKey":"", 'id':"", 'Likelihood_score':"", 'Sources':""};
         var csv = sharedFactory.convertToCSV(jsonObject, exclude);
         var d = new Date();
         sharedFactory.downloadFile(csv, d.toISOString()+'.csv');
     };
 
+    $scope.$watch('searchMINE + searchFormula + searchCompound', function() {
+        if (data) {
+            filteredData = sharedFactory.filterList(data, $scope.searchMINE, $scope.searchCompound, $scope.searchFormula);
+            $scope.items = filteredData.length;
+            $scope.displayData = sharedFactory.paginateList(filteredData, $scope.currentPage, $scope.numPerPage)
+        }
+    });
+
     $scope.$watch('currentPage', function() {
-        $scope.filteredData = sharedFactory.paginateList(data, $scope.currentPage, $scope.numPerPage)
+        $scope.displayData = sharedFactory.paginateList(filteredData, $scope.currentPage, $scope.numPerPage)
     });
 });

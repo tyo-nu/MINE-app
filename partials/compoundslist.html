@@ -1,7 +1,8 @@
 <div class="col-lg-4">
     <br>
     <h3 ng-show="!(items+1)">Searching...</h3>
-    <h3 ng-show="items+1">{{items}} compounds found</h3>
+    <h4 ng-show="totalItems+1">{{items}} of {{totalItems}} total hits</h4>
+
 </div>
 <div class="col-lg-2">
     <br>
@@ -17,13 +18,19 @@
         <thead>
             <tr>
                 <th>MINE Id</th>
-                <th>Img</th>
-                <th>Name</th>
+                <th></th>
+                <th>Names</th>
                 <th>Formula</th>
+            </tr>
+            <tr id="filters">
+                <th><input type="text" class="form-control" placeholder="Search" ng-model="searchMINE" analytics-on></th>
+                <th></th>
+                <th><input type="text" class="form-control" placeholder="Search" ng-model="searchCompound" analytics-on></th>
+                <th><input type="text" class="form-control" placeholder="Search" ng-model="searchFormula" analytics-on></th>
             </tr>
         </thead>
         <tbody>
-            <tr id="comp-row" ng-repeat="compound in filteredData" ng-class="color(compound.native_hit,compound.Likelihood_score)">
+            <tr id="comp-row" ng-repeat="compound in displayData" ng-class="color(compound.native_hit,compound.Likelihood_score)">
                 <td  style="vertical-align:middle">
                     <a ui-sref="acompound.overview({id:compound.MINE_id})">
                         <button class="button btn-lg btn-primary btn-block"> {{compound.MINE_id}}</button>
