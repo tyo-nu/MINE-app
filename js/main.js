@@ -285,17 +285,17 @@ angular.module('app').config(function($stateProvider, $urlRouterProvider) {
 
     //Top 30 damage prone metabolites reaction list
     $stateProvider.state('dataTables', {
-        url: '/top30',
+        url: '/datatables',
         templateUrl: 'partials/data-table-list.html',
         controller: "cookieCtl"
     });
     $stateProvider.state('dataTables.litRxns', {
-        url: '/S1:id',
+        url: '/litrxns:id',
         templateUrl: 'partials/lit-rxns.html',
         controller: "LitRxnsCtl"
     });
     $stateProvider.state('dataTables.rxnRules', {
-        url: '/S2',
+        url: '/rxnrules',
         templateUrl: 'partials/rxn-rules.html',
         controller: "RxnRulesCtl"
     });
