@@ -24,6 +24,17 @@ angular.module('app').factory('dataTableFactory', function($rootScope){
                 function (err) {console.error(err);}
             );
         },
+        filterList: function(list, field, value) {
+            // filtering but we have to handle names carefully (sometimes not present) and use RegEx with formula
+            var filteredList = [];
+            var patt = new RegExp(value, 'i');
+            for (var i = 0; i < list.length; i++) {
+                if (patt.test(list[i][field].toString())){
+                    filteredList.push(list[i])
+                }
+            }
+            return filteredList
+        },
         //Popups with image & name
         getCompoundName: function(db){
             return function($event, id) {
@@ -86,8 +97,8 @@ angular.module('app').controller('LitRxnsCtl', function($scope,$stateParams,$coo
 
     $scope.$watch('currentPage + searchType + searchComp', function() {
         if (reactions) {
-            var filtered = sharedFactory.filterList(reactions, "Type", $scope.searchType);
-            filtered = sharedFactory.filterList(filtered, "Metabolite", $scope.searchComp);
+            var filtered = dataTableFactory.filterList(reactions, "Type", $scope.searchType);
+            filtered = dataTableFactory.filterList(filtered, "Metabolite", $scope.searchComp);
             $scope.paginatedData = sharedFactory.paginateList(filtered, $scope.currentPage, $scope.numPerPage);
             $scope.items = filtered.length;
             $cookieStore.put("S1_Page", $scope.currentPage);
@@ -126,7 +137,7 @@ angular.module('app').controller('RxnRulesCtl', function($rootScope,$scope,$stat
 
     $scope.$watch('currentPage + searchName', function() {
         if (operators) {
-            var filtered = sharedFactory.filterList(operators, "_id", $scope.searchName);
+            var filtered = dataTableFactory.filterList(operators, "_id", $scope.searchName);
             $scope.paginated = sharedFactory.paginateList(filtered, $scope.currentPage, $scope.numPerPage);
             $scope.items = filtered.length;
             $cookieStore.put("S2_Page", $scope.currentPage);
