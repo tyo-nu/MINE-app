@@ -129,24 +129,16 @@ angular.module('app').controller('cookieCtl',function($scope,$cookieStore) {
 });
 
 angular.module('app').controller('databaseCtl',  function ($scope,$state,sharedFactory,$cookieStore) {
-    $scope.databases =  [
-        {id:0, name:'KEGG',  db :'KEGGexp2'},
-        {id:1, name:'EcoCyc', db : 'EcoCycexp2'},
-        {id:2, name:'YMDB', db : 'YMDBexp2'},
-        {id:3, name:'Chemical Damage SEED', db : 'CDMINE'},
-    ];
-
-    var updateSelection = function() {console.log("ping"); $scope.databases.forEach(
-        function (option) {if (sharedFactory.dbId == option.db) $scope.database = $scope.databases[option.id]})};
+    $scope.subDB = function(ev) {
+        if (!ev || ev.which==13) sharedFactory.setDB($scope.database); // looks for enter key if triggered by keypress
+    };
 
     var database_id = $cookieStore.get('mine_db');
-    if (typeof(database_id) != 'undefined') {sharedFactory.dbId = database_id}
-    updateSelection();
-    $scope.$on("dbUpdated", updateSelection);
+    if (typeof(database_id) != 'undefined') {$scope.database = database_id;}
+    else {$scope.database = "KEGGexp2";}
+    $scope.subDB();
 
-    $scope.$watch('database', function() {
-        sharedFactory.setDB($scope.database.db)
-    });
+    $scope.$on("dbUpdated", function(){$scope.database = sharedFactory.dbId});
 });
 
 angular.module('app').config(function($stateProvider, $urlRouterProvider) {
