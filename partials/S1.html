@@ -55,7 +55,7 @@
 					<li>
 						<a ng-if="ref.slice(0,7) == 'MetaCyc'" ng-href="http://metacyc.org/META/NEW-IMAGE?object={{ref.slice(9)}}">{{ref}}</a>
 						<a ng-if="parseInt(ref)" ng-href="http://www.ncbi.nlm.nih.gov/pubmed/{{ref}}">{{ref}}</a>
-						<span ng-if="!parseInt(ref)">{{ref}}</span>
+						<span ng-if="!parseInt(ref) && ref.slice(0,7) != 'MetaCyc'">{{ref}}</span>
 					</li>
 				</ul>
             </td>
