@@ -43,6 +43,7 @@ angular.module('app').factory('CompoundDataFactory', function($rootScope){
         //Popups with image & name
         getCompoundName: function(db){
             return function($event, id) {
+                //only trigger for elements which don't already have popovers and are not coreactants
                 if ((!$($event.target).data('bs.popover')) && (id[0] == "C")) {
                     var Promise = factory.services.get_comps(db, [id]);
                     Promise.then(
@@ -55,8 +56,10 @@ angular.module('app').factory('CompoundDataFactory', function($rootScope){
                                     title: cTitle,
                                     trigger: 'hover',
                                     html: true,
-                                    content: '<img id="img-popover" src="' + factory.img_src + id +'.svg" width="250">'
+                                    content: '<img id="img-popover" src="' + factory.img_src + id +'.svg" width="250">' +
+                                    '<p style="text-align: center">Click for more detail</p>'
                                 });
+                                $($event.target).popover('show')
                             }
                         },
                         function (err) {console.log(err);}
