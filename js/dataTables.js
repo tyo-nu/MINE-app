@@ -1,11 +1,11 @@
 /* global angular */
 /* global mineDatabaseServices */
 
-angular.module('app').factory('dataTableFactory', function($rootScope){
+angular.module('app').factory('dataTableFactory', function($rootScope, sharedFactory){
     var factory = {
         services: new mineDatabaseServices('http://bio-data-1.mcs.anl.gov/services/mine-database'),
         img_src: "http://lincolnpark.chem-eng.northwestern.edu/Smiles_dump/",
-        db: "CDMINE-16-11-30",
+        db: sharedFactory.dbId,
         getIds: function(db, collections) {
             var promise = factory.services.get_ids(db, collections, "");
             promise.then(function (result) {
@@ -112,7 +112,6 @@ angular.module('app').controller('RxnRulesCtl', function($rootScope,$scope,$stat
     $scope.numPerPage = 20;
     $scope.maxSize = 5;
     $scope.img_src = sharedFactory.img_src+'op_images';
-    sharedFactory.setDB(dataTableFactory.db); //Set to the Chemical Damage Database
     var operators;
     $scope.searchName = "";
 
