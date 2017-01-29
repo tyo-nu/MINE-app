@@ -2,6 +2,17 @@
 
 angular.module('app').factory('CompoundDataFactory', function($rootScope, sharedFactory){
     var factory = {
+        services: new mineDatabaseServices('http://bio-data-1.mcs.anl.gov/services/mine-database'),
+        img_src: "http://lincolnpark.chem-eng.northwestern.edu/Smiles_dump/",
+        getIds: function(db, collections) {
+            var promise = factory.services.get_ids(db, collections, "");
+            promise.then(function (result) {
+                    factory.ids = result;
+                    $rootScope.$broadcast("idsLoaded")
+                },
+                function (err) {console.error("get_ids fail");}
+            );
+        },
         getCompound: function (db, id){
             var promise;
             //Controls for _id and MINE ids
@@ -28,15 +39,16 @@ angular.module('app').factory('CompoundDataFactory', function($rootScope, shared
             );
         },
         //EC filtering
-        filterList: function(reactions, searchOn) {
-            if (searchOn && (typeof(reactions) != 'undefined') && (reactions.length > 0)) {
-                return reactions.filter(function(rxn){
-                    return rxn.Operators.some(function (op) {
-                        return op.indexOf(searchOn) > -1;
-                    });
-                });
+        filterList: function(list, field, value) {
+            // filtering but we have to handle names carefully (sometimes not present) and use RegEx with formula
+            var filteredList = [];
+            var patt = new RegExp(value, 'i');
+            for (var i = 0; i < list.length; i++) {
+                if (patt.test(list[i][field].toString())){
+                    filteredList.push(list[i])
+                }
             }
-            else{return reactions;}
+            return filteredList
         },
         //Popups with image & name
         getCompoundName: function(db){
@@ -155,7 +167,7 @@ angular.module('app').controller('rxnListCtl',  function($scope,$stateParams,Com
 
     $scope.$watch('currentPage + searchOn', function() {
         if (reactions) {
-            var filteredRxns = CompoundDataFactory.filterList(reactions, $scope.searchOn);
+            var filteredRxns = CompoundDataFactory.filterList(reactions, 'Operators', $scope.searchOn);
             $scope.filteredData = sharedFactory.paginateList(filteredRxns, $scope.currentPage, $scope.numPerPage);
             $scope.items = filteredRxns.length;
         }

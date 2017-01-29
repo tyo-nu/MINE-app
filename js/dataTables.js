@@ -64,27 +64,28 @@ angular.module('app').factory('dataTableFactory', function($rootScope, sharedFac
 });
 
 angular.module('app').controller('LitRxnsCtl', function($scope,$stateParams,$cookieStore,sharedFactory,dataTableFactory){
+angular.module('app').controller('LitRxnsCtl', function($scope,$stateParams,$cookieStore,sharedFactory,CompoundDataFactory){
     $scope.currentPage = 1;
     $scope.numPerPage = 50;
     $scope.maxSize = 6;
     $scope.getImagePath = sharedFactory.getImagePath;
     var top30db = "ChemDamageLit";
-    sharedFactory.setDB(dataTableFactory.db); //Set to the Chemical Damage Database
+    //sharedFactory.setDB(top30db); //Set to the Chemical Damage Database
     var reactions;
     $scope.searchType = "";
     $scope.searchComp = "";
     console.log($stateParams.id);
 
     //if specific reactions specified, get only those
-    if ($stateParams.id) {dataTableFactory.getReactions(top30db, $stateParams.id.split(','))}
-    else {dataTableFactory.getIds(top30db, 'reactions')}
+    if ($stateParams.id) {CompoundDataFactory.getReactions(top30db, $stateParams.id.split(','))}
+    else {CompoundDataFactory.getIds(top30db, 'reactions')}
 
     $scope.$on("idsLoaded", function () {
-        dataTableFactory.getReactions(top30db, dataTableFactory.ids);
+        CompoundDataFactory.getReactions(top30db, CompoundDataFactory.ids);
     });
 
     $scope.$on("rxnLoaded", function () {
-        reactions = sharedFactory.sortList(dataTableFactory.reactions, "Metabolite", false);
+        reactions = sharedFactory.sortList(CompoundDataFactory.reactions, "Metabolite", false);
         $scope.items = reactions.length;
         //if there is a cookie for which page the user was last on, use it unless it's beyond the end of the list
         if($cookieStore.get("S1_Page")<($scope.items/$scope.numPerPage)) {$scope.currentPage = $cookieStore.get("S1_Page")}
@@ -92,13 +93,13 @@ angular.module('app').controller('LitRxnsCtl', function($scope,$stateParams,$coo
         $scope.$apply();
     });
 
-    $scope.getCompoundName = dataTableFactory.getCompoundName(top30db);
+    $scope.getCompoundName = CompoundDataFactory.getCompoundName(top30db);
     $scope.parseInt = parseInt;
 
     $scope.$watch('currentPage + searchType + searchComp', function() {
         if (reactions) {
-            var filtered = dataTableFactory.filterList(reactions, "Type", $scope.searchType);
-            filtered = dataTableFactory.filterList(filtered, "Metabolite", $scope.searchComp);
+            var filtered = CompoundDataFactory.filterList(reactions, "Type", $scope.searchType);
+            filtered = CompoundDataFactory.filterList(filtered, "Metabolite", $scope.searchComp);
             $scope.paginatedData = sharedFactory.paginateList(filtered, $scope.currentPage, $scope.numPerPage);
             $scope.items = filtered.length;
             $cookieStore.put("S1_Page", $scope.currentPage);
@@ -106,7 +107,7 @@ angular.module('app').controller('LitRxnsCtl', function($scope,$stateParams,$coo
     });
 });
 
-angular.module('app').controller('RxnRulesCtl', function($rootScope,$scope,$stateParams,$cookieStore,sharedFactory,dataTableFactory){
+angular.module('app').controller('RxnRulesCtl', function($rootScope,$scope,$stateParams,$cookieStore,sharedFactory,CompoundDataFactory){
 
     $scope.currentPage = 1;
     $scope.numPerPage = 20;
@@ -114,11 +115,10 @@ angular.module('app').controller('RxnRulesCtl', function($rootScope,$scope,$stat
     $scope.img_src = sharedFactory.img_src+'op_images';
     var operators;
     $scope.searchName = "";
-
-    dataTableFactory.getIds(dataTableFactory.db, 'operators');
+    CompoundDataFactory.getIds(sharedFactory.dbId, 'operators');
 
     $scope.$on("idsLoaded", function () {
-        var promise = dataTableFactory.services.get_ops(dataTableFactory.db, dataTableFactory.ids.sort());
+        var promise = CompoundDataFactory.services.get_ops(sharedFactory.dbId, CompoundDataFactory.ids.sort());
         promise.then(function (result) {
                 operators = result;
                 if ($cookieStore.get("S2_Page") < ($scope.items / $scope.numPerPage)) {
@@ -136,7 +136,7 @@ angular.module('app').controller('RxnRulesCtl', function($rootScope,$scope,$stat
 
     $scope.$watch('currentPage + searchName', function() {
         if (operators) {
-            var filtered = dataTableFactory.filterList(operators, "_id", $scope.searchName);
+            var filtered = CompoundDataFactory.filterList(operators, "_id", $scope.searchName);
             $scope.paginated = sharedFactory.paginateList(filtered, $scope.currentPage, $scope.numPerPage);
             $scope.items = filtered.length;
             $cookieStore.put("S2_Page", $scope.currentPage);
