@@ -82,7 +82,7 @@ angular.module('app').controller('acompoundCtl', function($scope,$stateParams,sh
     });
 
     $scope.mapLink = function(keggMap){
-        return('http://www.genome.jp/kegg-bin/show_pathway?' + keggMap.slice(0,8) + '+' +
+        return('http://www.genome.jp/kegg-bin/show_pathway?map' + keggMap.slice(0,5) + '+' +
             $scope.data.DB_links.KEGG.join('+'));
     };
 
