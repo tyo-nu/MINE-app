@@ -5,7 +5,6 @@ angular.module('app').factory('CompoundDataFactory', function($rootScope){
         getCompound: function (db, id){
             var promise;
             //Controls for _id and MINE ids
-            console.log(id)
             if (parseInt(id)) {promise = factory.services.get_comps(db, [parseInt(id)]);}
             else{promise = factory.services.get_comps(db, [id]);}
             promise.then(
@@ -59,6 +58,7 @@ angular.module('app').factory('CompoundDataFactory', function($rootScope){
                                     content: '<img id="img-popover" src="' + factory.img_src + id +'.svg" width="250">' +
                                     '<p style="text-align: center">Click for more detail</p>'
                                 });
+                                $('.popover').not(this).hide();
                                 $($event.target).popover('show')
                             }
                         },
