@@ -49,7 +49,7 @@ angular.module('app').factory('metabolomicsDataFactory', function($rootScope){
                     factory.hits = result;
                     $rootScope.$broadcast("metabolitesLoaded")
                 },
-                function(err){console.log(err)}
+                function(err){alert("An Error occurred!\n\n" + err.error.error);}
             );
         },
         filterHits: function(list, mz, adduct, formula, compound, mine) {
