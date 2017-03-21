@@ -82,8 +82,8 @@ angular.module('app').controller('acompoundCtl', function($scope,$stateParams,sh
     });
 
     $scope.mapLink = function(keggMap){
-        return('http://www.genome.jp/kegg-bin/show_pathway?map' + keggMap.slice(0,5) + '+' +
-            $scope.data.DB_links.KEGG.join('+'));
+        return('http://www.genome.jp/kegg-bin/show_pathway?map' + keggMap.replace(/^map/,"").slice(0,5)
+        + '+' + $scope.data.DB_links.KEGG.join('+'));
     };
 
     //This should probably be a directive
@@ -102,7 +102,7 @@ angular.module('app').controller('acompoundCtl', function($scope,$stateParams,sh
                 return('http://kanaya.naist.jp/knapsack_jsp/information.jsp?word=' + id);
                 break;
             case "Model_SEED":
-                return('http://seed-viewer.theseed.org/seedviewer.cgi?page=CompoundViewer&compound=' + id);
+                return('http://modelseed.org/biochem/compounds/' + id);
                 break;
             case "NIKKAJI":
                 return('http://nikkajiweb.jst.go.jp/nikkaji_web/pages/top_e.jsp?CONTENT=syosai&SN=' + id);
