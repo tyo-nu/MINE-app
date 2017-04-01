@@ -7,7 +7,7 @@ angular.module('app').factory('sharedFactory', function($state, $cookieStore, $r
         db_dependent_states: ['compounds', 'metabolomicsCompounds', 'structuresres', 'operator', 'acompound.reactants',
             'acompound.products', 'acompound.overview'],
         selected_model: "",
-        img_src: "http://lincolnpark.chem-eng.northwestern.edu/Smiles_dump/",
+        img_src: "http://webfba.chem-eng.northwestern.edu/MINE_imgs/",
         services: new mineDatabaseServices('http://bio-data-1.mcs.anl.gov/services/mine-database'),
         numPerPage: 25, // default number of results to show per page
         setDB: function (db_id) {
