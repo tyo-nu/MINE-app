@@ -200,6 +200,7 @@ angular.module('app').controller('metabolomicsCompoundsCtl', function($scope,$st
     $scope.getImagePath = sharedFactory.getImagePath;
     $scope.selectedModels = metabolomicsDataFactory.metaModels;
     $scope.factory = metabolomicsDataFactory;
+    $scope.db = $stateParams.db;
     var filteredData = [];
 
     // if we get here w/o parameters (ie direct link), return to the search screen

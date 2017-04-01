@@ -13,18 +13,17 @@ angular.module('app').factory('sharedFactory', function($state, $cookieStore, $r
         setDB: function (db_id) {
             console.log("setDB:"+db_id);
             if (factory.dbId != db_id) {
-                var state_name = $state.current.name;
                 factory.dbId = db_id;
                 $cookieStore.put('mine_db', db_id);
                 $rootScope.$broadcast("dbUpdated");
-                if (factory.db_dependent_states.indexOf(state_name) > -1) $state.go($state.current, {}, {reload: true});
+                $state.go($state.current, {db:db_id});
             }
         },
         getImagePath: function (id) {
             if (id) {
                 var img_root = "http://webfba.chem-eng.northwestern.edu/MINE_imgs/";
                 var dir_depth = 4;
-                var ext = '.svg'
+                var ext = '.svg';
                 for (i = 0; i < dir_depth; i++) {
                     img_root += id[i] + "/";
                 }
@@ -141,7 +140,6 @@ angular.module('app').controller('databaseCtl',  function ($scope,$state,sharedF
         {id:1, name:'EcoCyc', db : 'EcoCycexp2'},
         {id:2, name:'YMDB', db : 'YMDBexp2'},
         {id:3, name:'Chemical Damage SEED', db : 'CDMINE'},
-        {id:4, name:'CD-MINE', db : 'CDMINE-16-11-30'}
     ];
 
     var updateSelection = function() {console.log("ping"); $scope.databases.forEach(
@@ -175,7 +173,7 @@ angular.module('app').config(function($stateProvider, $urlRouterProvider) {
 
     // COMPOUNDS QUICK SEARCH see textSearch.js
     $stateProvider.state('compounds', {
-        url: '/compounds:search?db',
+        url: '/compounds-:search?db',
         views: {
             '':{
                 templateUrl: 'partials/compoundslist.html',
@@ -204,7 +202,7 @@ angular.module('app').config(function($stateProvider, $urlRouterProvider) {
 
     // AN INDIVIDUAL COMPOUND see acompound.js
     $stateProvider.state('acompound', {
-        url: '/acompound:id?db',
+        url: '/acompound-:id?db',
         templateUrl: 'partials/acompound.html',
         controller: "acompoundCtl"
     });
@@ -225,7 +223,7 @@ angular.module('app').config(function($stateProvider, $urlRouterProvider) {
     });
 
     $stateProvider.state('operator', {
-        url: '/operator:id',
+        url: '/operator-:id?db',
         views: {
             '': {
                 templateUrl: 'partials/operator.html',
@@ -269,7 +267,7 @@ angular.module('app').config(function($stateProvider, $urlRouterProvider) {
         }
     });
     $stateProvider.state('metabolomicsCompounds', {
-      url: '/metabolomicsCompounds:search',
+      url: '/metabolomicsCompounds-:search?db',
       views: {
             '':{
                 templateUrl: 'partials/metaboliteslist.html',
@@ -285,7 +283,7 @@ angular.module('app').config(function($stateProvider, $urlRouterProvider) {
 
     // STRUCTURES see structures.js
     $stateProvider.state('structuresres', {
-        url: '/structuresres:search',
+        url: '/structuresres:search?db',
         views: {
             '':{
                 templateUrl: 'partials/compoundslist.html',

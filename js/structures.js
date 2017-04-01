@@ -8,7 +8,7 @@ angular.module('app').factory('structureSearchFactory', function(){
     };
 });
 
-angular.module('app').controller('structureCtl',  function($scope,$state,structureSearchFactory) {
+angular.module('app').controller('structureCtl',  function($scope,$state,sharedFactory,structureSearchFactory) {
     $scope.stype=structureSearchFactory.stype;
     $scope.maxres_options = [100, 200, 500, 1000];
     $scope.maxres=structureSearchFactory.maxres;
@@ -31,7 +31,7 @@ angular.module('app').controller('structureCtl',  function($scope,$state,structu
                 structureSearchFactory.stype = $scope.stype;
                 structureSearchFactory.maxres = parseInt($scope.maxres);
                 structureSearchFactory.sthresh = parseFloat($scope.sthresh);
-                $state.go('structuresres');
+                $state.go('structuresres', {db:sharedFactory.dbId});
             }
             else {alert('Search Structure is blank')}
         }, function (error) {
@@ -40,7 +40,8 @@ angular.module('app').controller('structureCtl',  function($scope,$state,structu
     }
 });
 
-angular.module('app').controller('structuresresCtl', function($scope,$state,sharedFactory,structureSearchFactory){
+angular.module('app').controller('structuresresCtl',
+    function($scope,$state,$stateParams,sharedFactory,structureSearchFactory){
     $scope.currentPage = 1;
     $scope.numPerPage = sharedFactory.numPerPage;
     $scope.maxSize = 5;
@@ -51,6 +52,8 @@ angular.module('app').controller('structuresresCtl', function($scope,$state,shar
     $scope.searchFormula = "";
     $scope.searchCompound = "";
     $scope.searchMINE = "";
+    $scope.getImagePath = sharedFactory.getImagePath;
+    $scope.db = $stateParams.db;
     var data = [];
     var filteredData = [];
     // the following logic should be moved to factory in future

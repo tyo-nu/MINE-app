@@ -154,6 +154,7 @@ angular.module('app').controller('rxnListCtl',  function($scope,$stateParams,Com
     $scope.numPerPage = sharedFactory.numPerPage;
     $scope.maxSize = 5;
     $scope.searchOn = '';
+    $scope.db = $stateParams.db;
     var reactions;
 
     $scope.getCompoundName = CompoundDataFactory.getCompoundName(sharedFactory.dbId);

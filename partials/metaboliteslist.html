@@ -41,7 +41,7 @@
         </thead>
         <tr ng-repeat="f in displayData" ng-class="color(f.native_hit,f.Likelihood_score)">
             <td  style="vertical-align:middle">
-                <a ui-sref="acompound.overview({id:f.MINE_id})">
+                <a ui-sref="acompound.overview({id:f.MINE_id,db:db})">
                     <button class="button btn-block btn-primary"> {{f.MINE_id}}</button>
                 </a>
             </td>

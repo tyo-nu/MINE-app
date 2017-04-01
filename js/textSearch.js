@@ -72,6 +72,7 @@ angular.module('app').controller('compoundsCtl', function($scope,$stateParams,sh
     $scope.searchFormula = "";
     $scope.searchCompound = "";
     $scope.searchMINE = "";
+    $scope.db = $stateParams.db;
     var data=[];
     var filteredData=[];
     var promise;
