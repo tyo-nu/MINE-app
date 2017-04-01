@@ -68,7 +68,7 @@ angular.module('app').controller('compoundsCtl', function($scope,$stateParams,sh
     $scope.items=0;
     $scope.totalItems=-1;
     $scope.selected_model = sharedFactory.selected_model;
-    $scope.img_src = sharedFactory.img_src;
+    $scope.getImagePath = sharedFactory.getImagePath;
     $scope.searchFormula = "";
     $scope.searchCompound = "";
     $scope.searchMINE = "";

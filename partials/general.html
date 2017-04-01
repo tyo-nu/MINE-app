@@ -3,8 +3,9 @@
 		<tr>
 			<td></td>
             <td>
-            	<img id="compound-image" ng-src="{{img_src+data._id}}.svg" err-src="{{img_src+data._id}}.png"
-					 height="325" data-toggle="modal" data-target="#modal" tooltip-trigger tooltip="Click to expand.">
+            	<img id="compound-image" ng-src="{{getImagePath(data._id)}}"
+					 height="325" data-toggle="modal" data-target="#modal"
+					 tooltip-trigger tooltip="Click to expand.">
             </td>
 		</tr>
 		<tr>
@@ -57,7 +58,7 @@
         <h4 class="modal-title">Compound {{data.MINE_id}}</h4>
       </div>
       <div class="modal-body">
-		  <img ng-src="{{img_src+data._id}}.svg" err-src="{{img_src+data._id}}.png" width="100%">
+		  <img ng-src="{{getImagePath(data._id)}}" width="100%">
 	  </div>
     </div>
   </div>

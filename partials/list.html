@@ -1,6 +1,6 @@
-<pagination total-items="totalItems" page="currentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" num-pages="numPages"  style="cursor: pointer;"></pagination>
-
-
+<pagination total-items="totalItems" page="currentPage" max-size="maxSize"
+            class="pagination-sm" boundary-links="true" num-pages="numPages"
+            style="cursor: pointer;"></pagination>
       <accordion-group  ng-repeat="p in filteredData" is-open="false"> 
         <accordion-heading >
         <div style="color:{{colour(p.native_hit,p.min_steps)}}">
@@ -28,7 +28,7 @@
                 <td style="text-align: center"> 
                 <Ui style="list-style: none;">
                   <li><a  ui-sref="acompound.overview({id:i._id})">
-                    <img class="logo" ng-src="http://lincolnpark.chem-eng.northwestern.edu/Smiles_dump/{{i._id}}.svg" width="70" >
+                    <img class="logo" ng-src="{{getImagePath(data._id)}}" width="70" >
                   </a></li>
                   <li  >{{i.Names[0]}}</li>
               </Ui>
@@ -42,4 +42,5 @@
         </div>
       </accordion-group>
 
-    <pagination total-items="totalItems" page="currentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" num-pages="numPages"  style="cursor: pointer;"></pagination>
+    <pagination total-items="totalItems" page="currentPage" max-size="maxSize"
+                class="pagination-sm" boundary-links="true" num-pages="numPages"  style="cursor: pointer;"></pagination>

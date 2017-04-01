@@ -37,7 +37,8 @@
                     </a>
                 </td>
                 <td>
-                    <img ng-src="http://lincolnpark.chem-eng.northwestern.edu/Smiles_dump/{{compound._id}}.svg" err-src="{{img_src+compound._id}}.png" width="150" ></td>
+                    <img ng-src="{{getImagePath(compound._id)}}" width="150">
+                </td>
                 <td  style="vertical-align:middle">
                     <div ng-repeat="name in compound.Names|limitTo:5">{{name}}<br></div>
                 </td>

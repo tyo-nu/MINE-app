@@ -4,7 +4,8 @@
             {{comp[0]}}
         </div>
          <a  ui-sref="acompound.overview({id:comp[1]})">
-            <img ng-mouseover="getCompoundName($event, comp[1])" ng-src="{{img_src+comp[1]}}.svg" err-src="{{img_src+comp[1]}}.png" width="95">
+            <img ng-mouseover="getCompoundName($event, comp[1])"
+                 ng-src="{{getImagePath(comp[1])}}" width="95">
         </a>
     </div>
     <span style="font-size:40px"> &#8594</span>
@@ -13,7 +14,8 @@
             {{comp[0]}}
         </div>
         <a  ui-sref="acompound.overview({id:comp[1]})">
-            <img ng-mouseover="getCompoundName($event, comp[1])" ng-src="{{img_src+comp[1]}}.svg" err-src="{{img_src+comp[1]}}.png" width="95">
+            <img ng-mouseover="getCompoundName($event, comp[1])"
+                 ng-src="{{getImagePath(comp[1])}}" width="95">
         </a>
     </div>
 </div>

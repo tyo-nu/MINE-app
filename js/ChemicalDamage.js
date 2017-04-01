@@ -54,7 +54,7 @@ angular.module('app').controller('s1Ctl', function($scope,$stateParams,$cookieSt
     $scope.currentPage = 1;
     $scope.numPerPage = 50;
     $scope.maxSize = 6;
-    $scope.img_src = sharedFactory.img_src;
+    $scope.getImagePath = sharedFactory.getImagePath;
     var top30db = "ChemDamageLit";
     sharedFactory.setDB(ChemicalDamageFactory.db); //Set to the Chemical Damage Database
     var reactions;

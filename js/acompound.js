@@ -1,7 +1,6 @@
-angular.module('app').factory('CompoundDataFactory', function($rootScope){
+angular.module('app').factory('CompoundDataFactory', function($rootScope, sharedFactory){
     var factory = {
         services: new mineDatabaseServices('http://bio-data-1.mcs.anl.gov/services/mine-database'),
-        img_src: "http://lincolnpark.chem-eng.northwestern.edu/Smiles_dump/",
         getCompound: function (db, id){
             var promise;
             //Controls for _id and MINE ids
@@ -55,7 +54,7 @@ angular.module('app').factory('CompoundDataFactory', function($rootScope){
                                     title: cTitle,
                                     trigger: 'hover',
                                     html: true,
-                                    content: '<img id="img-popover" src="' + factory.img_src + id +'.svg" width="250">' +
+                                    content: '<img id="img-popover" src="' + sharedFactory.getImagePath(id) +'" width="250">' +
                                     '<p style="text-align: center">Click for more detail</p>'
                                 });
                                 $('.popover').not(this).hide();
@@ -73,7 +72,7 @@ angular.module('app').factory('CompoundDataFactory', function($rootScope){
 
 angular.module('app').controller('acompoundCtl', function($scope,$stateParams,sharedFactory,CompoundDataFactory){
     CompoundDataFactory.getCompound(sharedFactory.dbId, $stateParams.id);
-    $scope.img_src = sharedFactory.img_src;
+    $scope.getImagePath = sharedFactory.getImagePath;
     if (typeof($stateParams.db) != 'undefined') sharedFactory.setDB($stateParams.db);
 
     $scope.$on("compoundLoaded", function () {
@@ -150,7 +149,7 @@ angular.module('app').controller('reactantInCtl', function($scope,$stateParams,s
 });
 
 angular.module('app').controller('rxnListCtl',  function($scope,$stateParams,CompoundDataFactory, sharedFactory) {
-    $scope.img_src = sharedFactory.img_src;
+    $scope.getImagePath = sharedFactory.getImagePath;
     $scope.currentPage = 1;
     $scope.numPerPage = sharedFactory.numPerPage;
     $scope.maxSize = 5;

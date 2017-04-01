@@ -197,7 +197,7 @@ angular.module('app').controller('metabolomicsCompoundsCtl', function($scope,$st
     $scope.searchMINE = "";
     $scope.sortColumn = 'Generation';
     $scope.sortInvert = true;
-    $scope.img_src = sharedFactory.img_src;
+    $scope.getImagePath = sharedFactory.getImagePath;
     $scope.selectedModels = metabolomicsDataFactory.metaModels;
     $scope.factory = metabolomicsDataFactory;
     var filteredData = [];

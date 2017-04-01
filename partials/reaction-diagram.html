@@ -4,7 +4,8 @@
             {{comp.stoich}}
         </div>
          <a ui-sref="{{(comp.c_id[0]=='C') ? 'acompound.overview({id:comp.c_id})' : '.'}}">
-            <img ng-mouseover="getCompoundName($event, comp.c_id)" ng-src="{{img_src+comp.c_id}}.svg" err-src="{{img_src+comp.c_id}}.png" width="95">
+            <img ng-mouseover="getCompoundName($event, comp.c_id)"
+                 ng-src="{{getImagePath(comp.c_id)}}" width="95">
         </a>
     </div>
     <span style="font-size:40px"> &#8594</span>
@@ -13,7 +14,8 @@
             {{comp.stoich}}
         </div>
         <a ui-sref="{{(comp.c_id[0]=='C') ? 'acompound.overview({id:comp.c_id})' : '.'}}">
-            <img ng-mouseover="getCompoundName($event, comp.c_id)" ng-src="{{img_src+comp.c_id}}.svg" err-src="{{img_src+comp.c_id}}.png" width="95">
+            <img ng-mouseover="getCompoundName($event, comp.c_id)"
+                 ng-src="{{getImagePath(comp.c_id)}}" width="95">
         </a>
     </div>
 </div>

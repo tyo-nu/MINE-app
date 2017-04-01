@@ -20,6 +20,17 @@ angular.module('app').factory('sharedFactory', function($state, $cookieStore, $r
                 if (factory.db_dependent_states.indexOf(state_name) > -1) $state.go($state.current, {}, {reload: true});
             }
         },
+        getImagePath: function (id) {
+            if (id) {
+                var img_root = "http://webfba.chem-eng.northwestern.edu/MINE_imgs/";
+                var dir_depth = 4;
+                var ext = '.svg'
+                for (i = 0; i < dir_depth; i++) {
+                    img_root += id[i] + "/";
+                }
+                return img_root + id + ext
+            }
+        },
         downloadFile: function (contents,filename) {
             // Warning: This function may not work with IE!
             var link = document.createElement('a');
