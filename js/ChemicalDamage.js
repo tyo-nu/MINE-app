@@ -24,6 +24,17 @@ angular.module('app').factory('ChemicalDamageFactory', function($rootScope){
                 function (err) {console.error(err);}
             );
         },
+        filterList: function(list, field, value) {
+            // filtering but we have to handle names carefully (sometimes not present) and use RegEx with formula
+            var filteredList = [];
+            var patt = new RegExp(value, 'i');
+            for (var i = 0; i < list.length; i++) {
+                if (patt.test(list[i][field].toString())){
+                    filteredList.push(list[i])
+                }
+            }
+            return filteredList
+        },
         //Popups with image & name
         getCompoundName: function(db){
             return function($event, id) {
@@ -73,7 +84,7 @@ angular.module('app').controller('s1Ctl', function($scope,$stateParams,$cookieSt
     });
 
     $scope.$on("rxnLoaded", function () {
-        reactions = sharedFactory.sortList(ChemicalDamageFactory.reactions, "Metabolite", false);
+        reactions = sharedFactory.sortList(ChemicalDamageFactory.reactions, "Compound", false);
         $scope.items = reactions.length;
         //if there is a cookie for which page the user was last on, use it unless it's beyond the end of the list
         if($cookieStore.get("S1_Page")<($scope.items/$scope.numPerPage)) {$scope.currentPage = $cookieStore.get("S1_Page")}
@@ -86,8 +97,8 @@ angular.module('app').controller('s1Ctl', function($scope,$stateParams,$cookieSt
 
     $scope.$watch('currentPage + searchType + searchComp', function() {
         if (reactions) {
-            var filtered = sharedFactory.filterList(reactions, "Type", $scope.searchType);
-            filtered = sharedFactory.filterList(filtered, "Metabolite", $scope.searchComp);
+            var filtered = ChemicalDamageFactory.filterList(reactions, "Type", $scope.searchType);
+            filtered = ChemicalDamageFactory.filterList(filtered, "Compound", $scope.searchComp);
             $scope.paginatedData = sharedFactory.paginateList(filtered, $scope.currentPage, $scope.numPerPage);
             $scope.items = filtered.length;
             $cookieStore.put("S1_Page", $scope.currentPage);
@@ -126,7 +137,7 @@ angular.module('app').controller('s2Ctl', function($rootScope,$scope,$stateParam
 
     $scope.$watch('currentPage + searchName', function() {
         if (operators) {
-            var filtered = sharedFactory.filterList(operators, "_id", $scope.searchName);
+            var filtered = ChemicalDamageFactory.filterList(operators, "_id", $scope.searchName);
             $scope.paginated = sharedFactory.paginateList(filtered, $scope.currentPage, $scope.numPerPage);
             $scope.items = filtered.length;
             $cookieStore.put("S2_Page", $scope.currentPage);
