@@ -5,7 +5,7 @@ angular.module('app').factory('ChemicalDamageFactory', function($rootScope){
     var factory = {
         services: new mineDatabaseServices('http://bio-data-1.mcs.anl.gov/services/mine-database'),
         img_src: "http://lincolnpark.chem-eng.northwestern.edu/Smiles_dump/",
-        db: "CDMINE-16-11-30",
+        db: "CDMINE",
         getIds: function(db, collections) {
             var promise = factory.services.get_ids(db, collections, "");
             promise.then(function (result) {
@@ -57,7 +57,7 @@ angular.module('app').controller('s1Ctl', function($scope,$stateParams,$cookieSt
     $scope.numPerPage = 50;
     $scope.maxSize = 6;
     $scope.getImagePath = sharedFactory.getImagePath;
-    var top30db = "ChemDamageLit";
+    var top30db = "Expected";
     sharedFactory.setDB(ChemicalDamageFactory.db); //Set to the Chemical Damage Database
     var reactions;
     $scope.searchType = "";

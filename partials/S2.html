@@ -3,19 +3,22 @@
     <button type="button btn-lg" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
     <strong> Notes on the table: </strong>
     <ol>
-        <li>The subscripts near atoms are SMARTS descriptors. A full description is available from
-            <a href="http://www.daylight.com/dayhtml/doc/theory/theory.smarts.html"> Daylight </a> but some of the
-            most common in this list are shown below</li>
+       <li>Clicking on the button in the ‘Basis’ column links to the reaction in Table S1 on which the Reaction Rule is based.</li>
+        <li>The subscripts near atoms describe the context of the atom. The letters indicate the following:
             <ul>
-                <li>R - Atom in specified number of rings eg: R0 is in no rings</li>
-                <li>r - Smallest ring atom is in contains specified number of bonds eg: r5 is in 5 member ring</li>
-                <li>a - Atom is aromatic</li>
-                <li>H = Atom connected to exactly the specified number of hydrogen atoms</li>
-                <li>D - Atom has specified number of non hydrogen bonds</li>
-                <li>-;@ - The dotted bond is a single bond but not in a ring</li>
-                <li>$() - Atom is connected to the group in parenthesis. Used to specify multiple electron withdrawing
-                    groups</li>
+                <li>W = Wildcard (any context)</li>
+                <li>0 = No ring structure (default)</li>
+                <li>B = Benzene (six-member aromatic ring with any functional groups coming off)</li>
+                <li>N = Nonbenzene ring (any ring that is not a six-member aromatic ring)</li>
+                <li>6 = Any six-member ring</li>
+                <li>5 = Any five-member ring</li>
+                <li>4 = Any four-member ring</li>
+                <li>L = Large ring (any ring larger than 6 atoms)</li>
+                <li>H = Any heteroaromatic ring</li>
+                <li>F = Any fused ring</li>
             </ul>
+            The numbers indicate the number of that type of ring in which the atom participates, with 9 being any number including 0.
+		</li>
     </ol>
 </div>
 <div class="col-lg-3">
