@@ -185,7 +185,7 @@ angular.module('app').controller('ms2searchCtl', function($scope,$state,$cookieS
     };
 });
 
-angular.module('app').controller('metabolomicsCompoundsCtl', function($scope,$state,metabolomicsDataFactory,sharedFactory){
+angular.module('app').controller('metabolomicsCompoundsCtl', function($scope,$state,$stateParams,metabolomicsDataFactory,sharedFactory){
     $scope.currentPage = 1;
     $scope.numPerPage = sharedFactory.numPerPage;
     $scope.maxSize = 5;
