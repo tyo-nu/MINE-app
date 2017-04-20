@@ -1,6 +1,6 @@
 <div class="col-lg-4">
     <br>
-    <h3 ng-show="!(items+1)">Searching...</h3>
+    <h3 ng-hide="totalItems+1">Searching...</h3>
     <h4 ng-show="totalItems+1">{{items}} of {{totalItems}} total hits</h4>
 
 </div>
@@ -50,6 +50,8 @@
         </tbody>
 
     </table>
+    <img ng-hide="totalItems+1" class="center-block"
+		 src="../img/Gray_circles_rotate.gif" width="50">
     <pagination class="pull-right" total-items="items" page="currentPage" max-size="maxSize" items-per-page="numPerPage"
                 class="pagination-sm" boundary-links="true"  style="cursor: pointer;"></pagination>
 </div>

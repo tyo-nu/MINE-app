@@ -3,7 +3,7 @@
 </div>
 <div class="col-sm-2">
     <br>
-    <h3 ng-show="!(items+1)">Searching...</h3>
+    <h3 ng-hide="totalItems+1">Searching...</h3>
     <button id="met-download" ng-show="items" class="btn btn-primary pull-right" ng-click="downloadResults()"
             analytics-on="click" analytics-category="Download" analytics-event="MetabolomicsResults">Download Results</button>
 </div>
@@ -64,6 +64,8 @@
             <td style="vertical-align: middle">{{f.NP_likeness}}</td>
         </tr>
     </table>
+    <img ng-hide="totalItems+1" class="center-block"
+		 src="../img/Gray_circles_rotate.gif" width="50">
     <pagination class="pull-right" total-items="items" page="currentPage" max-size="maxSize" class="pagination-sm"
                 boundary-links="true" items-per-page="numPerPage"  style="cursor: pointer;"></pagination>
 </div>

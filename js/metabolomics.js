@@ -190,6 +190,7 @@ angular.module('app').controller('metabolomicsCompoundsCtl', function($scope,$st
     $scope.numPerPage = sharedFactory.numPerPage;
     $scope.maxSize = 5;
     $scope.items = -1;
+    $scope.totalItems = -1;
     $scope.searchMZ = "";
     $scope.searchAdduct = "";
     $scope.searchFormula = "";
