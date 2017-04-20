@@ -105,7 +105,7 @@ angular.module('app').controller('compoundsCtl', function($scope,$stateParams,sh
 
     $scope.downloadResults = function(){
         var jsonObject = JSON.stringify(filteredData);
-        var exclude = {"$$hashKey":"", 'id':"", 'Likelihood_score':"", 'Sources':"", 'Formula':"", 'Mass':"", '_id':""};
+        var exclude = {"$$hashKey":"", 'id':"", 'Sources':"", 'Formula':"", 'Mass':"", '_id':""};
         var csv = sharedFactory.convertToCSV(jsonObject, exclude);
         var d = new Date();
         sharedFactory.downloadFile(csv, d.toISOString()+'.csv');
