@@ -16,17 +16,17 @@
 
             </div>
             <div class="col-sm-3 ">
-                <label>Charge </label><br>
-                <div class="form-inline form-control">
-                    <label class="radio-inline">
-                        <input id='pos-radio' type="radio"  ng-value="true" ng-model="charge" ng-checked="charge">
-                        Positive
+                <label>Charge </label>
+                <div class="btn-group btn-group-justified">
+                    <label class="btn btn-default" id='pos-radio'
+                           ng-model="charge" ng-checked="charge"
+                           btn-radio="true"> Positive
                     </label>
-                    <label class="radio-inline">
-                        <input id='neg-radio' type="radio" ng-value="false" ng-model="charge">
-                        Negative
+                    <label class="btn btn-default" id='neg-radio'
+                           btn-radio="false" ng-model="charge"> Negative
                     </label>
-                </div><br>
+                </div>
+                <br>
                 <label>Adducts <span tooltip-trigger tooltip="Select a range of adducts with Shift+Click or select
                 multiple individual adducts with Control(Command)+Click" tooltip-placement="right"
                                      class="glyphicon glyphicon-question-sign"></span></label>
@@ -58,7 +58,7 @@
                 <label>Filter results by Kovats RI <input type="checkbox" ng-model="filterKovats" ng-checked="filterKovats"></label>
                 <div range-slider min="0" max="20000" model-min="kovats[0]"
                      model-max="kovats[1]" disabled=!filterKovats show-values="true"></div>
-                <div id="halogen" class="checkbox">
+                <div id="halogen">
                     <label>Halogenated compounds <input type="checkbox" ng-model="halogens" ng-checked="0">
                     </label>
                 </div>
