@@ -45,16 +45,17 @@
     </nav>
     <div class="container">
         <div class="row">
-            <div class="col-lg-2">
+            <!-- right col -->
+            <div class="col-md-10 col-md-push-2">
+                <div ui-view></div>
+            </div>
+            <!-- left col -->
+            <div class="col-md-2 col-md-pull-10">
                 <h2>Database</h2>
                 <div ng-controller="databaseCtl">
                     <select id="db-select" class="form-control" ng-model="database" ng-options="d.name for d in databases"></select>
                 </div>
                 <div ui-view = "sidebar"></div>
-            </div>
-            <!-- col 2 -->
-            <div class="col-lg-10">
-                <div ui-view></div>
             </div>
         </div>
     </div>
