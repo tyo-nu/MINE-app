@@ -50,9 +50,13 @@
                 <div ui-view></div>
             </div>
             <!-- left col -->
-            <div class="col-md-2 col-md-pull-10">
-                <h2>Database</h2>
-                <div ng-controller="databaseCtl" class="input-group">
+            <div class="col-md-2 col-md-pull-10" ng-controller="databaseCtl">
+                <h2>Database </h2>
+                <div class="alert alert-info alert-dismissible" hidden>
+                        <button class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    Database updated
+                </div>
+                <div class="input-group">
                     <input type="text" id="db-select" class="form-control" ng-model="database" ng-keypress="subDB($event)">
                     <div class="input-group-btn">
                         <button class="btn btn-primary"  ng-click="subDB(false)">Set</button>

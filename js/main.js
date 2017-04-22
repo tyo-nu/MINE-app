@@ -19,7 +19,9 @@ angular.module('app').factory('sharedFactory', function($state, $cookieStore, $r
                 factory.dbId = db_id;
                 $cookieStore.put('mine_db', db_id);
                 $rootScope.$broadcast("dbUpdated");
-                $state.go($state.current, {db:db_id});
+                if ($state.current.name){
+                    $state.go($state.current.name, {db:db_id});
+                }
             }
         },
         getImagePath: function (id) {
@@ -138,7 +140,10 @@ angular.module('app').controller('databaseCtl',  function ($scope,$state,sharedF
     else {$scope.database = "KEGGexp2";}
     $scope.subDB();
 
-    $scope.$on("dbUpdated", function(){$scope.database = sharedFactory.dbId});
+    $scope.$on("dbUpdated", function(){
+        $scope.database = sharedFactory.dbId;
+        window.alert('Database has been set to '+ sharedFactory.dbId)
+    });
 });
 
 angular.module('app').config(function($stateProvider, $urlRouterProvider) {
