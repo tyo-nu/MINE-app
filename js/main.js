@@ -326,17 +326,4 @@ angular.module('app').config(function($stateProvider, $urlRouterProvider) {
         templateUrl: 'partials/S2.html',
         controller: "s2Ctl"
     });
-
-
-    //Operator Creator see creator.js
-    $stateProvider.state('creator', {
-        url: '/creator',
-        templateUrl: 'partials/creator.html',
-        controller: "opCreatorCtl"
-    });
-    $stateProvider.state('optest', {
-        url: '/test',
-        templateUrl: 'partials/optest.html',
-        controller: "opTestCtl"
-    });
 });
