@@ -12,7 +12,7 @@ angular.module('app').factory('sharedFactory', function($state, $cookieStore, $r
         numPerPage: 25, // default number of results to show per page
         setDB: function (db_id) {
             console.log("setDB:"+db_id);
-            if (factory.dbId != db_id) {
+            if (factory.dbId !== db_id) {
                 factory.dbId = db_id;
                 $cookieStore.put('mine_db', db_id);
                 $rootScope.$broadcast("dbUpdated");

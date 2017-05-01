@@ -62,15 +62,15 @@ angular.module('app').controller('structuresresCtl',
     if (!structureSearchFactory.mol) {
         $state.go('structure')
     }
-    else if (structureSearchFactory.stype == "exact"){
+    else if (structureSearchFactory.stype === "exact"){
         promise = services.structure_search(sharedFactory.dbId, "mol", structureSearchFactory.mol,
             sharedFactory.selected_model.name, "");
     }
-    else if (structureSearchFactory.stype == "substructure"){
+    else if (structureSearchFactory.stype === "substructure"){
         promise = services.substructure_search(sharedFactory.dbId, structureSearchFactory.mol,
             structureSearchFactory.maxres, sharedFactory.selected_model.name, "");
     }
-    else if (structureSearchFactory.stype == "similarity"){
+    else if (structureSearchFactory.stype === "similarity"){
         promise = services.similarity_search(sharedFactory.dbId, structureSearchFactory.mol,
             structureSearchFactory.sthresh, 'RDKit', structureSearchFactory.maxres, sharedFactory.selected_model.name, "");
     }
@@ -92,7 +92,7 @@ angular.module('app').controller('structuresresCtl',
     );
 
     $scope.color = function(native,score){
-        if(score == 1){return "success"}
+        if(score === 1.0){return "success"}
         if (score >= 0.75) {return "warning"}
         return "";
     };

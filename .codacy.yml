@@ -1,0 +1,5 @@
+exclude_paths:
+  - js/lib/
+  - gui/
+  - bower_components/
+  - js/databaseClient.js

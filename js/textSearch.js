@@ -1,6 +1,6 @@
 angular.module('app').controller('quickSearchCtl',  function ($scope,$state,sharedFactory) {
     $scope.doQuickSearch = function(ev) {
-        if (!ev || ev.which==13) $state.go("compounds",{search:$scope.name, db:sharedFactory.dbId}); // looks for enter key if triggered by keypress
+        if (!ev || ev.which===13) $state.go("compounds",{search:$scope.name, db:sharedFactory.dbId}); // looks for enter key if triggered by keypress
     }
 });
 
@@ -98,7 +98,7 @@ angular.module('app').controller('compoundsCtl', function($scope,$stateParams,sh
     );
 
     $scope.color = function(native,score){
-        if(score == 1){return "success"}
+        if(score === 1){return "success"}
         if (score >= 0.75) {return "warning"}
         return "";
     };

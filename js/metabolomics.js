@@ -227,7 +227,7 @@ angular.module('app').controller('metabolomicsCompoundsCtl', function($scope,$st
 
     $scope.color = function(native,score){
         // If native_hit is true, make it green
-        if(native == true){return "success"}
+        if(native === true){return "success"}
         if (score >= 0.75) {return "warning"}
         return "";
     };

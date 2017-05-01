@@ -25,7 +25,7 @@ angular.module('app').factory('ChemicalDamageFactory', function($rootScope){
         //Popups with image & name
         getCompoundName: function(db){
             return function($event, id) {
-                if ((!$($event.target).data('bs.popover')) && (id[0] == "C")) {
+                if ((!$($event.target).data('bs.popover')) && (id[0] === "C")) {
                     var Promise = factory.services.get_comps(db, [id]);
                     Promise.then(
                         function (result) {
