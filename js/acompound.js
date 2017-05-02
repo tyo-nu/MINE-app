@@ -29,15 +29,11 @@ angular.module('app').factory('CompoundDataFactory', function($rootScope, shared
         //EC filtering
         filterList: function(reactions, searchOn) {
             if (searchOn && (typeof(reactions) != 'undefined') && (reactions.length > 0)) {
-                var subList = [];
-                for (var i = reactions.length - 1; i >= 0; i--) {
-                    for (var j = reactions[i].Operators.length - 1; j >= 0; j--) {
-                        if ((reactions[i].Operators[j].indexOf(searchOn) > -1)&&(subList[subList.length-1] != reactions[i])) {
-                            subList.push(reactions[i]);
-                        }
-                    }
-                }
-                return subList
+                return reactions.filter(function(rxn){
+                    return rxn.Operators.some(function (op) {
+                        return op.indexOf(searchOn) > -1;
+                    });
+                });
             }
             else{return reactions;}
         },
@@ -45,7 +41,7 @@ angular.module('app').factory('CompoundDataFactory', function($rootScope, shared
         getCompoundName: function(db){
             return function($event, id) {
                 //only trigger for elements which don't already have popovers and are not coreactants
-                if ((!$($event.target).data('bs.popover')) && (id[0] == "C")) {
+                if ((!$($event.target).data('bs.popover')) && (id[0] === "C")) {
                     var Promise = factory.services.get_comps(db, [id]);
                     Promise.then(
                         function (result) {
@@ -90,29 +86,22 @@ angular.module('app').controller('acompoundCtl', function($scope,$stateParams,sh
             $scope.data.DB_links.KEGG.join('+'));
     };
 
-    //This should probably be a directive
     $scope.dbLink = function(db, id) {
-        switch (db) {
-            case 'KEGG':
-                return('http://www.genome.jp/dbget-bin/www_bget?cpd:' + id);
-            case "CAS":
-                return('http://www.sigmaaldrich.com/catalog/search?interface=CAS%20No.&term=' + id);
-            case "ChEBI":
-                return('http://www.ebi.ac.uk/chebi/searchId.do;92DBE16B798171059DA73B3E187F622F?chebiId=' + id);
-            case "KNApSAcK":
-                return('http://kanaya.naist.jp/knapsack_jsp/information.jsp?word=' + id);
-            case "Model_SEED":
-                return('http://modelseed.org/biochem/compounds/' + id);
-            case "NIKKAJI":
-                return('http://nikkajiweb.jst.go.jp/nikkaji_web/pages/top_e.jsp?CONTENT=syosai&SN=' + id);
-            case "PDB-CCD":
-                return('http://www.ebi.ac.uk/pdbe-srv/pdbechem/chemicalCompound/show/' + id);
-            case "PubChem":
-                return('http://pubchem.ncbi.nlm.nih.gov/summary/summary.cgi?cid=' + id);
-            default:
-                return("");
-        }
-
+        var linkTable = {
+            "KEGG": 'http://www.genome.jp/dbget-bin/www_bget?cpd:',
+            "CAS": 'http://www.sigmaaldrich.com/catalog/search?interface=CAS%20No.&term=',
+            "ChEBI": 'http://www.ebi.ac.uk/chebi/searchId.do;92DBE16B798171059DA73B3E187F622F?chebiId=',
+            "KNApSAcK": 'http://kanaya.naist.jp/knapsack_jsp/information.jsp?word=',
+            "Model_SEED": 'http://modelseed.org/biochem/compounds/',
+            "NIKKAJI": 'http://nikkajiweb.jst.go.jp/nikkaji_web/pages/top_e.jsp?CONTENT=syosai&SN=',
+            "PDB-CCD": 'http://www.ebi.ac.uk/pdbe-srv/pdbechem/chemicalCompound/show/',
+            "PubChem": 'http://pubchem.ncbi.nlm.nih.gov/summary/summary.cgi?cid=',
+            "LIPIDMAPS": "http://www.lipidmaps.org/data/LMSDRecord.php?LMID=",
+            "HMDB": "http://www.hmdb.ca/metabolites/",
+            "LipidBank": "http://lipidbank.jp/cgi-bin/detail.cgi?id="
+        };
+        if (db in linkTable) {return linkTable[db]+id;}
+        return '';
     };
 });
 
