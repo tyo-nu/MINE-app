@@ -1,3 +1,5 @@
+/* global angular */
+
 // Allows for communication between controllers. This factory should be improved
 angular.module('app').factory('structureSearchFactory', function(){
     return{

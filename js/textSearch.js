@@ -1,3 +1,5 @@
+/* global angular */
+
 angular.module('app').controller('quickSearchCtl',  function ($scope,$state,sharedFactory) {
     $scope.doQuickSearch = function(ev) {
          // looks for enter key if triggered by keypress

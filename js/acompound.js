@@ -1,11 +1,12 @@
+/* global angular */
+
 angular.module('app').factory('CompoundDataFactory', function($rootScope, sharedFactory){
     var factory = {
-        services: new mineDatabaseServices('http://bio-data-1.mcs.anl.gov/services/mine-database'),
         getCompound: function (db, id){
             var promise;
             //Controls for _id and MINE ids
-            if (parseInt(id)) {promise = factory.services.get_comps(db, [parseInt(id)]);}
-            else {promise = factory.services.get_comps(db, [id]);}
+            if (parseInt(id)) {promise = sharedFactory.services.get_comps(db, [parseInt(id)]);}
+            else {promise = sharedFactory.services.get_comps(db, [id]);}
             promise.then(
                 function(result){
                     factory.compound = result[0];
@@ -18,7 +19,7 @@ angular.module('app').factory('CompoundDataFactory', function($rootScope, shared
             )
         },
         getReactions: function(db, rxn_ids) {
-            var promise = factory.services.get_rxns(db, rxn_ids);
+            var promise = sharedFactory.services.get_rxns(db, rxn_ids);
             promise.then(function (result) {
                     factory.reactions = result;
                     $rootScope.$broadcast("rxnLoaded")
@@ -42,7 +43,7 @@ angular.module('app').factory('CompoundDataFactory', function($rootScope, shared
             return function($event, id) {
                 //only trigger for elements which don't already have popovers and are not coreactants
                 if ((!$($event.target).data('bs.popover')) && (id[0] === "C")) {
-                    var Promise = factory.services.get_comps(db, [id]);
+                    var Promise = sharedFactory.services.get_comps(db, [id]);
                     Promise.then(
                         function (result) {
                             var cTitle;

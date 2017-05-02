@@ -1,3 +1,6 @@
+/* global angular */
+/* global mineDatabaseServices */
+
 angular.module('app',['ui.router','ui.bootstrap','ngCookies', 'ngJoyRide', 'ui-rangeSlider', 'angulartics',
     'angulartics.google.analytics', 'ui.select', 'angularMasspecPlotter']);
 angular.module('app').factory('sharedFactory', function($state, $cookieStore, $rootScope){

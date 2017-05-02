@@ -1,3 +1,5 @@
+/* global angular */
+/* global mineDatabaseServices */
 
 angular.module('app').factory('ChemicalDamageFactory', function($rootScope){
     var factory = {

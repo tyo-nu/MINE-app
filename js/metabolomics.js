@@ -1,7 +1,8 @@
+/* global angular */
+
 // Allows for communication between controllers note set up for test data
-angular.module('app').factory('metabolomicsDataFactory', function($rootScope){
+angular.module('app').factory('metabolomicsDataFactory', function($rootScope, sharedFactory){
     var factory = {
-        services: new mineDatabaseServices('http://bio-data-1.mcs.anl.gov/services/mine-database'),
         trace :  "163.039200",
         msmsIons:"",
         traceType: 'form',
@@ -40,10 +41,10 @@ angular.module('app').factory('metabolomicsDataFactory', function($rootScope){
             console.log(params);
             var promise;
             if (factory.msmsIons.length){
-                promise = factory.services.ms2_search(factory.trace+"\n"+factory.msmsIons, factory.traceType, params);
+                promise = sharedFactory.services.ms2_search(factory.trace+"\n"+factory.msmsIons, factory.traceType, params);
             }
             else {
-                promise = factory.services.ms_adduct_search(factory.trace, factory.traceType, params);
+                promise = sharedFactory.services.ms_adduct_search(factory.trace, factory.traceType, params);
             }
             promise.then(function(result){
                     factory.hits = result;
@@ -95,7 +96,7 @@ angular.module('app').controller('metabolomicsCtl', function($scope,$state,$cook
     $scope.adducts = [];
     var adductList;
 
-    metabolomicsDataFactory.services.get_adducts().then(
+    sharedFactory.services.get_adducts().then(
         function(result){
             adductList = result;
             $scope.charge = metabolomicsDataFactory.params.charge; // triggers following watch statement
@@ -145,7 +146,7 @@ angular.module('app').controller('ms2searchCtl', function($scope,$state,$cookieS
     $scope.adducts = [];
     var adductList;
 
-    metabolomicsDataFactory.services.get_adducts().then(
+    sharedFactory.services.get_adducts().then(
         function(result){
             adductList = result;
             $scope.charge = metabolomicsDataFactory.params.charge; // triggers following watch statement
@@ -155,7 +156,7 @@ angular.module('app').controller('ms2searchCtl', function($scope,$state,$cookieS
     );
 
     $scope.uploadFile = function(id) {
-        reader = metabolomicsDataFactory.uploadFile(id);
+        var reader = metabolomicsDataFactory.uploadFile(id);
         reader.onload=function(){
             $scope.trace = "";
             $scope.msmsIons = reader.result;
