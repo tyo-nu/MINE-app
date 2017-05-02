@@ -234,8 +234,12 @@ angular.module('app').controller('metabolomicsCompoundsCtl', function($scope,$st
 
     $scope.downloadResults = function(){
         var jsonObject = JSON.stringify(filteredData);
-        var exclude = {"$$hashKey":"", 'id':"", 'Likelihood_score':"", 'Pos_CFM_spectra':"", 'Neg_CFM_spectra':""};
-        var csv = sharedFactory.convertToCSV(jsonObject, exclude);
+        //var exclude = {"$$hashKey":"", 'id':"", 'Likelihood_score':"",
+        // 'Pos_CFM_spectra':"", 'Neg_CFM_spectra':""};
+        var header = ["Spectral_score", "peak_name", "adduct", "MINE_id",
+            "Inchikey", "SMILES","Names", "Formula", "Generation",
+            "NP_likeness", "logP", "maxKovatsRI", "minKovatsRI"];
+        var csv = sharedFactory.convertToCSV(jsonObject, header);
         var d = new Date();
         sharedFactory.downloadFile(csv, d.toISOString()+'.csv');
     };

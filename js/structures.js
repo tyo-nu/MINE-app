@@ -99,8 +99,8 @@ angular.module('app').controller('structuresresCtl',
 
     $scope.downloadResults = function(){
         var jsonObject = JSON.stringify(filteredData);
-        var exclude = {"$$hashKey":"", 'id':"", 'Sources':""};
-        var csv = sharedFactory.convertToCSV(jsonObject, exclude);
+        var header = ["MINE_id", "Inchikey", "SMILES", "Formula", "Mass", "Names"];
+        var csv = sharedFactory.convertToCSV(jsonObject, header);
         var d = new Date();
         sharedFactory.downloadFile(csv, d.toISOString()+'.csv');
     };

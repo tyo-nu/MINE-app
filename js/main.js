@@ -39,29 +39,20 @@ angular.module('app').factory('sharedFactory', function($state, $cookieStore, $r
             link.click();
             document.body.removeChild(link);
         },
-        convertToCSV: function(objArray, exclude) {
-            // This gets the keys from the first object in the array which may cause problems if the objects have
-            // variable attributes. If the attribute is not in the first object, it won't ever be included
-            var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
-            var out = '';
-            for (var key in array[0]) {
-                if (!(key in exclude)){
-                    if (out != '') out += ',';
-                    out += '"'+key+'"';
-                }
-            }
-            out += '\r\n';
-            for (var i = 0; i < array.length; i++) {
-                var line = '';
-                for (key in array[0]) {
-                    if (!(key in exclude)){
-                        if (line != '') line += ',';
-                        if (key in array[i]) line += '"' + array[i][key] + '"';
-                    }
-                }
-                out += line + '\r\n';
-            }
-            return out;
+        convertToCSV: function(compounds, fields) {
+            var objArray = typeof compounds != 'object' ? JSON.parse(compounds) : compounds;
+            var replacer = function(key, value) {
+                if (value === null) {return '';}
+                if (typeof value === 'object') {return value.join(';');}
+                return value;
+            };
+            var csv = objArray.map(function(row){
+              return fields.map(function(fieldName){
+                return JSON.stringify(row[fieldName], replacer)
+              }).join(',')
+            });
+            csv.unshift(fields.join(',')); // add header column
+            return csv.join('\r\n');
         },
         paginateList: function(list, currentPage, numPerPage){
             var begin = ((currentPage - 1) * numPerPage);

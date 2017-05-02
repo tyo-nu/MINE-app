@@ -85,7 +85,7 @@ angular.module('app').controller('compoundsCtl', function($scope,$stateParams,sh
     if (typeof($stateParams.db) != 'undefined') {
         sharedFactory.setDB($stateParams.db);
     }
-    if ($stateParams.search[0] == '{') {
+    if ($stateParams.search[0] === '{') {
         promise = services.database_query(sharedFactory.dbId, $stateParams.search, sharedFactory.selected_model.name, "");
     }
     else {promise = services.quick_search(sharedFactory.dbId, $stateParams.search);}
@@ -114,8 +114,8 @@ angular.module('app').controller('compoundsCtl', function($scope,$stateParams,sh
 
     $scope.downloadResults = function(){
         var jsonObject = JSON.stringify(filteredData);
-        var exclude = {"$$hashKey":"", 'id':"", 'Sources':"", 'Formula':"", 'Mass':"", '_id':""};
-        var csv = sharedFactory.convertToCSV(jsonObject, exclude);
+        var header = ["MINE_id", "Inchikey", "SMILES", "Formula", "Mass", "Names"];
+        var csv = sharedFactory.convertToCSV(jsonObject, header);
         var d = new Date();
         sharedFactory.downloadFile(csv, d.toISOString()+'.csv');
     };
