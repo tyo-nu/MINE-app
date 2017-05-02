@@ -19,7 +19,7 @@ var generalTour = function(){
                     " with textual data such as aliases, EC Classes or KEGG pathway maps."
             },
             {
-                onShow: function(){window.location.assign(host+ '#/structure')},
+                onShow: function(){window.location.assign(host+ '#/structure');},
                 element: "#struct-tab",
                 placement: "bottom",
                 title: "Use structure search",
@@ -38,7 +38,7 @@ var generalTour = function(){
                     "exact matches to your compound"
             },
             {
-                onShown: function(){window.location.assign(host+ '#/structure')},
+                onShown: function(){window.location.assign(host+ '#/structure');},
                 element: "#sim-thresh",
                 placement: "left",
                 title: "Similarity Threshold",
@@ -54,7 +54,7 @@ var generalTour = function(){
                 content: "You can switch between the MINE source databases here any time."
             },
             {
-                onShow: function(){window.location.assign(host+ '#/compoundsascorbate,undefined')},
+                onShow: function(){window.location.assign(host+ '#/compoundsascorbate,undefined');},
                 element: "#comp-row",
                 placement: "left",
                 reflex: true,
@@ -62,13 +62,13 @@ var generalTour = function(){
                 content: "Once you have found an interesting compound, click on the row to see more details"
             },
             {
-                onShow: function(){window.location.assign(host+ '#/acompound42050/overview')},
+                onShow: function(){window.location.assign(host+ '#/acompound42050/overview');},
                 orphan: true,
                 title: "Compound Data page",
                 content: "This page displays any data available for a MINE compound."
             },
             {
-                onShow: function(){window.location.assign(host+ '#/acompound42050/overview')},
+                onShow: function(){window.location.assign(host+ '#/acompound42050/overview');},
                 element: "#compound-image",
                 title: "Get a closer look at the compound",
                 content: "Click the compound image to get a closer look at the chemical structure. When you are done " +
@@ -88,13 +88,13 @@ var generalTour = function(){
                 content: "See all the predicted reactions that produce or consume this compound."
             },
             {
-                onShow: function(){window.location.assign(host+ '#/acompound42050/reactants')},
+                onShow: function(){window.location.assign(host+ '#/acompound42050/reactants');},
                 element: "#rxn-filter",
                 title: "Filter by reaction type",
                 content: "Enter a partial EC number to show only reactions predicted by an operator"
             },
             {
-                onShow: function(){window.location.assign(host+ '#/acompound42050/reactants')},
+                onShow: function(){window.location.assign(host+ '#/acompound42050/reactants');},
                 element: "#rxn-img",
                 placement: "left",
                 title: "Examine computationally predicted derivatives",
@@ -126,7 +126,7 @@ var metabolomicsTour = function(){
                 title: "The Metabolomics tab",
                 content: "The metabolomics annotation tools are available here.",
                 onNext: function(){
-                    window.location.assign(host+ '#/msAdductSearch')
+                    window.location.assign(host+ '#/msAdductSearch');
                 }
             },
             {
@@ -173,10 +173,10 @@ var metabolomicsTour = function(){
                 content: "You can select potential adduct types here. use CTRL+click to select individual adducts or " +
                     "SHIFT+click to select a range of compounds",
                 onShown:function(){
-                    $('#adducts option:eq(1)').prop('selected', true).trigger('change')
+                    $('#adducts option:eq(1)').prop('selected', true).trigger('change');
                 },
                 onNext: function(){
-                    $('#ms-search-button').trigger('click')
+                    $('#ms-search-button').trigger('click');
                 }
             },
 
@@ -204,7 +204,7 @@ var metabolomicsTour = function(){
                 content: "Click here to download a CSV file with your search results. This file can be opened with " +
                     "Microsoft Excel or parsed as a part of a annotation pipeline",
                 onNext: function(){
-                    window.location.assign(host+ '#/ms2search')
+                    window.location.assign(host+ '#/ms2search');
                 }
             },
             {

@@ -1,3 +1,5 @@
+/* global angular */
+
 // Allows for communication between controllers. This factory should be improved
 angular.module('app').factory('structureSearchFactory', function(){
     return{
@@ -17,7 +19,7 @@ angular.module('app').controller('structureCtl',  function($scope,$state,sharedF
     // connect to Marvin canvas and load the molfile in memory
     MarvinJSUtil.getEditor("#sketch").then(function(sketcherInstance) {
         marvinSketcherInstance = sketcherInstance;
-        marvinSketcherInstance.importStructure("mol", structureSearchFactory.mol)
+        marvinSketcherInstance.importStructure("mol", structureSearchFactory.mol);
     }, function(error) {
         alert("Loading of the sketcher failed"+error);
     });
@@ -60,17 +62,17 @@ angular.module('app').controller('structuresresCtl',
     var services = sharedFactory.services;
     var promise;
     if (!structureSearchFactory.mol) {
-        $state.go('structure')
+        $state.go('structure');
     }
-    else if (structureSearchFactory.stype == "exact"){
+    else if (structureSearchFactory.stype === "exact"){
         promise = services.structure_search(sharedFactory.dbId, "mol", structureSearchFactory.mol,
             sharedFactory.selected_model.name, "");
     }
-    else if (structureSearchFactory.stype == "substructure"){
+    else if (structureSearchFactory.stype === "substructure"){
         promise = services.substructure_search(sharedFactory.dbId, structureSearchFactory.mol,
             structureSearchFactory.maxres, sharedFactory.selected_model.name, "");
     }
-    else if (structureSearchFactory.stype == "similarity"){
+    else if (structureSearchFactory.stype === "similarity"){
         promise = services.similarity_search(sharedFactory.dbId, structureSearchFactory.mol,
             structureSearchFactory.sthresh, 'RDKit', structureSearchFactory.maxres, sharedFactory.selected_model.name, "");
     }
@@ -87,20 +89,20 @@ angular.module('app').controller('structuresresCtl',
             $scope.totalItems = 0;
             $scope.$apply();
             console.log("structure search failure");
-            console.log(err)
+            console.log(err);
         }
     );
 
     $scope.color = function(native,score){
-        if(score == 1){return "success"}
-        if (score >= 0.75) {return "warning"}
+        if(score === 1.0){return "success";}
+        if (score >= 0.75) {return "warning";}
         return "";
     };
 
     $scope.downloadResults = function(){
         var jsonObject = JSON.stringify(filteredData);
-        var exclude = {"$$hashKey":"", 'id':"", 'Sources':""};
-        var csv = sharedFactory.convertToCSV(jsonObject, exclude);
+        var header = ["MINE_id", "Inchikey", "SMILES", "Formula", "Mass", "Names"];
+        var csv = sharedFactory.convertToCSV(jsonObject, header);
         var d = new Date();
         sharedFactory.downloadFile(csv, d.toISOString()+'.csv');
     };
@@ -109,7 +111,7 @@ angular.module('app').controller('structuresresCtl',
         if (data) {
             filteredData = sharedFactory.filterList(data, $scope.searchMINE, $scope.searchCompound, $scope.searchFormula);
             $scope.items = filteredData.length;
-            $scope.displayData = sharedFactory.paginateList(filteredData, $scope.currentPage, $scope.numPerPage)
+            $scope.displayData = sharedFactory.paginateList(filteredData, $scope.currentPage, $scope.numPerPage);
         }
     });
 

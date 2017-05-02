@@ -1,6 +1,11 @@
+/* global angular */
+
 angular.module('app').controller('quickSearchCtl',  function ($scope,$state,sharedFactory) {
     $scope.doQuickSearch = function(ev) {
-        if (!ev || ev.which==13) $state.go("compounds",{search:$scope.name, db:sharedFactory.dbId}); // looks for enter key if triggered by keypress
+         // looks for enter key if triggered by keypress
+        if (!ev || ev.which===13) {
+            $state.go("compounds",{search:$scope.name, db:sharedFactory.dbId});
+        }
     }
 });
 
@@ -32,33 +37,35 @@ angular.module('app').controller('advancedSearchCtl', function($scope,$state, sh
     };
 
     var mongoizeArray = function(query, operator, array){
-        if (query) query += ", ";
-        else query += "{";
+        if (query) {query += ", ";}
+        else {query += "{";}
         query += operator+":[";
         for (var i = 0; i < array.length; i++) {
             query += '{"' + array[i][0] + '":';
-            if (array[i][2]) query += '{"$regex":"' + array[i][1] + '"}}, '; // regex always has quotes
+            if (array[i][2]) {query += '{"$regex":"' + array[i][1] + '"}}, ';} // regex always has quotes
             else {
-                if (!parseFloat(array[i][1]+1)) array[i][1] = '"'+array[i][1]+'"'; // if it isn't a number we have to add quotes
-                if (array[i][3]) query += '{"$ne":' + array[i][1] + "}}, ";
-                else query += array[i][1] + "}, ";
+                if (!parseFloat(array[i][1]+1)) {array[i][1] = '"'+array[i][1]+'"';} // if it isn't a number we have to add quotes
+                if (array[i][3]) {query += '{"$ne":' + array[i][1] + "}}, ";}
+                else {query += array[i][1] + "}, ";}
             }
         }
         query = query.substring(0,query.length-2) + "]";
-        return query
+        return query;
 
     };
 
     $scope.search = function(and,or){
         var query = "";
-        if (and.length) query = mongoizeArray(query, '"$and"', and);
-        if (or.length) query = mongoizeArray(query, '"$or"', or);
+        if (and.length) {query = mongoizeArray(query, '"$and"', and);}
+        if (or.length) {query = mongoizeArray(query, '"$or"', or);}
         query += "}";
-        console.log(query);
-        $state.go('compounds', {'search':query, db:sharedFactory.dbId})
+        $state.go('compounds', {'search':query, db:sharedFactory.dbId});
     };
 
-    $scope.$watch('not', function (){if ($scope.not) $scope.RegEx = false}); // enforce not and regex cant both be true
+     // enforce not and regex cant both be true
+    $scope.$watch('not', function (){
+        if ($scope.not) {$scope.RegEx = false;}
+    });
 });
 
 angular.module('app').controller('compoundsCtl', function($scope,$stateParams,sharedFactory){
@@ -77,9 +84,13 @@ angular.module('app').controller('compoundsCtl', function($scope,$stateParams,sh
     var filteredData=[];
     var promise;
     var services = sharedFactory.services;
-    if (typeof($stateParams.db) != 'undefined') sharedFactory.setDB($stateParams.db);
-    if ($stateParams.search[0] == '{') promise = services.database_query(sharedFactory.dbId, $stateParams.search, sharedFactory.selected_model.name, "");
-    else promise = services.quick_search(sharedFactory.dbId, $stateParams.search);
+    if (typeof($stateParams.db) != 'undefined') {
+        sharedFactory.setDB($stateParams.db);
+    }
+    if ($stateParams.search[0] === '{') {
+        promise = services.database_query(sharedFactory.dbId, $stateParams.search, sharedFactory.selected_model.name, "");
+    }
+    else {promise = services.quick_search(sharedFactory.dbId, $stateParams.search);}
     promise.then(
             function(result){
                 data = result;
@@ -93,20 +104,20 @@ angular.module('app').controller('compoundsCtl', function($scope,$stateParams,sh
                 $scope.totalItems=0;
                 $scope.$apply();
                 console.log("quick_search or database_query Failure");
-                console.log(err)
+                console.log(err);
             }
     );
 
     $scope.color = function(native,score){
-        if(score == 1){return "success"}
-        if (score >= 0.75) {return "warning"}
+        if(score === 1) {return "success";}
+        if (score >= 0.75) {return "warning";}
         return "";
     };
 
     $scope.downloadResults = function(){
         var jsonObject = JSON.stringify(filteredData);
-        var exclude = {"$$hashKey":"", 'id':"", 'Sources':"", 'Formula':"", 'Mass':"", '_id':""};
-        var csv = sharedFactory.convertToCSV(jsonObject, exclude);
+        var header = ["MINE_id", "Inchikey", "SMILES", "Formula", "Mass", "Names"];
+        var csv = sharedFactory.convertToCSV(jsonObject, header);
         var d = new Date();
         sharedFactory.downloadFile(csv, d.toISOString()+'.csv');
     };
@@ -120,7 +131,8 @@ angular.module('app').controller('compoundsCtl', function($scope,$stateParams,sh
     });
 
     $scope.$watch('currentPage', function() {
-        if (filteredData) $scope.displayData = sharedFactory.paginateList(filteredData, $scope.currentPage, $scope.numPerPage)
+        if (filteredData) {
+            $scope.displayData = sharedFactory.paginateList(filteredData, $scope.currentPage, $scope.numPerPage)
+        }
     });
-
 });

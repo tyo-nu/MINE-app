@@ -1,0 +1,6 @@
+exclude_paths:
+  - js/lib/**/*
+  - js/lib/*
+  - gui/**/*
+  - gui/*
+  - js/databaseClient.js

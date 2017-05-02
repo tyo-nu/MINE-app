@@ -1,3 +1,5 @@
+/* global angular */
+
 angular.module('app').controller('operatorCtl',  function($scope,$stateParams,CompoundDataFactory, sharedFactory) {
     $scope.operatorName = $stateParams.id;
     $scope.img_src = sharedFactory.img_src;
