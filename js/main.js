@@ -24,7 +24,7 @@ angular.module('app').factory('sharedFactory', function($state, $cookieStore, $r
                 var img_root = "http://webfba.chem-eng.northwestern.edu/MINE_imgs/";
                 var dir_depth = 4;
                 var ext = '.svg';
-                for (i = 0; i < dir_depth; i++) {
+                for (var i = 0; i < dir_depth; i++) {
                     img_root += id[i] + "/";
                 }
                 return img_root + id + ext

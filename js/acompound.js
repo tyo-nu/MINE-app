@@ -5,13 +5,16 @@ angular.module('app').factory('CompoundDataFactory', function($rootScope, shared
             var promise;
             //Controls for _id and MINE ids
             if (parseInt(id)) {promise = factory.services.get_comps(db, [parseInt(id)]);}
-            else{promise = factory.services.get_comps(db, [id]);}
+            else {promise = factory.services.get_comps(db, [id]);}
             promise.then(
                 function(result){
                     factory.compound = result[0];
-                    $rootScope.$broadcast("compoundLoaded")
+                    $rootScope.$broadcast("compoundLoaded");
                 },
-                function(err){console.error("get_comps fail"); console.log(err)}
+                function(err){
+                    console.error("get_comps fail");
+                    console.log(err);
+                }
             )
         },
         getReactions: function(db, rxn_ids) {
@@ -36,7 +39,7 @@ angular.module('app').factory('CompoundDataFactory', function($rootScope, shared
                 }
                 return subList
             }
-            else{return reactions}
+            else{return reactions;}
         },
         //Popups with image & name
         getCompoundName: function(db){
@@ -47,8 +50,8 @@ angular.module('app').factory('CompoundDataFactory', function($rootScope, shared
                     Promise.then(
                         function (result) {
                             var cTitle;
-                            if (result[0].Names) {cTitle = result[0].Names[0]}
-                            else if (result[0].MINE_id) {cTitle = result[0].MINE_id}
+                            if (result[0].Names) {cTitle = result[0].Names[0];}
+                            else if (result[0].MINE_id) {cTitle = result[0].MINE_id;}
                             if (cTitle) {
                                 $($event.target).popover({
                                     title: cTitle,
@@ -64,7 +67,7 @@ angular.module('app').factory('CompoundDataFactory', function($rootScope, shared
                         function (err) {console.log(err);}
                     );
                 }
-            }
+            };
         }
     };
     return factory
@@ -73,7 +76,9 @@ angular.module('app').factory('CompoundDataFactory', function($rootScope, shared
 angular.module('app').controller('acompoundCtl', function($scope,$stateParams,sharedFactory,CompoundDataFactory){
     CompoundDataFactory.getCompound(sharedFactory.dbId, $stateParams.id);
     $scope.getImagePath = sharedFactory.getImagePath;
-    if (typeof($stateParams.db) != 'undefined') sharedFactory.setDB($stateParams.db);
+    if (typeof($stateParams.db) != 'undefined') {
+        sharedFactory.setDB($stateParams.db);
+    }
 
     $scope.$on("compoundLoaded", function () {
         $scope.data = CompoundDataFactory.compound;
@@ -90,28 +95,20 @@ angular.module('app').controller('acompoundCtl', function($scope,$stateParams,sh
         switch (db) {
             case 'KEGG':
                 return('http://www.genome.jp/dbget-bin/www_bget?cpd:' + id);
-                break;
             case "CAS":
                 return('http://www.sigmaaldrich.com/catalog/search?interface=CAS%20No.&term=' + id);
-                break;
             case "ChEBI":
                 return('http://www.ebi.ac.uk/chebi/searchId.do;92DBE16B798171059DA73B3E187F622F?chebiId=' + id);
-                break;
             case "KNApSAcK":
                 return('http://kanaya.naist.jp/knapsack_jsp/information.jsp?word=' + id);
-                break;
             case "Model_SEED":
                 return('http://modelseed.org/biochem/compounds/' + id);
-                break;
             case "NIKKAJI":
                 return('http://nikkajiweb.jst.go.jp/nikkaji_web/pages/top_e.jsp?CONTENT=syosai&SN=' + id);
-                break;
             case "PDB-CCD":
                 return('http://www.ebi.ac.uk/pdbe-srv/pdbechem/chemicalCompound/show/' + id);
-                break;
             case "PubChem":
                 return('http://pubchem.ncbi.nlm.nih.gov/summary/summary.cgi?cid=' + id);
-                break;
             default:
                 return("");
         }

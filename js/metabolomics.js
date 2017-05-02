@@ -35,8 +35,8 @@ angular.module('app').factory('metabolomicsDataFactory', function($rootScope){
             //clone the parameters before passing them so we don't end up change in the factory object
             var params = jQuery.extend({}, factory.params);
             params.db = db;
-            if (factory.filterLogP) {params.logP = factory.logP}
-            if (factory.filterKovats) {params.kovats = factory.kovats}
+            if (factory.filterLogP) {params.logP = factory.logP;}
+            if (factory.filterKovats) {params.kovats = factory.kovats;}
             console.log(params);
             var promise;
             if (factory.msmsIons.length){
@@ -47,7 +47,7 @@ angular.module('app').factory('metabolomicsDataFactory', function($rootScope){
             }
             promise.then(function(result){
                     factory.hits = result;
-                    $rootScope.$broadcast("metabolitesLoaded")
+                    $rootScope.$broadcast("metabolitesLoaded");
                 },
                 function(err){alert("An Error occurred!\n\n" + err.error.error);}
             );
@@ -62,22 +62,22 @@ angular.module('app').factory('metabolomicsDataFactory', function($rootScope){
                     (patt.test(list[i].Formula.toString())) &&
                     (list[i].MINE_id.toString().indexOf(mine) > -1) &&
                     (!compound || (typeof(list[i].Names) != 'undefined') && (list[i].Names[0].indexOf(compound) > -1)))
-                {filteredList.push(list[i])}
+                {filteredList.push(list[i]);}
             }
             return filteredList
         },
         uploadFile: function(ele_id){
             var selectedFile = document.getElementById(ele_id).files[0];
-            if (selectedFile.name.search('.mgf')>-1){factory.traceType = "mgf"}
-            else if (selectedFile.name.search('.mzxml')>-1){factory.traceType = "mzxml"}
-            else if (selectedFile.name.search('.msp')>-1){factory.traceType = "msp"}
+            if (selectedFile.name.search('.mgf')>-1){factory.traceType = "mgf";}
+            else if (selectedFile.name.search('.mzxml')>-1){factory.traceType = "mzxml";}
+            else if (selectedFile.name.search('.msp')>-1){factory.traceType = "msp";}
             else {
                 alert('Upload only supports .mgf, .msp, and .mzXML formats');
-                return
+                return;
             }
             var reader = new FileReader();
             reader.readAsText(selectedFile);
-            return reader
+            return reader;
         }
     };
     return factory
@@ -105,7 +105,7 @@ angular.module('app').controller('metabolomicsCtl', function($scope,$state,$cook
     );
 
     $scope.uploadFile = function(id) {
-        reader = metabolomicsDataFactory.uploadFile(id);
+        var reader = metabolomicsDataFactory.uploadFile(id);
         reader.onload=function(){
             $scope.trace = reader.result;
             $scope.$apply();
@@ -126,7 +126,7 @@ angular.module('app').controller('metabolomicsCtl', function($scope,$state,$cook
     $scope.metSearch = function() {
         metabolomicsDataFactory.storeFormData($scope, $cookieStore);
         metabolomicsDataFactory.msmsIons = "";
-        $state.go("metabolomicsCompounds")
+        $state.go("metabolomicsCompounds");
     };
 });
 
@@ -151,7 +151,7 @@ angular.module('app').controller('ms2searchCtl', function($scope,$state,$cookieS
             $scope.charge = metabolomicsDataFactory.params.charge; // triggers following watch statement
             $scope.$apply();
         },
-        function(err) {console.log(err)}
+        function(err) {console.log(err);}
     );
 
     $scope.uploadFile = function(id) {
@@ -169,7 +169,7 @@ angular.module('app').controller('ms2searchCtl', function($scope,$state,$cookieS
         if (adductList) {
             metabolomicsDataFactory.params.charge = $scope.charge;
             if ($scope.charge) {$scope.adduct_list = adductList[0];}
-            else {$scope.adduct_list = adductList[1]}
+            else {$scope.adduct_list = adductList[1];}
             var adducts = $cookieStore.get("charge: "+ $scope.charge);
             if (typeof(adducts) == 'object') $scope.adducts = adducts;
             else $scope.adducts = [];
@@ -181,7 +181,7 @@ angular.module('app').controller('ms2searchCtl', function($scope,$state,$cookieS
         metabolomicsDataFactory.params.energy_level = $scope.energy;
         metabolomicsDataFactory.params.scoring_function = $scope.metric;
         metabolomicsDataFactory.msmsIons = $scope.msmsIons;
-        $state.go("metabolomicsCompounds")
+        $state.go("metabolomicsCompounds");
     };
 });
 
@@ -227,8 +227,8 @@ angular.module('app').controller('metabolomicsCompoundsCtl', function($scope,$st
 
     $scope.color = function(native,score){
         // If native_hit is true, make it green
-        if(native === true){return "success"}
-        if (score >= 0.75) {return "warning"}
+        if(native === true){return "success";}
+        if (score >= 0.75) {return "warning";}
         return "";
     };
 
@@ -246,16 +246,16 @@ angular.module('app').controller('metabolomicsCompoundsCtl', function($scope,$st
                 $scope.searchAdduct, $scope.searchFormula, $scope.searchCompound, $scope.searchMINE);
             filteredData = sharedFactory.sortList(filteredData, $scope.sortColumn, $scope.sortInvert);
             $scope.items = filteredData.length;
-            $scope.displayData = sharedFactory.paginateList(filteredData, $scope.currentPage, $scope.numPerPage)
+            $scope.displayData = sharedFactory.paginateList(filteredData, $scope.currentPage, $scope.numPerPage);
         }
     });
 
     $scope.$watch('sortColumn + sortInvert', function(){
         filteredData = sharedFactory.sortList(filteredData,$scope.sortColumn,$scope.sortInvert);
-        $scope.displayData = sharedFactory.paginateList(filteredData, $scope.currentPage, $scope.numPerPage)
+        $scope.displayData = sharedFactory.paginateList(filteredData, $scope.currentPage, $scope.numPerPage);
     });
 
     $scope.$watch('currentPage', function(){
-        $scope.displayData = sharedFactory.paginateList(filteredData, $scope.currentPage, $scope.numPerPage)
+        $scope.displayData = sharedFactory.paginateList(filteredData, $scope.currentPage, $scope.numPerPage);
     });
 });

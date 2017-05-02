@@ -17,7 +17,7 @@ angular.module('app').controller('structureCtl',  function($scope,$state,sharedF
     // connect to Marvin canvas and load the molfile in memory
     MarvinJSUtil.getEditor("#sketch").then(function(sketcherInstance) {
         marvinSketcherInstance = sketcherInstance;
-        marvinSketcherInstance.importStructure("mol", structureSearchFactory.mol)
+        marvinSketcherInstance.importStructure("mol", structureSearchFactory.mol);
     }, function(error) {
         alert("Loading of the sketcher failed"+error);
     });
@@ -60,7 +60,7 @@ angular.module('app').controller('structuresresCtl',
     var services = sharedFactory.services;
     var promise;
     if (!structureSearchFactory.mol) {
-        $state.go('structure')
+        $state.go('structure');
     }
     else if (structureSearchFactory.stype === "exact"){
         promise = services.structure_search(sharedFactory.dbId, "mol", structureSearchFactory.mol,
@@ -87,13 +87,13 @@ angular.module('app').controller('structuresresCtl',
             $scope.totalItems = 0;
             $scope.$apply();
             console.log("structure search failure");
-            console.log(err)
+            console.log(err);
         }
     );
 
     $scope.color = function(native,score){
-        if(score === 1.0){return "success"}
-        if (score >= 0.75) {return "warning"}
+        if(score === 1.0){return "success";}
+        if (score >= 0.75) {return "warning";}
         return "";
     };
 
@@ -109,7 +109,7 @@ angular.module('app').controller('structuresresCtl',
         if (data) {
             filteredData = sharedFactory.filterList(data, $scope.searchMINE, $scope.searchCompound, $scope.searchFormula);
             $scope.items = filteredData.length;
-            $scope.displayData = sharedFactory.paginateList(filteredData, $scope.currentPage, $scope.numPerPage)
+            $scope.displayData = sharedFactory.paginateList(filteredData, $scope.currentPage, $scope.numPerPage);
         }
     });
 
