@@ -20,7 +20,7 @@ angular.module('app').controller('advancedSearchCtl', function($scope,$state, sh
         {'id': 3, 'name': 'MINE_id'}, {'id': 4, 'name': 'Inchikey'}, {'id': 5, 'name': 'Charge'},
         {'id': 6, 'name': 'Mass'}, {'id': 7, 'name': 'Formula'}, {'id': 8, 'name': 'Names'},
         {'id': 9, 'name': 'Pathways'}, {'id': 10, 'name': 'Enzymes'}, {'id': 11, 'name': 'Product_of'},
-        {'id': 12, 'name': 'Reactant_in'}, {'id': 13, 'name': 'MACCS'}, {'id': 14, 'name': 'RDKit'},
+        {'id': 12, 'name': 'Reactant_in'}, {'id': 13, 'name': 'FP2'}, {'id': 14, 'name': 'FP4'},
         {'id': 15, 'name': 'Generation'}, {'id': 16, 'name': 'DB_links.KEGG'},
         {'id': 17, 'name': 'DB_links.PubChem'}, {'id': 18, 'name': 'DB_links.CAS'},
         {'id': 19, 'name': 'DB_links.ChEBI'}, {'id': 20, 'name': 'DB_links.KNApSAcK'},
