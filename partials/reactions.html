@@ -6,6 +6,18 @@
 				items-per-page="numPerPage"  style="{cursor: pointer; vertical-align: top}"></pagination>
 	<br>
 	<table class="table table-striped table-hover">
+		<thead>
+			<tr>
+				<th>
+					Reaction Rule
+				</th>
+				<th>
+					Mass Change
+				</th>
+				<th>
+					Reaction Schematic
+				</th>
+			</tr>
 		<tbody>
 			<tr ng-repeat="reaction in filteredData track by reaction._id">
 				<td style="vertical-align:middle">
@@ -13,6 +25,11 @@
 						<a  ui-sref="operator({id:op})">
 							{{op}}
 						</a>
+					</div>
+				</td>
+				<td style="vertical-align:middle">
+					<div ng-repeat="mass in reaction.Mass_Change" style="font-size: 16px">
+						{{mass.toFixed(2)}}
 					</div>
 				</td>
 				<td>
