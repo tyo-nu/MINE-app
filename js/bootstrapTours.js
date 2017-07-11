@@ -44,7 +44,7 @@ var generalTour = function(){
                 title: "Similarity Threshold",
                 content: "This allows you to set a minimum Tanimoto similarity (using FP4 fingerprints)",
                 onNext: function(){
-                    window.location.assign(host+ '#/compoundsascorbate,undefined')
+                    window.location.assign(host+ '#/compounds-ascorbate,undefined')
                 }
             },
             {
@@ -54,21 +54,21 @@ var generalTour = function(){
                 content: "You can switch between the MINE source databases here any time."
             },
             {
-                onShow: function(){window.location.assign(host+ '#/compoundsascorbate,undefined');},
-                element: "#comp-row",
-                placement: "left",
+                onShow: function(){window.location.assign(host+ '#/compounds-ascorbate,undefined');},
+                element: "#mine-id",
+                placement: "right",
                 reflex: true,
                 title: "Go to the compound page",
-                content: "Once you have found an interesting compound, click on the row to see more details"
+                content: "Once you have found an interesting compound, click on the MINE ID to see more details."
             },
             {
-                onShow: function(){window.location.assign(host+ '#/acompound42050/overview');},
+                onShow: function(){window.location.assign(host+ '#/acompound-42050/overview');},
                 orphan: true,
                 title: "Compound Data page",
                 content: "This page displays any data available for a MINE compound."
             },
             {
-                onShow: function(){window.location.assign(host+ '#/acompound42050/overview');},
+                onShow: function(){window.location.assign(host+ '#/acompound-42050/overview');},
                 element: "#compound-image",
                 title: "Get a closer look at the compound",
                 content: "Click the compound image to get a closer look at the chemical structure. When you are done " +
@@ -82,23 +82,30 @@ var generalTour = function(){
                     "databases in various chiral and charged forms"
             },
             {
-                onShow: function(){window.location.assign(host+ '#/acompound42050/reactants')},
+                onShow: function(){window.location.assign(host+ '#/acompound-42050/reactantIn')},
                 element: "#reactions",
                 title: "Explore reactions that involve this compound",
                 content: "See all the predicted reactions that produce or consume this compound."
             },
             {
-                onShow: function(){window.location.assign(host+ '#/acompound42050/reactants');},
+                onShow: function(){window.location.assign(host+ '#/acompound-42050/reactantIn');},
                 element: "#rxn-filter",
                 title: "Filter by reaction type",
                 content: "Enter a partial EC number to show only reactions predicted by an operator"
             },
             {
-                onShow: function(){window.location.assign(host+ '#/acompound42050/reactants');},
+                onShow: function(){window.location.assign(host+ '#/acompound-42050/reactantIn');},
                 element: "#rxn-img",
                 placement: "left",
                 title: "Examine computationally predicted derivatives",
                 content: "Mouse over a structure to display it's name and MINE id. Click to go to that compound's info page"
+            },
+            {
+                onShow: function(){window.location.assign(host+ '#/download');},
+                element: "#ymdb-panel",
+                placement: "top",
+                title: "Download MINE data",
+                content: "You can also download computationally predicted MINE structures or Mass Spectra Simulated with the CFM-ID algorithm"
             },
             {
                 orphan: true,
