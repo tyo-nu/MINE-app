@@ -18,20 +18,22 @@
     <nav class="navbar navbar-default" role="navigation">
         <div class="container">
             <div class="navbar-header">
-                <img class="logo" src="img/Gold-Miner-Icon.png" width="46" style="float:left">
-                <a class="navbar-brand" ui-sref="home">MINE</a>
+                <a href="#" ui-sref="home">
+                    <img class="logo" src="img/Gold-Miner-Icon.png" width="46" style="float:left">
+                    <p class="navbar-brand">MINE</p>
+                </a>
             </div>
             <ul class="nav navbar-nav">
-                <li><a ui-sref="home">Home</a></li>
                 <li><a ui-sref="advancedsearch" id="adv-tab">Advanced Search</a></li>
                 <li class="dropdown">
-                  <a id="met-tab" href="#" role="button">Metabolomics <span class="caret"></span></a>
+                  <a id="met-tab" role="button">Metabolomics <span class="caret"></span></a>
                   <ul class="dropdown-menu">
                     <li><a ui-sref="msAdductSearch">MS Adduct Search</a></li>
                     <li><a ui-sref="ms2search">MS/MS Search</a></li>
                   </ul>
                 </li>
                 <li><a ui-sref="structure" id="struct-tab">Structure Search</a></li>
+                <li><a ui-sref="download">Download</a></li>
                 <li><a ui-sref="faq">FAQs</a></li>
             </ul>
             <form class=" navbar-form navbar-right" role="form">
