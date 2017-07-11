@@ -126,6 +126,18 @@ angular.module('app').controller('cookieCtl',function($scope,$cookieStore) {
         $cookieStore.put('mine', "mine_visitor");
         //$scope.startGeneralTour()
     }
+    $scope.getSize = function (url) {
+        var request;
+        request = $.ajax({
+            type: "HEAD",
+            url: url,
+            success: function () {
+              return request.getResponseHeader("Content-Length");
+            }
+        });
+    };
+    $scope.structure_src = 'http://minedatabase.mcs.anl.gov/release/CD-MINE/';
+    $scope.spectra_src = 'http://minedatabase.mcs.anl.gov/release/CFM_spectra/';
 });
 
 angular.module('app').config(function($stateProvider, $urlRouterProvider) {
@@ -135,6 +147,11 @@ angular.module('app').config(function($stateProvider, $urlRouterProvider) {
     $stateProvider.state('home', {
         url: '/home',
         templateUrl: 'partials/home.html',
+        controller: "cookieCtl"
+    });
+    $stateProvider.state('download', {
+        url: '/download',
+        templateUrl: 'partials/download.html',
         controller: "cookieCtl"
     });
     //FAQ
