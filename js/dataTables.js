@@ -63,7 +63,6 @@ angular.module('app').factory('dataTableFactory', function($rootScope, sharedFac
     return factory;
 });
 
-angular.module('app').controller('LitRxnsCtl', function($scope,$stateParams,$cookieStore,sharedFactory,dataTableFactory){
 angular.module('app').controller('LitRxnsCtl', function($scope,$stateParams,$cookieStore,sharedFactory,CompoundDataFactory){
     $scope.currentPage = 1;
     $scope.numPerPage = 50;
@@ -107,12 +106,12 @@ angular.module('app').controller('LitRxnsCtl', function($scope,$stateParams,$coo
     });
 });
 
-angular.module('app').controller('RxnRulesCtl', function($rootScope,$scope,$stateParams,$cookieStore,sharedFactory,CompoundDataFactory){
+angular.module('app').controller('RxnRulesCtl', function($rootScope,$scope,$stateParams,$cookieStore,sharedFactory,CompoundDataFactory) {
 
     $scope.currentPage = 1;
     $scope.numPerPage = 20;
     $scope.maxSize = 5;
-    $scope.img_src = sharedFactory.img_src+'op_images';
+    $scope.img_src = sharedFactory.img_src + 'op_images';
     var operators;
     $scope.searchName = "";
     CompoundDataFactory.getIds(sharedFactory.dbId, 'operators');
@@ -134,7 +133,7 @@ angular.module('app').controller('RxnRulesCtl', function($rootScope,$scope,$stat
         );
     });
 
-    $scope.$watch('currentPage + searchName', function() {
+    $scope.$watch('currentPage + searchName', function () {
         if (operators) {
             var filtered = CompoundDataFactory.filterList(operators, "_id", $scope.searchName);
             $scope.paginated = sharedFactory.paginateList(filtered, $scope.currentPage, $scope.numPerPage);

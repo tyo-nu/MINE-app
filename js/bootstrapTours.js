@@ -42,32 +42,29 @@ var generalTour = function(){
                 placement: "left",
                 title: "Similarity Threshold",
                 content: "This allows you to set a minimum Tanimoto similarity (using RDKit fingerprints)",
-                onNext: function(){
-                    window.location.assign(host+ '#/compoundsCysteine')
-                }
             },
             {
-                element: "#db-select",
-                placement: "bottom",
-                title: "Change the source database",
-                content: "You can switch between the MINE source databases here any time."
+                onShow: function(){window.location.assign(host+ '#/compounds-cysteine');},
+                orphan: true,
+                title: "Compound Data page",
+                content: "This page displays search results"
             },
             {
-                onShow: function(){window.location.assign(host+ '#/compoundsascorbate,undefined');},
-                element: "#comp-row",
-                placement: "left",
+                onShow: function(){window.location.assign(host+ '#/compounds-cysteine');},
+                element: "#mine-id",
+                placement: "right",
                 reflex: true,
                 title: "Go to the compound page",
                 content: "Once you have found an interesting compound, click on the compound ID to see more details"
             },
             {
-                onShow: function(){window.location.assign(host+ '#/acompound42050/overview');},
+                onShow: function(){window.location.assign(host+ '#/acompound-1256807/overview');},
                 orphan: true,
                 title: "Compound Data page",
                 content: "This page displays any data available for a MINE compound."
             },
             {
-                onShow: function(){window.location.assign(host+ '#/acompound42050/overview');},
+                onShow: function(){window.location.assign(host+ '#/acompound-1256807/overview');},
                 element: "#compound-image",
                 title: "Get a closer look at the compound",
                 content: "Click the compound image to get a closer look at the chemical structure. When you are done " +
@@ -79,22 +76,29 @@ var generalTour = function(){
                 title: "Find more information about a compound",
                 content: "Click the header of any of these sections to see their contents. You can find the compound in other " +
                     "databases in various chiral and charged forms",
-                onNext: function(){window.location.assign(host+ '#/acompound20071/reactantIn')}
+                onNext: function(){window.location.assign(host+ '#/acompound-1256807/reactantIn')}
             },
             {
-                onShow: function(){window.location.assign(host+ '#/acompound42050/reactants')},
+                onShow: function(){window.location.assign(host+ '#/acompound-1256807/reactantIn')},
                 element: "#reactions",
                 title: "Explore reactions that involve this compound",
                 content: "See all the predicted reactions that produce or consume this compound."
             },
             {
-                onShow: function(){window.location.assign(host+ '#/acompound42050/reactants');},
+                onShow: function(){window.location.assign(host+ '#/acompound-1256807/reactantIn');},
                 element: "#rxn-filter",
                 title: "Filter by reaction type",
                 content: "Enter a partial EC number to show only reactions predicted by an operator"
             },
             {
-                onShow: function(){window.location.assign(host+ '#/acompound42050/reactants');},
+                onShow: function(){window.location.assign(host+ '#/acompound-1256807/reactantIn');},
+                element: "#mass-change",
+                title: "Mass Change",
+                content: "This column indicates the change in mass for the primary compound in a " +
+                "reaction which can help identify related compounds in mass spectrometry data"
+            },
+            {
+                onShow: function(){window.location.assign(host+ '#/acompound-1256807/reactantIn');},
                 element: "#rxn-img",
                 placement: "left",
                 title: "Examine computationally predicted derivatives",
@@ -130,17 +134,10 @@ var metabolomicsTour = function(){
                 }
             },
             {
-                element: "#db-select",
-                placement: "bottom",
-                title: "Change the source database",
-                content: "You can switch between the MINE source databases here any time."
-            },
-            {
-                element: "#models_text",
-                placement: "right",
-                title: "Selecting a Genome Reconstruction",
-                content: "Type in an organism name or KEGG genome id to search for a reconstruction. Click a name in " +
-                    "the box below to set the reconstruction as the standard for native metabolites."
+                orphan: true,
+                title: "Search by accurate mass",
+                content: "This form allows users to search the MINE database " +
+                "by the accurate mass of precursor ions"
             },
             {
                 element: "#trace",
@@ -179,12 +176,10 @@ var metabolomicsTour = function(){
                     $('#ms-search-button').trigger('click');
                 }
             },
-
             {
                 orphan: true,
                 title: "Tabular Metabolomics Results",
-                content: "This page displays information for all compounds which match your search criteria. Compounds " +
-                    "that appear in a selected genome reconstruction are highlighted blue."
+                content: "This page displays information for all compounds which match your search criteria."
             },
             {
                 element: "#filters",
