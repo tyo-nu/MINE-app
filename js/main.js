@@ -11,7 +11,7 @@ angular.module('app').factory('sharedFactory', function($state, $cookieStore, $r
             'acompound.products', 'acompound.overview'],
         selected_model: "",
         img_src: "http://webfba.chem-eng.northwestern.edu/MINE_imgs/",
-        services: new mineDatabaseServices('http://bio-data-1.mcs.anl.gov/services/mine-database'),
+        services: new mineDatabaseServices('http://modelseed.org/services/mine-database'),
         numPerPage: 25, // default number of results to show per page
         setDB: function (db_id) {
             console.log("setDB:"+db_id);
