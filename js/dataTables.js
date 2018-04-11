@@ -3,7 +3,7 @@
 
 angular.module('app').factory('dataTableFactory', function($rootScope, sharedFactory){
     var factory = {
-        services: new mineDatabaseServices('http://bio-data-1.mcs.anl.gov/services/mine-database'),
+        services: sharedFactory.services,
         img_src: "http://lincolnpark.chem-eng.northwestern.edu/Smiles_dump/",
         db: sharedFactory.dbId,
         getIds: function(db, collections) {

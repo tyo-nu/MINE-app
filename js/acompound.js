@@ -2,7 +2,7 @@
 
 angular.module('app').factory('CompoundDataFactory', function($rootScope, sharedFactory){
     var factory = {
-        services: new mineDatabaseServices('http://bio-data-1.mcs.anl.gov/services/mine-database'),
+        services: sharedFactory.services,
         img_src: "http://lincolnpark.chem-eng.northwestern.edu/Smiles_dump/",
         getIds: function(db, collections) {
             var promise = factory.services.get_ids(db, collections, "");
