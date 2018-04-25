@@ -5,7 +5,7 @@ angular.module('app',['ui.router','ui.bootstrap','ngCookies', 'ngJoyRide', 'ui-r
     'angulartics.google.analytics', 'ui.select', 'angularMasspecPlotter']);
 angular.module('app').factory('sharedFactory', function($state, $cookieStore, $rootScope){
     var factory = {
-        dbId: 'CDMINE-17-03-15',
+        dbId: 'CDMINE-18-02-11',
         //if the db changes in one of these states, reload the page
         db_dependent_states: ['compounds', 'metabolomicsCompounds', 'structuresres', 'operator', 'acompound.reactants',
             'acompound.products', 'acompound.overview'],
