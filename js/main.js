@@ -5,16 +5,16 @@ angular.module('app',['ui.router','ui.bootstrap','ngCookies', 'ngJoyRide', 'ui-r
     'angulartics.google.analytics', 'ui.select', 'angularMasspecPlotter']);
 angular.module('app').factory('sharedFactory', function($state, $cookieStore, $rootScope){
     var factory = {
-        dbId: 'KEGGexp2',
+        dbId: 'mongotest',
         //if the db changes in one of these states, reload the page
         db_dependent_states: ['compounds', 'metabolomicsCompounds', 'structuresres', 'operator', 'acompound.reactants',
             'acompound.products', 'acompound.overview'],
         selected_model: "",
         img_src: "http://webfba.chem-eng.northwestern.edu/MINE_imgs/",
-        services: new mineDatabaseServices('https://minedatabase.mcs.anl.gov/bdb/'),
+        services: new mineDatabaseServices('http://127.0.0.1:5000/mineserver/'),
         numPerPage: 25, // default number of results to show per page
         setDB: function (db_id) {
-            console.log("setDB:"+db_id);
+            console.log("setDB:" + db_id);
             if (factory.dbId !== db_id) {
                 factory.dbId = db_id;
                 $cookieStore.put('mine_db', db_id);
@@ -130,10 +130,11 @@ angular.module('app').controller('cookieCtl',function($scope,$cookieStore) {
 
 angular.module('app').controller('databaseCtl',  function ($scope,$state,sharedFactory,$cookieStore) {
     $scope.databases =  [
-        {id:0, name:'KEGG',  db :'KEGGexp2'},
+        /*{id:0, name:'KEGG',  db :'KEGGexp2'},
         {id:1, name:'EcoCyc', db : 'EcoCycexp2'},
         {id:2, name:'YMDB', db : 'YMDBexp2'},
-        {id:3, name:'Chemical Damage SEED', db : 'CDMINE'},
+        {id:3, name:'Chemical Damage SEED', db : 'CDMINE'},*/
+        {id:0, name:'mongotest', db : 'mongotest'}
     ];
 
     var updateSelection = function() {console.log("ping"); $scope.databases.forEach(

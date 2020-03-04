@@ -36,7 +36,7 @@
             </div>
             <div class="col-sm-4 ">
                 <div id="tolerance" class="form-inline">
-                    <label>Tolerance </label><br>
+                    <label>Tolerance (max=15)</label><br>
                     <div class="form-group">
                         <input type="number" class="form-control" name="input" ng-model="tolerance" min="0" max="15">
                         <div class="form-control">
@@ -55,9 +55,11 @@
                 <label>Filter results by logP <input type="checkbox" ng-model="filterLogP" ng-checked="filterLogP"></label>
                 <div range-slider min="-35" max="35" decimal-places="1"
                      model-min="logP[0]" model-max="logP[1]" disabled="!filterLogP" show-values="true"></div>
+                <!--
                 <label>Filter results by Kovats RI <input type="checkbox" ng-model="filterKovats" ng-checked="filterKovats"></label>
                 <div range-slider min="0" max="20000" model-min="kovats[0]"
                      model-max="kovats[1]" disabled=!filterKovats show-values="true"></div>
+                -->
                 <div id="halogen">
                     <label>Halogenated compounds <input type="checkbox" ng-model="halogens" ng-checked="0">
                     </label>

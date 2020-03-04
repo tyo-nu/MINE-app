@@ -26,6 +26,7 @@ angular.module('app').controller('structureCtl',  function($scope,$state,sharedF
 
     $scope.find = function(){
         // store parameters & search, some of this should probably be passed as state parameters
+        console.log(marvinSketcherInstance.getSupportedFormats())
         var exportPromise = marvinSketcherInstance.exportStructure('mol', null);
         exportPromise.then(function (source) {
             if (source.length > 75) {
@@ -65,8 +66,7 @@ angular.module('app').controller('structuresresCtl',
         $state.go('structure');
     }
     else if (structureSearchFactory.stype === "exact"){
-        promise = services.structure_search(sharedFactory.dbId, "mol", structureSearchFactory.mol,
-            sharedFactory.selected_model.name, "");
+        promise = services.structure_search(sharedFactory.dbId, structureSearchFactory.mol, sharedFactory.selected_model.name);
     }
     else if (structureSearchFactory.stype === "substructure"){
         promise = services.substructure_search(sharedFactory.dbId, structureSearchFactory.mol,
@@ -74,7 +74,7 @@ angular.module('app').controller('structuresresCtl',
     }
     else if (structureSearchFactory.stype === "similarity"){
         promise = services.similarity_search(sharedFactory.dbId, structureSearchFactory.mol,
-            structureSearchFactory.sthresh, 'RDKit', structureSearchFactory.maxres, sharedFactory.selected_model.name, "");
+            structureSearchFactory.sthresh, structureSearchFactory.maxres, sharedFactory.selected_model.name);
     }
     promise.then(
         function(result){
