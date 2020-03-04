@@ -79,15 +79,17 @@
                 <label>Spectral Scoring</label>
                 <select class="form-control" id="metric" ng-model="metric">
                     <option value="jaccard">Jaccard Index</option>
-                    <option value="dot_product">Dot Product</option>
+                    <option value="dot product">Dot Product</option>
                 </select>
                 <br>
                 <label>Filter results by logP <input type="checkbox" ng-model="filterLogP" ng-checked="filterLogP"></label>
                 <div range-slider min="-35" max="35" decimal-places="1"
                      model-min="logP[0]" model-max="logP[1]" disabled="!filterLogP" show-values="true"></div>
+                <!--
                 <label>Filter results by Kovats RI <input type="checkbox" ng-model="filterKovats" ng-checked="filterKovats"></label>
                 <div range-slider min="0" max="20000" model-min="kovats[0]"
                      model-max="kovats[1]" disabled=!filterKovats show-values="true"></div>
+                -->
                 <div id="halogen">
                     <label>Halogenated compounds <input type="checkbox" ng-model="halogens" ng-checked="0">
                     </label>

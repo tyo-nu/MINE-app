@@ -3,7 +3,7 @@
 // Allows for communication between controllers note set up for test data
 angular.module('app').factory('metabolomicsDataFactory', function($rootScope, sharedFactory){
     var factory = {
-        trace :  "163.039200",
+        trace :  "259.022442",  // default is for alpha-D-Galactose 1-phosphate with [M-H]- adduct
         msmsIons:"",
         traceType: 'form',
         filterKovats: false,
@@ -13,12 +13,12 @@ angular.module('app').factory('metabolomicsDataFactory', function($rootScope, sh
         params: {
             tolerance: 3,
             ppm: false,
-            charge: true,
+            charge: false,
             halogens: true,
             adducts: [],
             models: [],
             energy_level: "10",
-            scoring_function: 'dot_product'
+            scoring_function: 'dot product'
         },
         storeFormData: function($scope, $cookieStore) { // updates factory and cookies on search
             factory.trace =$scope.trace;
@@ -35,16 +35,15 @@ angular.module('app').factory('metabolomicsDataFactory', function($rootScope, sh
         mzSearch: function(db){
             //clone the parameters before passing them so we don't end up change in the factory object
             var params = jQuery.extend({}, factory.params);
-            params.db = db;
             if (factory.filterLogP) {params.logP = factory.logP;}
             if (factory.filterKovats) {params.kovats = factory.kovats;}
             console.log(params);
             var promise;
             if (factory.msmsIons.length){
-                promise = sharedFactory.services.ms2_search(factory.trace+"\n"+factory.msmsIons, factory.traceType, params);
+                promise = sharedFactory.services.ms2_search(db, factory.trace+"\n"+factory.msmsIons, factory.traceType, params);
             }
             else {
-                promise = sharedFactory.services.ms_adduct_search(factory.trace, factory.traceType, params);
+                promise = sharedFactory.services.ms_adduct_search(db, factory.trace, factory.traceType, params);
             }
             promise.then(function(result){
                     factory.hits = result;
