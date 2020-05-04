@@ -5,7 +5,7 @@ angular.module('app',['ui.router','ui.bootstrap','ngCookies', 'ngJoyRide', 'ui-r
     'angulartics.google.analytics', 'ui.select', 'angularMasspecPlotter']);
 angular.module('app').factory('sharedFactory', function($state, $cookieStore, $rootScope){
     var factory = {
-        dbId: 'mongotest',
+        dbId: 'KEGG',
         //if the db changes in one of these states, reload the page
         db_dependent_states: ['compounds', 'metabolomicsCompounds', 'structuresres', 'operator', 'acompound.reactants',
             'acompound.products', 'acompound.overview'],
@@ -130,11 +130,10 @@ angular.module('app').controller('cookieCtl',function($scope,$cookieStore) {
 
 angular.module('app').controller('databaseCtl',  function ($scope,$state,sharedFactory,$cookieStore) {
     $scope.databases =  [
-        /*{id:0, name:'KEGG',  db :'KEGGexp2'},
+        {id:0, name:'KEGG',  db :'KEGGexp2'},
         {id:1, name:'EcoCyc', db : 'EcoCycexp2'},
         {id:2, name:'YMDB', db : 'YMDBexp2'},
-        {id:3, name:'Chemical Damage SEED', db : 'CDMINE'},*/
-        {id:0, name:'mongotest', db : 'mongotest'}
+        {id:3, name:'Chemical Damage SEED', db : 'CDMINE'},
     ];
 
     var updateSelection = function() {console.log("ping"); $scope.databases.forEach(
