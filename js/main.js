@@ -130,11 +130,11 @@ angular.module('app').controller('cookieCtl',function($scope,$cookieStore) {
 
 angular.module('app').controller('databaseCtl',  function ($scope,$state,sharedFactory,$cookieStore) {
     $scope.databases =  [
-        /*{id:0, name:'KEGG',  db :'KEGGexp2'},
-        {id:1, name:'EcoCyc', db : 'EcoCycexp2'},
+        {id:0, name:'KEGG',  db :'KEGGexp2'},
+        /*{id:1, name:'EcoCyc', db : 'EcoCycexp2'},
         {id:2, name:'YMDB', db : 'YMDBexp2'},
         {id:3, name:'Chemical Damage SEED', db : 'CDMINE'},*/
-        {id:0, name:'mongotest', db : 'mongotest'}
+        {id:1, name:'mongotest', db : 'mongotest'}
     ];
 
     var updateSelection = function() {console.log("ping"); $scope.databases.forEach(
