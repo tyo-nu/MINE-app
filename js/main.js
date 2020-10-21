@@ -10,7 +10,7 @@ angular.module('app').factory('sharedFactory', function($state, $cookieStore, $r
         db_dependent_states: ['compounds', 'metabolomicsCompounds', 'structuresres', 'operator', 'acompound.reactants',
             'acompound.products', 'acompound.overview'],
         selected_model: "",
-        img_src: "http://webfba.chem-eng.northwestern.edu/MINE_imgs/",
+        img_src: "https://webfba.chem-eng.northwestern.edu/MINE_imgs/",
         services: new mineDatabaseServices('https://minedatabase.ci.northwestern.edu/mineserver/'),
         numPerPage: 25, // default number of results to show per page
         setDB: function (db_id) {
@@ -24,7 +24,7 @@ angular.module('app').factory('sharedFactory', function($state, $cookieStore, $r
         },
         getImagePath: function (id) {
             if (id) {
-                var img_root = "http://webfba.chem-eng.northwestern.edu/MINE_imgs/";
+                var img_root = "https://webfba.chem-eng.northwestern.edu/MINE_imgs/";
                 var dir_depth = 4;
                 var ext = '.svg';
                 for (var i = 0; i < dir_depth; i++) {
