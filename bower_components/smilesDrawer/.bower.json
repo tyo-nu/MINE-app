@@ -1,0 +1,13 @@
+{
+  "name": "smilesDrawer",
+  "_cacheHeaders": {
+    "ETag": "W/\"df0fea1601a583e2e1bd0ee5fb356e0a\"",
+    "Content-Type": "text/html; charset=utf-8"
+  },
+  "_release": "e-tag:W/\"df0fea1",
+  "main": "index",
+  "_source": "https://github.com/reymond-group/smilesDrawer",
+  "_target": "*",
+  "_originalSource": "https://github.com/reymond-group/smilesDrawer",
+  "_direct": true
+}
