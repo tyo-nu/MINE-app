@@ -2,7 +2,7 @@
 /* global mineDatabaseServices */
 
 angular.module('app',['ui.router','ui.bootstrap','ngCookies', 'ngJoyRide', 'ui-rangeSlider', 'angulartics',
-    'angulartics.google.analytics', 'ui.select', 'angularMasspecPlotter']);
+    'angulartics.google.analytics', 'ui.select', 'angularMasspecPlotter', 'smilesDrawer']);
 angular.module('app').factory('sharedFactory', function($state, $cookieStore, $rootScope){
     var factory = {
         dbId: 'KEGG',
@@ -23,16 +23,16 @@ angular.module('app').factory('sharedFactory', function($state, $cookieStore, $r
                 $state.go($state.current, {db:db_id});
             }
         },
-        getImagePath: function (id) {
-            if (id) {
-                var img_root = "https://webfba.chem-eng.northwestern.edu/MINE_imgs/";
-                var dir_depth = 4;
-                var ext = '.svg';
-                for (var i = 0; i < dir_depth; i++) {
-                    img_root += id[i] + "/";
-                }
-                return img_root + id + ext
-            }
+        generateCompoundImage: function () {
+            let input = document.getElementById("compound-image");
+            let options = {};
+            
+            let smilesDrawer = new SmilesDrawer.Drawer(options);
+            input.addEventListener("input", function() {
+                SmilesDrawer.parse(input.value, function(tree) {
+                    smilesDrawer.draw(tree, "compound-image", "light", false);
+                });
+            });
         },
         downloadFile: function (contents,filename) {
             // Warning: This function may not work with IE!

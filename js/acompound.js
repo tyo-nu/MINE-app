@@ -79,6 +79,7 @@ angular.module('app').controller('acompoundCtl', function($scope,$stateParams,sh
 
     $scope.$on("compoundLoaded", function () {
         $scope.data = CompoundDataFactory.compound;
+        sharedFactory.generateCompoundImage()
         $scope.$apply();
     });
 
