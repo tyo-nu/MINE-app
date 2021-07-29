@@ -11,13 +11,13 @@ var generalTour = function(){
                 content: "Welcome the home of the MINE databases. This tour will give you an overview of the features of this " +
                     "website and help you find the data you are looking for. You can advance this tour with the arrow keys."
             },
-            {
-                element: "#qs_text",
-                placement: "left",
-                title: "Find compounds with Quick Search",
-                content: "You can search the database with chemical identifiers like InChIKeys or KEGG Codes here or" +
-                    " with textual data such as aliases, EC Classes or KEGG pathway maps."
-            },
+            // {
+            //     element: "#qs_text",
+            //     placement: "left",
+            //     title: "Find compounds with Quick Search",
+            //     content: "You can search the database with chemical identifiers like InChIKeys or KEGG Codes here or" +
+            //         " with textual data such as aliases, EC Classes or KEGG pathway maps."
+            // },
             {
                 onShow: function(){window.location.assign(host+ '#/structure');},
                 element: "#struct-tab",
@@ -42,9 +42,9 @@ var generalTour = function(){
                 element: "#sim-thresh",
                 placement: "left",
                 title: "Similarity Threshold",
-                content: "This allows you to set a minimum Tanimoto similarity (using FP4 fingerprints)",
+                content: "This allows you to set a minimum Tanimoto similarity (using RDKit fingerprints)",
                 onNext: function(){
-                    window.location.assign(host+ '#/compoundsascorbate,undefined')
+                    window.location.assign(host+ '#/acompound-32182/overview')
                 }
             },
             {
@@ -54,7 +54,7 @@ var generalTour = function(){
                 content: "You can switch between the MINE source databases here any time."
             },
             {
-                onShow: function(){window.location.assign(host+ '#/compoundsascorbate,undefined');},
+                onShow: function(){window.location.assign(host+ '#/acompound-32182/overview');},
                 element: "#comp-row",
                 placement: "left",
                 reflex: true,
@@ -62,13 +62,13 @@ var generalTour = function(){
                 content: "Once you have found an interesting compound, click on the row to see more details"
             },
             {
-                onShow: function(){window.location.assign(host+ '#/acompound42050/overview');},
+                onShow: function(){window.location.assign(host+ '#/acompound-32182/overview');},
                 orphan: true,
                 title: "Compound Data page",
                 content: "This page displays any data available for a MINE compound."
             },
             {
-                onShow: function(){window.location.assign(host+ '#/acompound42050/overview');},
+                onShow: function(){window.location.assign(host+ '#/acompound-32182/overview');},
                 element: "#compound-image",
                 title: "Get a closer look at the compound",
                 content: "Click the compound image to get a closer look at the chemical structure. When you are done " +
@@ -82,19 +82,19 @@ var generalTour = function(){
                     "databases in various chiral and charged forms"
             },
             {
-                onShow: function(){window.location.assign(host+ '#/acompound42050/reactants')},
+                onShow: function(){window.location.assign(host+ '#/acompound-32182/reactants')},
                 element: "#reactions",
                 title: "Explore reactions that involve this compound",
                 content: "See all the predicted reactions that produce or consume this compound."
             },
             {
-                onShow: function(){window.location.assign(host+ '#/acompound42050/reactants');},
+                onShow: function(){window.location.assign(host+ '#/acompound-32182/reactants');},
                 element: "#rxn-filter",
                 title: "Filter by reaction type",
                 content: "Enter a partial EC number to show only reactions predicted by an operator"
             },
             {
-                onShow: function(){window.location.assign(host+ '#/acompound42050/reactants');},
+                onShow: function(){window.location.assign(host+ '#/acompound-32182/reactants');},
                 element: "#rxn-img",
                 placement: "left",
                 title: "Examine computationally predicted derivatives",
@@ -184,7 +184,7 @@ var metabolomicsTour = function(){
                 orphan: true,
                 title: "Tabular Metabolomics Results",
                 content: "This page displays information for all compounds which match your search criteria. Compounds " +
-                    "that appear in a selected genome reconstruction are highlighted blue."
+                    "that appear in or can be produced from a selected KEGG Genome Reconstruction (see left dropdown search) are highlighted."
             },
             {
                 element: "#filters",

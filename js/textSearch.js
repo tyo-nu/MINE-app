@@ -80,6 +80,7 @@ angular.module('app').controller('compoundsCtl', function($scope,$stateParams,sh
     $scope.searchCompound = "";
     $scope.searchMINE = "";
     $scope.db = $stateParams.db;
+    $scope.generateCompoundImages = sharedFactory.generateCompoundImages;
     var data=[];
     var filteredData=[];
     var promise;
@@ -98,6 +99,7 @@ angular.module('app').controller('compoundsCtl', function($scope,$stateParams,sh
                 $scope.displayData = sharedFactory.paginateList(filteredData, $scope.currentPage, $scope.numPerPage);
                 $scope.items = filteredData.length;
                 $scope.totalItems = result.length;
+                setTimeout(() => $scope.generateCompoundImages(), 10);
                 $scope.$apply();
             },
             function(err){

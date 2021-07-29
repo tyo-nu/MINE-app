@@ -3,8 +3,7 @@
 		<tr>
 			<td></td>
 			<td>
-				<canvas id="compound-image" data-smiles="{{data.SMILES}}" height="325" data-toggle="modal" data-target="#modal"
-					tooltip-trigger tooltip="Click to expand.">
+				<canvas class="compound-image" data-smiles="{{data.SMILES}}" height="325">
 			</td>
 		</tr>
 		<tr>
@@ -20,6 +19,10 @@
 			<td>{{data.Charge}}</td>
 		</tr>
 		<tr>
+			<td>dG</td>
+			<td>{{data.dG}}</td>
+		</tr>
+		<tr>
 			<td>InChIKey</td>
 			<td>{{data.Inchikey}}</td>
 		</tr>
@@ -31,20 +34,20 @@
 			<td>Generation</td>
 			<td>{{data.Generation}}</td>
 		</tr>
-		<tr>
+		<!-- <tr>
 			<td>NP likeness <span tooltip-trigger tooltip="NP Likeness is a quantitative measure of how similar a given compound is to
 			known natural products. The values range from -3 (very synthetic) to 3 (very natural)."
 					class="glyphicon glyphicon-question-sign"></span></td>
 			<td>{{data.NP_likeness}}</td>
-		</tr>
+		</tr> -->
 		<tr>
 			<td>logP</td>
 			<td>{{data.logP}}</td>
 		</tr>
-		<tr>
+		<!-- <tr>
 			<td>Kovats RI</td>
 			<td>{{data.minKovatsRI}}-{{data.maxKovatsRI}}</td>
-		</tr>
+		</tr> -->
 	</tbody>
 </table>
 <div id='modal' class="modal fade">

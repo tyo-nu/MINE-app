@@ -38,13 +38,34 @@ function mineDatabaseServices(base_url, auth, auth_cb) {
 };
 
     this.get_comps = function (db, ids, _callback, _errorCallback) {
-        params = JSON.stringify({'id_list': ids})
+        params = JSON.stringify({'id_list': ids, 'return_extra_info': false})
         return json_call_ajax("POST", this.base_url + "get-comps/" + db, params, 1, _callback, _errorCallback);
+};
+
+    this.get_comps_all_info = function (db, ids, _callback, _errorCallback) {
+        params = JSON.stringify({'id_list': ids, 'return_extra_info': true})
+        return json_call_ajax("POST", this.base_url + "get-comps/" + db, params, 1, _callback, _errorCallback);
+};
+
+    this.get_kegg_info = function (kegg_id, _callback, _errorCallback) {
+        return json_call_ajax("GET", this.base_url + 'get-kegg-info/q=' + kegg_id, _callback, _errorCallback);
+};
+
+    this.get_thermo_info = function (c_id, _callback, _errorCallback) {
+        return json_call_ajax("GET", this.base_url + 'get-thermo-info/' + c_id, _callback, _errorCallback);
 };
 
     this.get_rxns = function (db, ids, _callback, _errorCallback) {
         params = JSON.stringify({'id_list': ids})
         return json_call_ajax("POST", this.base_url + "get-rxns/" + db, params, 1, _callback, _errorCallback);
+};
+
+    this.get_rxns_product_of = function (db, cpd_id, _callback, _errorCallback) {
+        return json_call_ajax("GET", this.base_url + "get-rxns-product-of/" + db + "/" + cpd_id, [], 1, _callback, _errorCallback)
+};
+
+    this.get_rxns_reactant_in = function (db, cpd_id, _callback, _errorCallback) {
+        return json_call_ajax("GET", this.base_url + "get-rxns-reactant-in/" + db + "/" + cpd_id, [], 1, _callback, _errorCallback)
 };
 
     this.get_ops = function (db, operator_names, _callback, _errorCallback) {

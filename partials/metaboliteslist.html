@@ -7,43 +7,55 @@
     <div class="col-lg-2 col-md-2">
         <br>
         <button id="met-download" ng-show="items" class="btn btn-primary" ng-click="downloadResults()"
-                analytics-on="click" analytics-category="Download" analytics-event="MetabolomicsResults">Download Results</button>
+            analytics-on="click" analytics-category="Download" analytics-event="MetabolomicsResults">Download
+            Results</button>
     </div>
     <div class="col-lg-6 col-md-7">
         <pagination class="pull-right" total-items="items" page="currentPage" max-size="maxSize" class="pagination-sm"
-                    boundary-links="true" items-per-page="numPerPage"  style="cursor: pointer;"></pagination>
+            boundary-links="true" items-per-page="numPerPage" style="cursor: pointer;">
+        </pagination>
     </div>
 </div>
 <div class="row">
     <table class="table table-striped table-hover" style="text-align: center">
         <thead>
-        <tr>
-            <th>MINE ID</th>
-            <th ng-show="factory.msmsIons">Spectral Score</th>
-            <th>M/Z</th>
-            <th>Adduct</th>
-            <th>Formula</th>
-            <th>Compound</th>
-            <th ng-show="factory.filterLogP">logP</th>
-            <th ng-show="factory.filterKovats">Kovats RI</th>
-            <th>NP Likeness<span tooltip-trigger tooltip="NP Likeness is a quantitative measure of how similar a given
+            <tr>
+                <th>MINE ID</th>
+                <th ng-show="factory.msmsIons">Spectral Score</th>
+                <th>M/Z</th>
+                <th>Adduct</th>
+                <th>Formula</th>
+                <th>Compound</th>
+                <th ng-show="factory.filterLogP">logP</th>
+                <th ng-show="factory.filterKovats">Kovats RI</th>
+                <!-- <th>NP Likeness<span tooltip-trigger tooltip="NP Likeness is a quantitative measure of how similar a given
             compound is to known natural products. The values range from -3 (very synthetic) to 3 (very natural)."
-                                 class="glyphicon glyphicon-question-sign"></span></th>
-        </tr>
-        <tr id="filters">
-            <th><input type="text" class="form-control" style='width: 90px' placeholder="Search" ng-model="searchMINE" analytics-on></th>
-            <th ng-show="factory.msmsIons"><button class="btn btn-block btn-primary" ng-click="sortColumn='Spectral_score'; sortInvert=!sortInvert" analytics-on>Sort by</button></th>
-            <th><input type="text" class="form-control" style='width: 100px' placeholder="Search" ng-model="searchMZ" analytics-on></th>
-            <th><input type="text" class="form-control" style='width: 90px' placeholder="Search" ng-model="searchAdduct" analytics-on></th>
-            <th><input type="text" class="form-control" style='width: 90px' placeholder="Search" ng-model="searchFormula" analytics-on></th>
-            <th><input type="text" class="form-control" placeholder="Search" ng-model="searchCompound" analytics-on></th>
-            <th ng-show="factory.filterLogP"><button class="btn btn-block btn-primary" ng-click="sortColumn='logP'; sortInvert=!sortInvert" analytics-on>Sort by</button></th>
-            <th ng-show="factory.filterKovats"><button class="btn btn-block btn-primary" ng-click="sortColumn='minKovatsRI'; sortInvert=!sortInvert" analytics-on>Sort by</button></th>
-            <th><button id="sort-NP" class="btn btn-block btn-primary" ng-click="sortColumn='NP_likeness'; sortInvert=!sortInvert" analytics-on>Sort by</button></th>
-        </tr>
+                        class="glyphicon glyphicon-question-sign"></span></th> -->
+            </tr>
+            <tr id="filters">
+                <th><input type="text" class="form-control" style='width: 90px' placeholder="Search"
+                        ng-model="searchMINE" analytics-on></th>
+                <th ng-show="factory.msmsIons"><button class="btn btn-block btn-primary"
+                        ng-click="sortColumn='Spectral_score'; sortInvert=!sortInvert" analytics-on>Sort by</button>
+                </th>
+                <th><input type="text" class="form-control" style='width: 100px' placeholder="Search"
+                        ng-model="searchMZ" analytics-on></th>
+                <th><input type="text" class="form-control" style='width: 90px' placeholder="Search"
+                        ng-model="searchAdduct" analytics-on></th>
+                <th><input type="text" class="form-control" style='width: 90px' placeholder="Search"
+                        ng-model="searchFormula" analytics-on></th>
+                <th><input type="text" class="form-control" placeholder="Search" ng-model="searchCompound" analytics-on>
+                </th>
+                <th ng-show="factory.filterLogP"><button class="btn btn-block btn-primary"
+                        ng-click="sortColumn='logP'; sortInvert=!sortInvert" analytics-on>Sort by</button></th>
+                <th ng-show="factory.filterKovats"><button class="btn btn-block btn-primary"
+                        ng-click="sortColumn='minKovatsRI'; sortInvert=!sortInvert" analytics-on>Sort by</button></th>
+                <!-- <th><button id="sort-NP" class="btn btn-block btn-primary"
+                        ng-click="sortColumn='NP_likeness'; sortInvert=!sortInvert" analytics-on>Sort by</button></th> -->
+            </tr>
         </thead>
         <tr ng-repeat="f in displayData" ng-class="color(f.native_hit,f.Likelihood_score)">
-            <td  style="vertical-align:middle">
+            <td style="vertical-align:middle">
                 <a ui-sref="acompound.overview({id:f.MINE_id,db:db})">
                     <button class="button btn-block btn-primary"> {{f.MINE_id}}</button>
                 </a>
@@ -55,20 +67,17 @@
             <td style="text-align: center">
                 <ui style="list-style: none;">
                     <li>
-                        <img id="met-img" class="logo"
-                             ng-src="{{getImagePath(f._id)}}"
-                             width="100" alt="No image avalable">
+                        <canvas class="compound-image" data-smiles="{{f.SMILES}}" width="150" height="150">
                     </li>
                     <li>{{f.Names[0]}}</li>
                 </ui>
             </td>
             <td ng-show="factory.filterLogP" style="vertical-align: middle">{{f.logP}}</td>
             <td ng-show="factory.filterKovats" style="vertical-align: middle">{{f.minKovatsRI}}-{{f.maxKovatsRI}}</td>
-            <td style="vertical-align: middle">{{f.NP_likeness}}</td>
+            <!-- <td style="vertical-align: middle">{{f.NP_likeness}}</td> -->
         </tr>
     </table>
-    <img ng-hide="totalItems+1" class="center-block"
-		 src="../img/Gray_circles_rotate.gif" width="50">
+    <img ng-hide="totalItems+1" class="center-block" src="./img/Gray_circles_rotate.gif" width="50">
     <pagination class="pull-right" total-items="items" page="currentPage" max-size="maxSize" class="pagination-sm"
-                boundary-links="true" items-per-page="numPerPage"  style="cursor: pointer;"></pagination>
+        boundary-links="true" items-per-page="numPerPage" style="cursor: pointer;"></pagination>
 </div>

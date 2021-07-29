@@ -1,48 +1,56 @@
-<div  ng-controller="cookieCtl">
+<div ng-controller="cookieCtl">
     <h2>Frequently Asked Questions</h2>
 
     <h4>How do I use this website?</h4>
     <div class="well">
         <p>There are many ways you can use this website but we have developed a few tours that show the basics.</p>
         <ul>
-            <li><a style="font-size: 12pt" ng-click="startGeneralTour()" analytics-on analytics-category="Tour">General Website Tour</a></li>
-            <li><a style="font-size: 12pt" ng-click="startMetabolomicsTour()" analytics-on analytics-category="Tour">Metabolomics Tour</a></li>
+            <li><a style="font-size: 12pt" ng-click="startGeneralTour()" analytics-on analytics-category="Tour">General
+                    Website Tour</a></li>
+            <li><a style="font-size: 12pt" ng-click="startMetabolomicsTour()" analytics-on
+                    analytics-category="Tour">Metabolomics Tour</a></li>
         </ul>
     </div>
     <h4>How do you generate <i>in silico</i> metabolites?</h4>
     <div class="well">
-        These compounds are generated from hand-curated reaction rules generalized form chemistry according to the Enzyme
-        Commission classification system. For more information please refer to
-        <a href="http://www.jcheminf.com/content/7/1/44">the original MINE publication</a>
+        These compounds are generated from <a
+            href="https://www.sciencedirect.com/science/article/pii/S1096717621000288">automatically generated reaction
+            rules</a> from known biochemistry
+        on MetaCyc. For more information please refer to
+        <a href="http://www.jcheminf.com/content/7/1/44">the original MINE publication.</a>
     </div>
 
     <h4>How can I integrate your database into my tool/pipeline?</h4>
     <div class="well">
-        We offer API clients in JavaScript, Python and Perl which cover all the functionality of this website. These
-        clients are available at <a href="https://github.com/JamesJeffryes/MINE-API" analytics-on analytics-category="Link Out"> GitHub.</a> You may also
-        <a href="http://lincolnpark.chem-eng.northwestern.edu/release/" analytics-on analytics-category="Link Out"> download SDF files </a> of the generated
-        metabolites in the database. Due to licencing restrictions, we are not able to redistribute the original
-        database compounds (i.e. KEGG COMPOUND) but these compounds are available from the original sources.
+        We offer a <a href="https://mine-api.readthedocs.io/en/latest/">REST API</a> in python which covers all the
+        functionality of this website (and more). These
+        clients are available at <a href="https://github.com/tyo-nu/MINE-Server" analytics-on
+            analytics-category="Link Out"> GitHub.</a> For example, you could use the REST API to download all MINE
+        compounds.
     </div>
 
     <h4>I found an error/ I'm skeptical about the validity of a compound</h4>
     <div class="well">
         We would love to hear about it. Please let us know by using our
-        <a href="https://docs.google.com/forms/d/1B0OqkL8Fc16-V-t71fMDpVoMp98O_LwgeOcJa7NRmFI/viewform"> bug reporting form.</a>
+        <a href="https://docs.google.com/forms/d/1B0OqkL8Fc16-V-t71fMDpVoMp98O_LwgeOcJa7NRmFI/viewform"> bug reporting
+            form.</a>
         If reporting a bug, please include information as to how the error was generated.
     </div>
 
     <h4>Are there any restrictions on the use of this website and APIs?</h4>
     <div class="well">
-        MINEs are provided as a freely available resource. There are no licensing restrictions for non-commercial use but
+        MINEs are provided as a freely available resource. There are no licensing restrictions for non-commercial use
+        but
         users are requested to cite the following <a href="http://www.jcheminf.com/content/7/1/44">publication</a> if
         their work utilizes the MINE resources:
         <ul>
             <li>James G. Jeffryes, Ricardo L. Colastani, Mona Elbadawi-Sidhu, Tobias Kind,
-            Thomas D. Niehaus, Linda J. Broadbelt, Andrew D. Hanson, Oliver Fiehn, Keith E. J. Tyo, Christopher S. Henry,
-            “MINEs: Open access databases of computationally predicted enzyme promiscuity products for untargeted
-            metabolomics” <em>J. Cheminformatics</em> 2015, <b>7</b>:44</li>
+                Thomas D. Niehaus, Linda J. Broadbelt, Andrew D. Hanson, Oliver Fiehn, Keith E. J. Tyo, Christopher S.
+                Henry,
+                “MINEs: Open access databases of computationally predicted enzyme promiscuity products for untargeted
+                metabolomics” <em>J. Cheminformatics</em> 2015, <b>7</b>:44</li>
         </ul>
-        Commercial users must obtain a license from Pathway Solutions Inc. (www.pathway.jp) and explicit permission from the authors.
+        Commercial users must obtain a license from Pathway Solutions Inc. (www.pathway.jp) and explicit permission from
+        the authors.
     </div>
 </div>

@@ -3,19 +3,21 @@
 <br>
 <h3>KEGG Genome Reconstructions</h3>
 <label>Select model for Likelihood Scoring
-<span tooltip="Type an organism name (eg. yeast) to search the genomes. Click a model below to highlight compounds
-                   native to that organism" tooltip-trigger tooltip-placement="right">
-    <span class="glyphicon glyphicon-question-sign"></span>
+    <span tooltip="Type an organism name (eg. ecoli) or KEGG organism code (e.g. eco) to search the genomes. Click a model below to highlight compounds
+                   native to that organism. You may have to add a space at the end of your query to get results."
+        tooltip-trigger tooltip-placement="right">
+        <span class="glyphicon glyphicon-question-sign"></span>
     </span>
 </label>
 <ui-select ng-model="$parent.model" theme="bootstrap" reset-search-input="false" on-select="saveModel()">
     <ui-select-match placeholder="Pick a model...">{{$select.selected.name}}</ui-select-match>
-    <ui-select-choices repeat="model in options track by $index" refresh="searchModels($select.search)" refresh-delay="0">
+    <ui-select-choices repeat="model in options track by $index" refresh="searchModels($select.search)"
+        refresh-delay="0">
         {{model.name}}
     </ui-select-choices>
 </ui-select>
 <div ng-if="model">
-    <div  class=" alert-success" role="alert">
+    <div class=" alert-success" role="alert">
         Compound is in selected model
     </div>
     <div class=" alert-warning" role="alert">

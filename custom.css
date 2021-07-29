@@ -23,7 +23,6 @@ body {
 }
 
 .reactant {
-    display: -webkit-inline-flex;
     display: inline-flex;
     align-items: center;
     padding: 0 5px

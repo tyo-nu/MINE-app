@@ -3,7 +3,7 @@
 	<tbody>
 		<tr>
 			<div style="display: inline-flex;align-items: center">
-            	<img id="operator-image" ng-src="{{img_src}}op_images/{{operatorName}}.png" height="400">
+				<img id="operator-image" ng-src="{{img_src}}/{{operatorName}}" width="100%">
 			</div>
 		</tr>
 		<tr>
@@ -12,16 +12,16 @@
 		</tr>
 		<tr>
 			<td>Reactants</td>
-			<td ng-repeat="r in data.Reactants">{{r}}</td>
+			<td ng-repeat="r in data.Reactants track by $index">{{r}}</td>
 		</tr>
 		<tr>
 			<td>Products</td>
-			<td ng-repeat="p in data.Products">{{p}}</td>
+			<td ng-repeat="p in data.Products track by $index">{{p}}</td>
 		</tr>
 		<tr>
 			<td>Comments</td>
 			<td>{{data.Comments}}</td>
 		</tr>
-    </tbody>
+	</tbody>
 </table>
 <div ng-include="'./partials/reactions.html'"></div>

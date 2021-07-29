@@ -1,6 +1,6 @@
 <form role="form">
     <div class="panel panel-default">
-        <div class="panel-heading">
+        <div class="panel-heading" style="background-color: rgb(232, 240, 240);">
             <h2>MS/MS Search</h2>
             <p>This tool searches MINE databases using spectra simulated with
                 <a href="http://link.springer.com/10.1007/s11306-014-0676-4">
@@ -9,7 +9,8 @@
                 Multiple features may be searched by uploading files in MGF or
                 MSP format. This feature is still in development; feel free
                 to provide feedback though our
-                <a href="https://docs.google.com/forms/d/1B0OqkL8Fc16-V-t71fMDpVoMp98O_LwgeOcJa7NRmFI/viewform"> bug reporting form.</a>
+                <a href="https://docs.google.com/forms/d/1B0OqkL8Fc16-V-t71fMDpVoMp98O_LwgeOcJa7NRmFI/viewform"> bug
+                    reporting form.</a>
             </p>
         </div>
         <div class="panel-body">
@@ -25,7 +26,8 @@
                     <div id="upload-file" class="input-group">
                         <input type='file' class="form-control" multiple='false' id='metFile'>
                         <span class="input-group-btn">
-                            <button type="button" class="btn btn-primary" ng-click="uploadFile('metFile')">Upload</button>
+                            <button type="button" class="btn btn-primary"
+                                ng-click="uploadFile('metFile')">Upload</button>
                         </span>
                     </div>
                 </div>
@@ -38,7 +40,7 @@
                         <input type="number" class="form-control" name="input" ng-model="tolerance" min="0" max="15">
                         <div class="form-control">
                             <label class="radio-inline">
-                                <input type="radio"  ng-value="false" ng-model="ppm" ng-checked="!ppm">
+                                <input type="radio" ng-value="false" ng-model="ppm" ng-checked="!ppm">
                                 mDa
                             </label>
                             <label class="radio-inline">
@@ -51,21 +53,19 @@
                 <br>
                 <label>Charge </label>
                 <div class="btn-group btn-group-justified">
-                    <label class="btn btn-default" id='pos-radio'
-                           ng-model="charge" ng-checked="charge"
-                           btn-radio="true"> Positive
+                    <label class="btn btn-default" id='pos-radio' ng-model="charge" ng-checked="charge"
+                        btn-radio="true"> Positive
                     </label>
-                    <label class="btn btn-default" id='neg-radio'
-                           btn-radio="false" ng-model="charge"> Negative
+                    <label class="btn btn-default" id='neg-radio' btn-radio="false" ng-model="charge"> Negative
                     </label>
                 </div>
                 <br>
                 <label>Adducts <span tooltip-trigger tooltip="Select a range of adducts with Shift+Click or select
                 multiple individual adducts with Control(Command)+Click" tooltip-placement="right"
-                                     class="glyphicon glyphicon-question-sign"></span></label>
+                        class="glyphicon glyphicon-question-sign"></span></label>
 
                 <select class="form-control" id="adducts" size="9" multiple ng-model="adducts"
-                        ng-options="s for s in adduct_list"></select>
+                    ng-options="s for s in adduct_list"></select>
             </div>
             <div class="col-sm-4 ">
 
@@ -82,21 +82,23 @@
                     <option value="dot product">Dot Product</option>
                 </select>
                 <br>
-                <label>Filter results by logP <input type="checkbox" ng-model="filterLogP" ng-checked="filterLogP"></label>
-                <div range-slider min="-35" max="35" decimal-places="1"
-                     model-min="logP[0]" model-max="logP[1]" disabled="!filterLogP" show-values="true"></div>
+                <label>Filter results by logP <input type="checkbox" ng-model="filterLogP"
+                        ng-checked="filterLogP"></label>
+                <div range-slider min="-35" max="35" decimal-places="1" model-min="logP[0]" model-max="logP[1]"
+                    disabled="!filterLogP" show-values="true"></div>
                 <!--
                 <label>Filter results by Kovats RI <input type="checkbox" ng-model="filterKovats" ng-checked="filterKovats"></label>
                 <div range-slider min="0" max="20000" model-min="kovats[0]"
                      model-max="kovats[1]" disabled=!filterKovats show-values="true"></div>
                 -->
                 <div id="halogen">
-                    <label>Halogenated compounds <input type="checkbox" ng-model="halogens" ng-checked="0">
+                    <label>Halogenated compounds <input type="checkbox" ng-model="halogens">
                     </label>
                 </div>
-                <button class="btn btn-block btn-default" style="margin: 0 auto;" ng-disabled='!adducts.length' ng-click="metSearch()"
-                        analytics-on="click" analytics-category="Search" analytics-event="Metabolomics">
-                <span class="glyphicon glyphicon-search"></span> Search</button>
+                <button class="btn btn-block btn-default" style="margin: 0 auto;" ng-disabled='!adducts.length'
+                    ng-click="metSearch()" analytics-on="click" analytics-category="Search"
+                    analytics-event="Metabolomics">
+                    <span class="glyphicon glyphicon-search"></span> Search</button>
             </div>
         </div>
     </div>

@@ -55,8 +55,8 @@ angular.module('app').controller('structuresresCtl',
     $scope.searchFormula = "";
     $scope.searchCompound = "";
     $scope.searchMINE = "";
-    $scope.getImagePath = sharedFactory.getImagePath;
     $scope.db = $stateParams.db;
+    $scope.generateCompoundImages = sharedFactory.generateCompoundImages;
     var data = [];
     var filteredData = [];
     // the following logic should be moved to factory in future
@@ -83,6 +83,8 @@ angular.module('app').controller('structuresresCtl',
             $scope.displayData = sharedFactory.paginateList(filteredData, $scope.currentPage, $scope.numPerPage);
             $scope.items = filteredData.length;
             $scope.totalItems = result.length;
+            $scope.$apply();
+            setTimeout(() => $scope.generateCompoundImages(), 10);
             $scope.$apply();
         },
         function(err){
@@ -112,10 +114,12 @@ angular.module('app').controller('structuresresCtl',
             filteredData = sharedFactory.filterList(data, $scope.searchMINE, $scope.searchCompound, $scope.searchFormula);
             $scope.items = filteredData.length;
             $scope.displayData = sharedFactory.paginateList(filteredData, $scope.currentPage, $scope.numPerPage);
+            $scope.generateCompoundImages();
         }
     });
 
     $scope.$watch('currentPage', function() {
         $scope.displayData = sharedFactory.paginateList(filteredData, $scope.currentPage, $scope.numPerPage)
+        $scope.generateCompoundImages();
     });
 });

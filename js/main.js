@@ -2,7 +2,7 @@
 /* global mineDatabaseServices */
 
 angular.module('app',['ui.router','ui.bootstrap','ngCookies', 'ngJoyRide', 'ui-rangeSlider', 'angulartics',
-    'angulartics.google.analytics', 'ui.select', 'angularMasspecPlotter', 'smilesDrawer']);
+    'angulartics.google.analytics', 'ui.select', 'angularMasspecPlotter']);
 angular.module('app').factory('sharedFactory', function($state, $cookieStore, $rootScope){
     var factory = {
         dbId: 'KEGG',
@@ -10,7 +10,7 @@ angular.module('app').factory('sharedFactory', function($state, $cookieStore, $r
         db_dependent_states: ['compounds', 'metabolomicsCompounds', 'structuresres', 'operator', 'acompound.reactants',
             'acompound.products', 'acompound.overview'],
         selected_model: "",
-        img_src: "https://webfba.chem-eng.northwestern.edu/MINE_imgs/",
+        img_src: 'http://localhost:5000/mineserver/get-op-image/',
         services: new mineDatabaseServices('http://localhost:5000/mineserver/'),
         //services: new mineDatabaseServices('https://minedatabase.ci.northwestern.edu/mineserver/'),
         numPerPage: 25, // default number of results to show per page
@@ -23,16 +23,19 @@ angular.module('app').factory('sharedFactory', function($state, $cookieStore, $r
                 $state.go($state.current, {db:db_id});
             }
         },
-        generateCompoundImage: function () {
-            let input = document.getElementById("compound-image");
-            let options = {};
-            
-            let smilesDrawer = new SmilesDrawer.Drawer(options);
-            input.addEventListener("input", function() {
-                SmilesDrawer.parse(input.value, function(tree) {
-                    smilesDrawer.draw(tree, "compound-image", "light", false);
-                });
-            });
+        generateCompoundImages: function () {
+            let cpdCanvases = document.querySelectorAll(".compound-image");
+            if (cpdCanvases.length > 0) {
+                for (var i = 0; i < cpdCanvases.length; i++) {
+                    let cpdCanvas = cpdCanvases[i]
+                    let options = {width: cpdCanvas.width, height: cpdCanvas.height, padding: 20};
+                    
+                    let smilesDrawer = new SmilesDrawer.Drawer(options);
+                    SmilesDrawer.parse(cpdCanvas.getAttribute('data-smiles'), function(tree) {
+                        smilesDrawer.draw(tree, cpdCanvas, "light", false);
+                    });
+                };
+            }
         },
         downloadFile: function (contents,filename) {
             // Warning: This function may not work with IE!
@@ -69,10 +72,7 @@ angular.module('app').factory('sharedFactory', function($state, $cookieStore, $r
             var f_patt = new RegExp(formula, 'i');
             var c_patt = new RegExp(compound, 'i');
             for (var i = 0; i < list.length; i++) {
-                if ((f_patt.test(list[i].Formula.toString())) && (list[i].MINE_id.toString().indexOf(mine) > -1) &&
-                    (!compound || (typeof(list[i].Names) != 'undefined') && (c_patt.test(list[i].Names.toString())))) {
-                    filteredList.push(list[i])
-                }
+                filteredList.push(list[i])
             }
             return filteredList
         },
@@ -131,13 +131,12 @@ angular.module('app').controller('cookieCtl',function($scope,$cookieStore) {
 
 angular.module('app').controller('databaseCtl',  function ($scope,$state,sharedFactory,$cookieStore) {
     $scope.databases =  [
-        {id:0, name:'KEGG',  db :'KEGGexp2'},
-        {id:1, name:'EcoCyc', db : 'EcoCycexp2'},
-        {id:2, name:'YMDB', db : 'YMDBexp2'},
-        {id:3, name:'Chemical Damage SEED', db : 'CDMINE'},
+        {id:0, name:'KEGG',  db :'kegg_lte600_500mcy'},
+        {id:1, name:'EcoCyc', db : 'ecocyc_lte600_500mcy'},
+        {id:2, name:'YMDB', db : 'ymdb_lte600_500mcy'}
     ];
 
-    var updateSelection = function() {console.log("ping"); $scope.databases.forEach(
+    var updateSelection = function() {$scope.databases.forEach(
         function (option) {if (sharedFactory.dbId == option.db) $scope.database = $scope.databases[option.id]})};
 
     var database_id = $cookieStore.get('mine_db');

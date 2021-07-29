@@ -3,8 +3,8 @@
 // Allows for communication between controllers note set up for test data
 angular.module('app').factory('metabolomicsDataFactory', function($rootScope, sharedFactory){
     var factory = {
-        trace :  "259.022442",  // default is for alpha-D-Galactose 1-phosphate with [M-H]- adduct
-        msmsIons:"",
+        trace:  "259.022442",  // default is for alpha-D-Galactose 1-phosphate with [M-H]- adduct
+        msmsIons: "215.03498 32.67\n259.02481 100.0\n259.02481 100.0\n261.03448 100.0",
         traceType: 'form',
         filterKovats: false,
         kovats: [0, 20000],
@@ -14,7 +14,7 @@ angular.module('app').factory('metabolomicsDataFactory', function($rootScope, sh
             tolerance: 3,
             ppm: false,
             charge: false,
-            halogens: true,
+            halogens: false,
             adducts: [],
             models: [],
             energy_level: "10",
@@ -39,6 +39,7 @@ angular.module('app').factory('metabolomicsDataFactory', function($rootScope, sh
             if (factory.filterKovats) {params.kovats = factory.kovats;}
             console.log(params);
             var promise;
+            factory.hits = null;
             if (factory.msmsIons.length){
                 promise = sharedFactory.services.ms2_search(db, factory.trace+"\n"+factory.msmsIons, factory.traceType, params);
             }
@@ -198,7 +199,7 @@ angular.module('app').controller('metabolomicsCompoundsCtl', function($scope,$st
     $scope.searchMINE = "";
     $scope.sortColumn = 'Generation';
     $scope.sortInvert = true;
-    $scope.getImagePath = sharedFactory.getImagePath;
+    $scope.generateCompoundImages = sharedFactory.generateCompoundImages;
     $scope.selectedModels = metabolomicsDataFactory.metaModels;
     $scope.factory = metabolomicsDataFactory;
     $scope.db = $stateParams.db;
@@ -207,7 +208,6 @@ angular.module('app').controller('metabolomicsCompoundsCtl', function($scope,$st
     // if we get here w/o parameters (ie direct link), return to the search screen
     if (!metabolomicsDataFactory.params.adducts.length) $state.go('msAdductSearch');
     else {
-        console.log(sharedFactory.selected_model);
         if (sharedFactory.selected_model) metabolomicsDataFactory.params.models = [sharedFactory.selected_model.name];
         metabolomicsDataFactory.mzSearch(sharedFactory.dbId);
     }
@@ -222,7 +222,7 @@ angular.module('app').controller('metabolomicsCompoundsCtl', function($scope,$st
         $scope.items = filteredData.length;
         $scope.totalItems = metabolomicsDataFactory.hits.length;
         $scope.$apply();
-
+        $scope.generateCompoundImages();
     });
 
     $scope.color = function(native,score){
@@ -237,8 +237,8 @@ angular.module('app').controller('metabolomicsCompoundsCtl', function($scope,$st
         //var exclude = {"$$hashKey":"", 'id':"", 'Likelihood_score':"",
         // 'Pos_CFM_spectra':"", 'Neg_CFM_spectra':""};
         var header = ["Spectral_score", "peak_name", "adduct", "MINE_id",
-            "Inchikey", "SMILES","Names", "Formula", "Generation",
-            "NP_likeness", "logP", "maxKovatsRI", "minKovatsRI"];
+            "Inchikey", "SMILES", "Formula", "Generation",
+            "logP"];
         var csv = sharedFactory.convertToCSV(jsonObject, header);
         var d = new Date();
         sharedFactory.downloadFile(csv, d.toISOString()+'.csv');
@@ -251,15 +251,19 @@ angular.module('app').controller('metabolomicsCompoundsCtl', function($scope,$st
             filteredData = sharedFactory.sortList(filteredData, $scope.sortColumn, $scope.sortInvert);
             $scope.items = filteredData.length;
             $scope.displayData = sharedFactory.paginateList(filteredData, $scope.currentPage, $scope.numPerPage);
+            setTimeout(() => $scope.generateCompoundImages(), 10);  // timeout so smilesdrawer can do its thing after page loads
         }
     });
 
     $scope.$watch('sortColumn + sortInvert', function(){
         filteredData = sharedFactory.sortList(filteredData,$scope.sortColumn,$scope.sortInvert);
         $scope.displayData = sharedFactory.paginateList(filteredData, $scope.currentPage, $scope.numPerPage);
+        setTimeout(() => $scope.generateCompoundImages(), 10);  // timeout so smilesdrawer can do its thing after page loads
     });
 
     $scope.$watch('currentPage', function(){
         $scope.displayData = sharedFactory.paginateList(filteredData, $scope.currentPage, $scope.numPerPage);
+        setTimeout(() => $scope.generateCompoundImages(), 10);  // timeout so smilesdrawer can do its thing after page loads
     });
+
 });

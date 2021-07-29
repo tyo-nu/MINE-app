@@ -1,23 +1,17 @@
 <div>
-    <div class ="reactant" id="rxn-img" ng-repeat="comp in reaction.Reactants">
-        <div style="font-size:16px" ng-if="comp.stoich-1">
-            {{comp.stoich}}
-        </div>
-         <a
-                 ui-sref="{{(comp.c_id[0]=='C') ? 'acompound.overview({id:comp.c_id,db:db})' : '.'}}">
-            <img ng-mouseover="getCompoundName($event, comp.c_id)"
-                 ng-src="{{getImagePath(comp.c_id)}}" width="95">
+    <div class="reactant" ng-repeat="comp in reaction.Reactants">
+        <div style="font-size:30px; margin-right: 10px;" ng-if="$index > 0">+</div>
+        <div style="font-size:30px; margin-right: 5px;" ng-if="comp[0]">{{comp[0]}}</div>
+        <a ui-sref="acompound.overview({id:comp[1],db:db})">
+            <canvas class="compound-image" data-smiles="{{comp[2]}}" width="100" height="100"></canvas>
         </a>
     </div>
-    <span style="font-size:40px"> &#8594</span>
-    <div class ="reactant" ng-repeat="comp in reaction.Products">
-        <div style="font-size:16px" ng-if= "comp.stoich-1">
-            {{comp.stoich}}
-        </div>
-        <a
-                ui-sref="{{(comp.c_id[0]=='C') ? 'acompound.overview({id:comp.c_id,db:db})' : '.'}}">
-            <img ng-mouseover="getCompoundName($event, comp.c_id)"
-                 ng-src="{{getImagePath(comp.c_id)}}" width="95">
+    <span style="font-size:60px;"> &#8594</span>
+    <div class="reactant" ng-repeat="comp in reaction.Products">
+        <div style="font-size:30px; margin-right: 10px;" ng-if="$index > 0">+</div>
+        <div style="font-size:30px; margin-right: 5px;" ng-if="comp[0]">{{comp[0]}}</div>
+        <a ui-sref="acompound.overview({id:comp[1],db:db})">
+            <canvas class="compound-image" data-smiles="{{comp[2]}}" width="100" height="100"></canvas>
         </a>
     </div>
 </div>
