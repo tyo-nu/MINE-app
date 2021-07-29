@@ -11,8 +11,7 @@ angular.module('app').factory('sharedFactory', function($state, $cookieStore, $r
             'acompound.products', 'acompound.overview'],
         selected_model: "",
         img_src: 'http://localhost:5000/mineserver/get-op-image/',
-        services: new mineDatabaseServices('http://localhost:5000/mineserver/'),
-        //services: new mineDatabaseServices('https://minedatabase.ci.northwestern.edu/mineserver/'),
+        services: new mineDatabaseServices('https://minedatabase.ci.northwestern.edu/mineserver/'),
         numPerPage: 25, // default number of results to show per page
         setDB: function (db_id) {
             console.log("setDB:" + db_id);
