@@ -1,64 +1,56 @@
 <accordion close-others="false">
-    <accordion-group heading="General" is-open="true">
-    	<div ng-include="'partials/general.html'">
-    	</div>
-    </accordion-group>
-    <accordion-group heading="Enzymes ({{data.Enzymes.length}}) "  is-open="true">
-		<table class="table table-striped table-hover">    
+	<accordion-group heading="General" is-open="true">
+		<div ng-include="'partials/general.html'">
+		</div>
+	</accordion-group>
+	<accordion-group heading="Enzymes ({{data.Enzymes.length}}) " is-open="true">
+		<table class="table table-striped table-hover">
 			<tbody>
-				<tr ng-repeat="attribute in data.Enzymes" >
+				<tr ng-repeat="attribute in data.Enzymes">
 					<td>{{attribute}}</td>
 				</tr>
-			</tbody>  
+			</tbody>
 		</table>
-    </accordion-group>
-    <accordion-group heading="Names ({{data.Names.length}}) "  is-open="true">
-		<table class="table table-striped table-hover">    
+	</accordion-group>
+	<accordion-group heading="Names ({{data.Names.length}}) " is-open="true">
+		<table class="table table-striped table-hover">
 			<tbody>
-				<tr ng-repeat="attribute in data.Names" >
+				<tr ng-repeat="attribute in data.Names">
 					<td>{{attribute}}</td>
 				</tr>
-			</tbody>  
+			</tbody>
 		</table>
-    </accordion-group>
-    <accordion-group id="db-links" heading=" Databases"  is-open="true">
-		<table class="table table-striped table-hover">    
+	</accordion-group>
+	<accordion-group id="db-links" heading=" Databases" is-open="true">
+		<table class="table table-striped table-hover">
 			<tbody>
-				<tr ng-repeat="(key,val) in data.DB_links" >
+				<tr ng-repeat="(key,id) in data.Cross_References">
 					<td>
-					<accordion-group heading="{{key}}"  is-open="true">
-					<table class="table table-striped table-hover">    
-						<tbody>
-							<tr ng-repeat="id in val" >
-								<td><a ng-href="{{dbLink(key, id)}}">{{id}}</a></td>
-							</tr>
-						</tbody>
-					</table>
-				</accordion-group>
+						<b>{{dbLinkName(key)}}:</b> <a ng-href="{{dbLink(key, id)}}">{{id}}</a>
 					</td>
 				</tr>
-			</tbody>  
+			</tbody>
 		</table>
-    </accordion-group>
-    <accordion-group heading=" Pathways ({{data.Pathways.length+0}}) "  is-open="true">
-		<table class="table table-striped table-hover">    
+	</accordion-group>
+	<accordion-group heading=" Pathways ({{data.Pathways.length+0}}) " is-open="true">
+		<table class="table table-striped table-hover">
 			<tbody>
-				<tr ng-repeat="keggMap in data.Pathways" >
+				<tr ng-repeat="keggMap in data.Pathways">
 					<td><a ng-href="{{mapLink(keggMap)}}">{{keggMap}}</a></td>
 				</tr>
-			</tbody>  
+			</tbody>
 		</table>
-    </accordion-group>
-	<accordion-group heading="Simulated Spectra"  is-open="false">
-		<div ng-repeat="(key,val) in data.Pos_CFM_spectra">
-			<accordion-group heading="Positive Mode {{key}}"  is-open="true">
+	</accordion-group>
+	<accordion-group heading="Simulated Spectra" is-open="false">
+		<div ng-repeat="(key,val) in data.Spectra.Positive">
+			<accordion-group heading="Positive Mode {{key}}" is-open="true">
 				<div style="height: 500px">
 					<mass-spec ng-if="val.length" ng-model="val">
 				</div>
 			</accordion-group>
 		</div>
-		<div ng-repeat="(key,val) in data.Neg_CFM_spectra">
-			<accordion-group heading="Negative Mode {{key}}"  is-open="true">
+		<div ng-repeat="(key,val) in data.Spectra.Negative">
+			<accordion-group heading="Negative Mode {{key}}" is-open="true">
 				<div style="height: 500px">
 					<mass-spec ng-if="val.length" ng-model="val">
 				</div>

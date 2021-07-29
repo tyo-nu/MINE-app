@@ -3,6 +3,7 @@
 angular.module('app').controller('operatorCtl',  function($scope,$stateParams,CompoundDataFactory, sharedFactory) {
     $scope.operatorName = $stateParams.id;
     $scope.img_src = sharedFactory.img_src;
+    $scope.generateCompoundImages = sharedFactory.generateCompoundImages;
     var promise = sharedFactory.services.get_operator(sharedFactory.dbId, $stateParams.id);
     promise.then(
         function (result) {
@@ -14,4 +15,5 @@ angular.module('app').controller('operatorCtl',  function($scope,$stateParams,Co
             console.log("get_ops fail")
         }
     );
+
 });

@@ -1,0 +1,116 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>Smiles Drawer Example</title>
+        <meta name="description" content="A minimal smiles drawer example.">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+    <body>
+        <canvas id="example-canvas" width="500" height="500"></canvas>
+        <div id="output"></div>
+        <textarea id="textbox"></textarea>
+
+        <script src="../dist/smiles-drawer.js"></script>
+        <script src="drugbank.js"></script>
+        <script src="schembl.js"></script>
+        <script src="gdb17.js"></script>
+        <script src="chembl.js"></script>
+        <script src="fdb.js"></script>
+        <script>
+            var parseQueryString = function(url) {
+                var urlParams = {};
+                url.replace(
+                    new RegExp("([^?=&]+)(=([^&]*))?", "g"),
+                    function($0, $1, $2, $3) {
+                        urlParams[$1] = $3;
+                    }
+                );
+                
+                return urlParams;
+            }
+
+            let options = { compactDrawing: true };
+            let set = drugbank;
+            let setName = 'drugbank'
+
+            let setNameQuery = parseQueryString(window.location.href).set;
+            if (setNameQuery) {
+                if (setNameQuery === 'drugbank') {
+                    set = drugbank;
+                    setName = 'drugbank';
+                } else if (setNameQuery === 'schembl') {
+                    set = schembl;
+                    setName = 'schembl';
+                } else if (setNameQuery === 'gdb17') {
+                    set = gdb17;
+                    setName = 'gdb17';
+                } else if (setNameQuery === 'chembl') {
+                    set = chembl;
+                    setName = 'chembl';
+                } else if (setNameQuery === 'fdb') {
+                    set = fdb;
+                    setName = 'fdb';
+                }
+            }
+
+            
+            // Initialize the drawer
+            let smilesDrawer = new SmilesDrawer.Drawer(options);
+            let nErrors = 0;
+            let nSuccesses = 0;
+            let totalSpeed = 0;
+            let totalOverlap = 0;
+            let str = 'depictor,set,parsetime,rendertime,overlap,rings,hac,bridged,smiles\n';
+            
+            let failed = '';
+            for (let i = 0; i < set.length; i++) {                
+                let td = null;
+                let t2 = null;
+                let td2 = null;
+                let t = performance.now();
+                
+                SmilesDrawer.parse(set[i], function(tree) {
+                    td = performance.now() - t;
+                    t2 = performance.now();
+                    smilesDrawer.draw(tree, 'example-canvas', 'light', false);
+                    td2 = performance.now() - t2;
+                }, function(err) {
+                    nErrors++;
+                    failed += set[i] + '\n';
+                });
+
+                if (td2 === null) {
+                    continue;
+                }
+
+                totalSpeed += td + td2;
+                totalOverlap += smilesDrawer.getTotalOverlapScore();
+                nSuccesses++;
+                str += 'SmilesDrawer,' + setName + td + ',' + 
+                       td2 + ',' + 
+                       smilesDrawer.getTotalOverlapScore() + ',' +
+                       smilesDrawer.getRingCount() + ',' + 
+                       smilesDrawer.getHeavyAtomCount() + ',' +
+                       smilesDrawer.hasBridgedRing() + ',' + set[i] + '\n';
+            }
+
+            document.getElementById('textbox').value = str;
+            
+            console.log('Failed count: ' + nErrors);
+            console.log('Success count: ' + nSuccesses);
+            console.log('Success rate: ' + (nSuccesses / fdb.length));
+            console.log('Avg speed: ' + totalSpeed / nSuccesses);
+            console.log('Avg overlap: ' + totalOverlap / nSuccesses);
+            console.log('Failed:');
+            console.log(failed);
+
+            document.getElementById('output').innerHTML += 'Failed count: ' + nErrors + '<br />' +
+              'Success count: ' + nSuccesses + '<br />' +
+              'Success rate: ' + (nSuccesses / fdb.length) + '<br />' +
+              'Avg speed: ' + totalSpeed / nSuccesses + '<br />' +
+              'Avg overlap: ' + totalOverlap / nSuccesses;
+        </script>
+    </body>
+</html>

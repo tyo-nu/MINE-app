@@ -7,11 +7,11 @@
     <div class="col-lg-2 col-md-2">
         <br>
         <button id="met-download" ng-show="items" class="btn btn-primary" ng-click="downloadResults()"
-                analytics-on="click" analytics-category="Download" analytics-event="SearchResults">Download Results</button>
+            analytics-on="click" analytics-category="Download" analytics-event="SearchResults">Download Results</button>
     </div>
     <div class="col-lg-6 col-md-7">
         <pagination class="pull-right" total-items="items" page="currentPage" max-size="maxSize" class="pagination-sm"
-                    boundary-links="true" items-per-page="numPerPage"  style="cursor: pointer;"></pagination>
+            boundary-links="true" items-per-page="numPerPage" style="cursor: pointer;"></pagination>
     </div>
 </div>
 <div class="row">
@@ -20,39 +20,41 @@
             <tr>
                 <th>MINE Id</th>
                 <th></th>
-                <th>Names</th>
+                <!-- <th>Names</th> -->
                 <th>Formula</th>
             </tr>
             <tr id="filters">
-                <th><input type="text" class="form-control" placeholder="Search" ng-model="searchMINE" analytics-on></th>
+                <th><input type="text" class="form-control" placeholder="Search" ng-model="searchMINE" analytics-on>
+                </th>
                 <th></th>
-                <th><input type="text" class="form-control" placeholder="Search" ng-model="searchCompound" analytics-on></th>
-                <th><input type="text" class="form-control" placeholder="Search" ng-model="searchFormula" analytics-on></th>
+                <!-- <th><input type="text" class="form-control" placeholder="Search" ng-model="searchCompound" analytics-on>
+                </th> -->
+                <th><input type="text" class="form-control" placeholder="Search" ng-model="searchFormula" analytics-on>
+                </th>
             </tr>
         </thead>
         <tbody>
-            <tr id="comp-row" ng-repeat="compound in displayData" ng-class="color(compound.native_hit,compound.Likelihood_score)">
-                <td  style="vertical-align:middle">
-                    <a
-                            ui-sref="acompound.overview({id:compound.MINE_id,db:db})">
-                        <button class="button btn-lg btn-primary btn-block"> {{compound.MINE_id}}</button>
+            <tr id="comp-row" ng-repeat="compound in displayData"
+                ng-class="color(compound.native_hit,compound.Likelihood_score)">
+                <td style="vertical-align:middle">
+                    <a ui-sref="acompound.overview({id:compound.MINE_id,db:db})">
+                        <button class="button btn-lg btn-primary btn-block">{{compound.MINE_id}}</button>
                     </a>
                 </td>
                 <td>
-                    <img ng-src="{{getImagePath(compound._id)}}" width="150">
+                    <canvas class="compound-image" data-smiles="{{compound.SMILES}}" width="150" height="150">
                 </td>
-                <td  style="vertical-align:middle">
+                <!-- <td style="vertical-align:middle">
                     <div ng-repeat="name in compound.Names|limitTo:5">{{name}}<br></div>
-                </td>
-                <td  style="vertical-align:middle">
+                </td> -->
+                <td style="vertical-align:middle">
                     {{compound.Formula}}
                 </td>
             </tr>
         </tbody>
 
     </table>
-    <img ng-hide="totalItems+1" class="center-block"
-		 src="../img/Gray_circles_rotate.gif" width="50">
+    <img ng-hide="totalItems+1" class="center-block" src="./img/Gray_circles_rotate.gif" width="50">
     <pagination class="pull-right" total-items="items" page="currentPage" max-size="maxSize" items-per-page="numPerPage"
-                class="pagination-sm" boundary-links="true"  style="cursor: pointer;"></pagination>
+        class="pagination-sm" boundary-links="true" style="cursor: pointer;"></pagination>
 </div>

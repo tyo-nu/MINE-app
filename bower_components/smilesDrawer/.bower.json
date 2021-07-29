@@ -1,0 +1,14 @@
+{
+  "name": "smilesDrawer",
+  "homepage": "https://github.com/reymond-group/smilesDrawer",
+  "_release": "cff2e2b4a3",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "cff2e2b4a378ba5099af6eb764b3684ca807680a"
+  },
+  "_source": "https://github.com/reymond-group/smilesDrawer.git",
+  "_target": "*",
+  "_originalSource": "https://github.com/reymond-group/smilesDrawer.git",
+  "_direct": true
+}

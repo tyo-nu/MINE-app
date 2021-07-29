@@ -13,7 +13,6 @@ angular.module('app').controller('modelsCtl', function($scope, $state, sharedFac
                     var data = $.map(result, function (n, i) {
                         return ({name: n, id: i});
                     });
-                    console.log(result);
                     $scope.options = data;
                 },
                 function (err) {
