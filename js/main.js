@@ -28,7 +28,14 @@ angular.module('app').factory('sharedFactory', function($state, $cookieStore, $r
                 for (var i = 0; i < cpdCanvases.length; i++) {
                     let cpdCanvas = cpdCanvases[i]
                     let options = {width: cpdCanvas.width, height: cpdCanvas.height, padding: 20};
-                    
+
+                    console.log(options)
+                    if (options.width > 300) { // for weirdness on Safari browsers
+                        options.width = 300;
+                        options.height = 330;
+                    }
+                    console.log(options)
+
                     let smilesDrawer = new SmilesDrawer.Drawer(options);
                     SmilesDrawer.parse(cpdCanvas.getAttribute('data-smiles'), function(tree) {
                         smilesDrawer.draw(tree, cpdCanvas, "light", false);
