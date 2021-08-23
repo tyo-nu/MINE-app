@@ -53,10 +53,13 @@
                     </div>
                 </div>
                 <br>
-                <label>Filter results by logP <input type="checkbox" ng-model="filterLogP"
-                        ng-checked="filterLogP"></label>
-                <div range-slider min="-35" max="35" decimal-places="1" model-min="logP[0]" model-max="logP[1]"
-                    disabled="!filterLogP" show-values="true"></div>
+                <div id="logPForm">
+                    <label>Filter results by logP <input type="checkbox" ng-model="filterLogP"
+                            ng-checked="filterLogP"></label>
+                    <div range-slider min="-35" max="35" decimal-places="1" model-min="logP[0]" model-max="logP[1]"
+                        disabled="!filterLogP" show-values="true"></div>
+                </div>
+
                 <!--
                 <label>Filter results by Kovats RI <input type="checkbox" ng-model="filterKovats" ng-checked="filterKovats"></label>
                 <div range-slider min="0" max="20000" model-min="kovats[0]"
@@ -66,10 +69,15 @@
                     <label>Halogenated compounds <input type="checkbox" ng-model="halogens" ng-checked="0">
                     </label>
                 </div>
-                <button id="ms-search-button" class="btn btn-block btn-default" style="margin: 0 auto;"
-                    ng-disabled='!adducts.length' ng-click="metSearch()" analytics-on="click"
-                    analytics-category="Search" analytics-event="Metabolomics">
-                    <span class="glyphicon glyphicon-search"></span> Search</button>
+                <div ng-if="!adducts.length">
+                    <span class="btn btn-block btn-default" ng-disabled='!adducts.length'>No adducts selected</span>
+                </div>
+                <div ng-if="adducts.length">
+                    <button id="ms-search-button" class="btn btn-block btn-default" style="margin: 0 auto;"
+                        ng-disabled='!adducts.length' ng-click="metSearch()" analytics-on="click"
+                        analytics-category="Search" analytics-event="Metabolomics">
+                        <span class="glyphicon glyphicon-search"></span> Search</button>
+                </div>
             </div>
         </div>
     </div>

@@ -219,11 +219,18 @@ angular.module('app').controller('metabolomicsCompoundsCtl', function($scope,$st
             filteredData = sharedFactory.sortList(filteredData,$scope.sortColumn,$scope.sortInvert);
         }
         $scope.displayData = sharedFactory.paginateList(filteredData, $scope.currentPage, $scope.numPerPage);
+        $scope.roundLogP()
         $scope.items = filteredData.length;
         $scope.totalItems = metabolomicsDataFactory.hits.length;
         $scope.$apply();
         $scope.generateCompoundImages();
     });
+
+    $scope.roundLogP = function() {
+        for (var f of $scope.displayData) {
+            f.logP = Math.round(f.logP * 100) / 100
+        }
+    }
 
     $scope.color = function(native,score){
         // If native_hit is true, make it green
@@ -237,8 +244,7 @@ angular.module('app').controller('metabolomicsCompoundsCtl', function($scope,$st
         //var exclude = {"$$hashKey":"", 'id':"", 'Likelihood_score':"",
         // 'Pos_CFM_spectra':"", 'Neg_CFM_spectra':""};
         var header = ["Spectral_score", "peak_name", "adduct", "MINE_id",
-            "Inchikey", "SMILES", "Formula", "Generation",
-            "logP"];
+            "Inchikey", "SMILES", "Formula", "logP"];
         var csv = sharedFactory.convertToCSV(jsonObject, header);
         var d = new Date();
         sharedFactory.downloadFile(csv, d.toISOString()+'.csv');
@@ -250,6 +256,7 @@ angular.module('app').controller('metabolomicsCompoundsCtl', function($scope,$st
                 $scope.searchAdduct, $scope.searchFormula, $scope.searchCompound, $scope.searchMINE);
             filteredData = sharedFactory.sortList(filteredData, $scope.sortColumn, $scope.sortInvert);
             $scope.items = filteredData.length;
+            $scope.roundLogP();
             $scope.displayData = sharedFactory.paginateList(filteredData, $scope.currentPage, $scope.numPerPage);
             setTimeout(() => $scope.generateCompoundImages(), 10);  // timeout so smilesdrawer can do its thing after page loads
         }
@@ -263,6 +270,7 @@ angular.module('app').controller('metabolomicsCompoundsCtl', function($scope,$st
 
     $scope.$watch('currentPage', function(){
         $scope.displayData = sharedFactory.paginateList(filteredData, $scope.currentPage, $scope.numPerPage);
+        $scope.roundLogP();
         setTimeout(() => $scope.generateCompoundImages(), 10);  // timeout so smilesdrawer can do its thing after page loads
     });
 
