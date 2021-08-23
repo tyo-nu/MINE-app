@@ -12,6 +12,7 @@ angular.module('app').factory('sharedFactory', function($state, $cookieStore, $r
         selected_model: "",
         img_src: 'http://localhost:5000/mineserver/get-op-image/',
         services: new mineDatabaseServices('https://minedatabase.ci.northwestern.edu/mineserver/'),
+        //services: new mineDatabaseServices('http://127.0.0.1:5000/mineserver/'),
         numPerPage: 25, // default number of results to show per page
         setDB: function (db_id) {
             console.log("setDB:" + db_id);
@@ -29,12 +30,10 @@ angular.module('app').factory('sharedFactory', function($state, $cookieStore, $r
                     let cpdCanvas = cpdCanvases[i]
                     let options = {width: cpdCanvas.width, height: cpdCanvas.height, padding: 20};
 
-                    console.log(options)
                     if (options.width > 300) { // for weirdness on Safari browsers
                         options.width = 300;
                         options.height = 330;
                     }
-                    console.log(options)
 
                     let smilesDrawer = new SmilesDrawer.Drawer(options);
                     SmilesDrawer.parse(cpdCanvas.getAttribute('data-smiles'), function(tree) {
@@ -137,15 +136,18 @@ angular.module('app').controller('cookieCtl',function($scope,$cookieStore) {
 
 angular.module('app').controller('databaseCtl',  function ($scope,$state,sharedFactory,$cookieStore) {
     $scope.databases =  [
-        {id:0, name:'KEGG',  db :'kegg_lte600_500mcy'},
-        {id:1, name:'EcoCyc', db : 'ecocyc_lte600_500mcy'},
-        {id:2, name:'YMDB', db : 'ymdb_lte600_500mcy'}
+        {id:0, name:'KEGG (Kyoto Encyclopedia of Genes and Genomes)',  db :'kegg_lte600_500mcy'},
+        {id:1, name:'EcoCyc (Encyclopedia of E. coli Genes and Metabolism)', db : 'ecocyc_lte600_500mcy'},
+        {id:2, name:'YMDB (Yeast Metabolome Database)', db : 'ymdb_lte600_500mcy'}
     ];
 
     var updateSelection = function() {$scope.databases.forEach(
         function (option) {if (sharedFactory.dbId == option.db) $scope.database = $scope.databases[option.id]})};
 
     var database_id = $cookieStore.get('mine_db');
+    if (database_id === undefined) {  // default to KEGG
+        database_id = "kegg_lte600_500mcy"
+    }
     if (typeof(database_id) != 'undefined') {sharedFactory.dbId = database_id}
     updateSelection();
     $scope.$on("dbUpdated", updateSelection);

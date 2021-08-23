@@ -1,4 +1,4 @@
-// This file contains steps for all website tours EXCEPT the operator creator tool (which uses a different tool)
+// This file contains steps for all website tours
 var generalTour = function(){
     var host = window.location.href.split('#')[0];
     return {
@@ -8,41 +8,34 @@ var generalTour = function(){
 
                 orphan: true,
                 title: "Exploring the MINE Databases",
-                content: "Welcome the home of the MINE databases. This tour will give you an overview of the features of this " +
+                content: "Welcome to the home of the MINE databases. This tour will give you an overview of the features of this " +
                     "website and help you find the data you are looking for. You can advance this tour with the arrow keys."
             },
-            // {
-            //     element: "#qs_text",
-            //     placement: "left",
-            //     title: "Find compounds with Quick Search",
-            //     content: "You can search the database with chemical identifiers like InChIKeys or KEGG Codes here or" +
-            //         " with textual data such as aliases, EC Classes or KEGG pathway maps."
-            // },
             {
                 onShow: function(){window.location.assign(host+ '#/structure');},
                 element: "#struct-tab",
                 placement: "bottom",
                 title: "Use structure search",
-                content: "There are a number of structural search features available here"
+                content: "There are a number of structural search features available here."
             },
             {
                 element: "#canvas",
                 title: "Chemical Canvas",
-                content: "You can draw a chemical structure with Marvin4JS"
+                content: "You can draw a chemical structure here."
             },
             {
                 element: "#search-options",
                 placement: "left",
                 title: "Search Options",
-                content: "You can search for compounds with similar functional groups, with common substructure or " +
-                    "exact matches to your compound"
+                content: "You can search for compounds with similar functional groups, with common substructure, or " +
+                    "with exact matches to your compound."
             },
             {
                 onShown: function(){window.location.assign(host+ '#/structure');},
                 element: "#sim-thresh",
                 placement: "left",
                 title: "Similarity Threshold",
-                content: "This allows you to set a minimum Tanimoto similarity (using RDKit fingerprints)",
+                content: "This allows you to set a minimum Tanimoto similarity (using RDKit fingerprints).",
                 onNext: function(){
                     window.location.assign(host+ '#/acompound-32182/overview')
                 }
@@ -51,7 +44,7 @@ var generalTour = function(){
                 element: "#db-select",
                 placement: "bottom",
                 title: "Change the source database",
-                content: "You can switch between the MINE source databases here any time."
+                content: "You can switch between the MINE source databases here at any time."
             },
             {
                 onShow: function(){window.location.assign(host+ '#/acompound-32182/overview');},
@@ -59,7 +52,7 @@ var generalTour = function(){
                 placement: "left",
                 reflex: true,
                 title: "Go to the compound page",
-                content: "Once you have found an interesting compound, click on the row to see more details"
+                content: "Once you have found an interesting compound, click on the row to see more details."
             },
             {
                 onShow: function(){window.location.assign(host+ '#/acompound-32182/overview');},
@@ -68,18 +61,11 @@ var generalTour = function(){
                 content: "This page displays any data available for a MINE compound."
             },
             {
-                onShow: function(){window.location.assign(host+ '#/acompound-32182/overview');},
-                element: "#compound-image",
-                title: "Get a closer look at the compound",
-                content: "Click the compound image to get a closer look at the chemical structure. When you are done " +
-                    "click the background."
-            },
-            {
                 element: "#db-links",
                 placement: "left",
                 title: "Find more information about a compound",
                 content: "Click the header of any of these sections to see their contents. You can find the compound in other " +
-                    "databases in various chiral and charged forms"
+                    "databases in various chiral and charged forms."
             },
             {
                 onShow: function(){window.location.assign(host+ '#/acompound-32182/reactants')},
@@ -89,16 +75,10 @@ var generalTour = function(){
             },
             {
                 onShow: function(){window.location.assign(host+ '#/acompound-32182/reactants');},
-                element: "#rxn-filter",
-                title: "Filter by reaction type",
-                content: "Enter a partial EC number to show only reactions predicted by an operator"
-            },
-            {
-                onShow: function(){window.location.assign(host+ '#/acompound-32182/reactants');},
                 element: "#rxn-img",
                 placement: "left",
                 title: "Examine computationally predicted derivatives",
-                content: "Mouse over a structure to display it's name and MINE id. Click to go to that compound's info page"
+                content: "Mouse over a structure to display its name and MINE ID. Click to go to that compound's info page."
             },
             {
                 orphan: true,
@@ -109,6 +89,7 @@ var generalTour = function(){
         ]
     }
 };
+
 var metabolomicsTour = function(){
     var host = window.location.href.split('#')[0];
     return {
@@ -117,7 +98,7 @@ var metabolomicsTour = function(){
             {
                 orphan: true,
                 title: "Annotating MS/MS data with MINEs",
-                content: "Welcome the home of the MINE databases. This tour will give you an overview of using the MINE" +
+                content: "Welcome to the home of the MINE databases. This tour will give you an overview of using the MINE " +
                     "databases to annotate high resolution metabolomics data. You can advance this tour with the arrow keys."
             },
             {
@@ -139,46 +120,54 @@ var metabolomicsTour = function(){
                 element: "#models_text",
                 placement: "right",
                 title: "Selecting a Genome Reconstruction",
-                content: "Type in an organism name or KEGG genome id to search for a reconstruction. Click a name in " +
+                content: "Type in a KEGG genome id to search for a reconstruction (e.g. 'eco' for E. coli). Click a name in " +
                     "the box below to set the reconstruction as the standard for native metabolites."
             },
             {
                 element: "#trace",
                 title: "Enter M/Z values",
-                content: "Type or paste mass/charge ratios, one per line."
+                content: "Type or paste mass/charge ratios here, one per line."
+            },
+            {
+                element: "#pos-radio",
+                placement: "left",
+                title: "Select ion mode",
+                content: "Select an ion charge to change the list of available adduct types."
+            },
+            {
+                element: "#adducts",
+                placement: "left",
+                title: "Select adducts to search on",
+                content: "You can select potential adduct types here. Use CTRL+click to select individual adducts or " +
+                    "SHIFT+click to select a range of compounds.",
+                onShown:function(){
+                    $('#adducts option:eq(1)').prop('selected', true).trigger('change');
+                },
             },
             {
                 element: "#tolerance",
                 placement: "left",
                 title: "Set the mass tolerance",
-                content: "You can adjust the mass range for all your results and units of entry."
+                content: "You can adjust the mass range and units (mDa or ppm) for all your results."
+            },
+            {
+                element: "#logPForm",
+                placement: "left",
+                title: "Set allowed ranges for predicted logP",
+                content: "You can also adjust the allowed range of predicted logP values for MINE compounds."
             },
             {
                 element: "#halogen",
                 placement: "left",
                 title: "Toggle the presence of halogenated compounds",
                 content: "KEGG has a number of non-natural halogenated compounds. If checked, these will be included in" +
-                    " searches"
-            },
-            {
-                element: "#charge",
-                placement: "left",
-                title: "Select ion mode",
-                content: "Select an ion charge to change the list of available adduct types"
-            },
-            {
-                element: "#adducts",
-                placement: "left",
-                title: "Select adducts to search on",
-                content: "You can select potential adduct types here. use CTRL+click to select individual adducts or " +
-                    "SHIFT+click to select a range of compounds",
-                onShown:function(){
-                    $('#adducts option:eq(1)').prop('selected', true).trigger('change');
-                },
+                    " search results.",
                 onNext: function(){
                     $('#ms-search-button').trigger('click');
                 }
             },
+            
+            
 
             {
                 orphan: true,
@@ -202,7 +191,7 @@ var metabolomicsTour = function(){
                 placement: "bottom",
                 title: "Download your search results",
                 content: "Click here to download a CSV file with your search results. This file can be opened with " +
-                    "Microsoft Excel or parsed as a part of a annotation pipeline",
+                    "Microsoft Excel or parsed as a part of an annotation pipeline.",
                 onNext: function(){
                     window.location.assign(host+ '#/ms2search');
                 }
@@ -222,14 +211,14 @@ var metabolomicsTour = function(){
                 element: "#upload-file",
                 title: "File upload",
                 content: "If you would like to search multiple features this is possible by uploading a file in MGF or " +
-                "MSP format. Be mindful that large files take a longer to search."
+                "MSP format. Be mindful that large files take a longer to search. You can also take a look at our REST API for large searches."
             },
             {
                 element: "#energy",
                 placement: "left",
                 title: "Scoring options",
                 content: "Product ions are simulated using the Competitive Fragmentation Modeling approach. you can " +
-                "adjust the scoring parameters here."
+                "adjust the fragmentation energy and the method used to calculate MS2 spectra similarity scores here."
             },
             {
                 orphan: true,

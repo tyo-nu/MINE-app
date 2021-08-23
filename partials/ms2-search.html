@@ -95,10 +95,15 @@
                     <label>Halogenated compounds <input type="checkbox" ng-model="halogens">
                     </label>
                 </div>
-                <button class="btn btn-block btn-default" style="margin: 0 auto;" ng-disabled='!adducts.length'
+                <div ng-if="!adducts.length">
+                    <span class="btn btn-block btn-default" ng-disabled='!adducts.length'>No adducts selected</span>
+                </div>
+                <div ng-if="adducts.length">
+                    <button class="btn btn-block btn-default" style="margin: 0 auto;" ng-disabled='!adducts.length'
                     ng-click="metSearch()" analytics-on="click" analytics-category="Search"
                     analytics-event="Metabolomics">
                     <span class="glyphicon glyphicon-search"></span> Search</button>
+                </div>
             </div>
         </div>
     </div>
