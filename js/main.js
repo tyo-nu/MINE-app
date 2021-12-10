@@ -136,9 +136,9 @@ angular.module('app').controller('cookieCtl',function($scope,$cookieStore) {
 
 angular.module('app').controller('databaseCtl',  function ($scope,$state,sharedFactory,$cookieStore) {
     $scope.databases =  [
-        {id:0, name:'KEGG (Kyoto Encyclopedia of Genes and Genomes)',  db :'kegg_lte600_500mcy'},
-        {id:1, name:'EcoCyc (Encyclopedia of E. coli Genes and Metabolism)', db : 'ecocyc_lte600_500mcy'},
-        {id:2, name:'YMDB (Yeast Metabolome Database)', db : 'ymdb_lte600_500mcy'}
+        {id:0, name:'KEGG (Kyoto Encyclopedia of Genes and Genomes)',  db :'kegg_lte600_500mcy_2_1_0'},
+        {id:1, name:'EcoCyc (Encyclopedia of E. coli Genes and Metabolism)', db : 'ecocyc_lte600_500mcy_2_1_0'},
+        {id:2, name:'YMDB (Yeast Metabolome Database)', db : 'ymdb_lte600_500mcy_2_1_0'},
     ];
 
     var updateSelection = function() {$scope.databases.forEach(
