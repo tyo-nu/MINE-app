@@ -2,15 +2,15 @@
 <br>
 <br>
 <h3>KEGG Genome Reconstructions</h3>
-<label>Select model for Likelihood Scoring
-    <span tooltip="Type a KEGG organism code (e.g. eco) and press space to search the genomes. Click a model below to highlight compounds
+<label>Type a KEGG Organism Code for Likelihood Scoring
+    <span tooltip="Type a KEGG organism code (e.g. eco for E. coli) and press space to search the genomes. Click a model below to highlight compounds
                    native to that organism. Refresh page to deselect a model." tooltip-trigger
         tooltip-placement="right">
         <span class="glyphicon glyphicon-question-sign"></span>
     </span>
 </label>
 <ui-select ng-model="$parent.model" theme="bootstrap" reset-search-input="false" on-select="saveModel()">
-    <ui-select-match placeholder="Pick a model...">{{$select.selected.name}}</ui-select-match>
+    <ui-select-match placeholder="Type a KEGG code...">{{$select.selected.name}}</ui-select-match>
     <ui-select-choices repeat="model in options track by $index" refresh="searchModels($select.search)"
         refresh-delay="0">
         {{model.name}}
@@ -24,3 +24,13 @@
         Compound is a product of a model compound
     </div>
 </div>
+<html xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
+
+<head>
+    <!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_Editor msdt:dt="string">Jon Robert Strutz</mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_Editor>
+<mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_Author msdt:dt="string">Jon Robert Strutz</mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_Author>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+</head>
